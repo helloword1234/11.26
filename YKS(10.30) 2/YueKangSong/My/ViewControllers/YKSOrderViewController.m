@@ -28,7 +28,7 @@
 @property (assign, nonatomic) NSInteger page;
 
 @property (nonatomic,strong) UIButton *shareButton;
-
+@property (nonatomic,assign) NSInteger index;
 
 @end
 
@@ -40,7 +40,7 @@
     {
         _shareButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _shareButton.backgroundColor = [UIColor redColor];
-        _shareButton.frame = CGRectMake(137, 7, 91, 31);
+        
     }
     return _shareButton;
 }
@@ -49,7 +49,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    self.index = 1;
     
     [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.view];
     
@@ -96,6 +96,7 @@
             _datas = _shippingDatas;
         }
     } else if (control.selectedSegmentIndex == 2) {
+        self.index = 2;
         _status = YKSOrderStatusReceived;
         if (!_receivedDatas) {
             _datas = nil;
@@ -206,6 +207,7 @@
 }
 
 - (IBAction)shareAction:(UIButton *)sender {
+    self.shareButton.frame = sender.frame;
     NSString *shareText = @"终于等到你，买药记得使用悦康送购药优惠券";
     [UMSocialData defaultData].extConfig.title = @"立即领取悦康送买药优惠券";
     [UMSocialSnsService presentSnsIconSheetView:self
@@ -220,6 +222,7 @@
     [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://api.yuekangsong.com/huodongpage.php" ;
     // 朋友圈
     [UMSocialData defaultData].extConfig.wechatTimelineData.url = @"http://api.yuekangsong.com/huodongpage.php";
+    
 }
 
 -(void)didSelectSocialPlatform:(NSString *)platformName
@@ -288,7 +291,10 @@
         return cell;
     } else  {
         YKSOrderListStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderStatusCell" forIndexPath:indexPath];
-                [cell.contentView addSubview:self.shareButton];
+        if (self.index == 2) {
+            return cell;
+        }
+        [cell.contentView addSubview:self.shareButton];
         return cell;
     }
     
