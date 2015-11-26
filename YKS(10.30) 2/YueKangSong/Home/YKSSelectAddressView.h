@@ -16,11 +16,10 @@
 @property (strong, nonatomic) NSMutableArray *datas;
 @property (strong, nonatomic) void(^removeViewCallBack)();
 
+- (void)reloadData;
+
 
 + (instancetype)showAddressViewToView:(UIView *)view
                                 datas:(NSArray *)datas
                              callback:(void(^)(NSDictionary *info, BOOL isCreate))callback;
-
-
--(void)reloadData;
 @end

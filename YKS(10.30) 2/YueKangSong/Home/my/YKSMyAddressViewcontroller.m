@@ -31,9 +31,6 @@
     
     [self createLeftBtn];
     
-    
-    
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -41,13 +38,6 @@
     [self.delegate reloadData];
     
     self.navigationController.navigationBar.hidden=YES;
-    
-    //创建通知
-    NSNotification *noti=[NSNotification notificationWithName:@"reloadData" object:nil userInfo:nil];
-    
-    
-    //通知通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:noti];
     
   
 }

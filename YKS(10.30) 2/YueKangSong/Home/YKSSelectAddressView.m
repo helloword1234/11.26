@@ -25,7 +25,6 @@
 
 @implementation YKSSelectAddressView
 
-
 -(void)reloadData{
 
     [self.tableView reloadData];
@@ -61,7 +60,6 @@
     }
 }
 
-
 + (instancetype)showAddressViewToView:(UIView *)view
                                 datas:(NSArray *)datas
                              callback:(void(^)(NSDictionary *info, BOOL isCreate))callback {
@@ -73,14 +71,11 @@
     addressView.callback = callback;
     addressView.datas = [datas mutableCopy];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadData) name:@"reloadData" object:nil];
     
    
     return addressView;
     
 }
-
-
 
 
 - (void)reloadData2 {
