@@ -1,1 +1,0 @@
-../../../XGPush/Classes/XGSetting.h
