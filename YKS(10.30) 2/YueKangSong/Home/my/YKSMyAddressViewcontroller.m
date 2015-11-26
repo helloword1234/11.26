@@ -39,6 +39,12 @@
     
     self.navigationController.navigationBar.hidden=YES;
     
+    NSNotification *noti=[NSNotification notificationWithName:@"odData" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotification:noti];
+    
+    
+    
   
 }
 
@@ -166,11 +172,18 @@
     
     UIButton *searchBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     
-    [searchBtn setImage:[UIImage imageNamed:@"souSuoKuang"] forState:UIControlStateNormal];
+    CGFloat wid=[UIScreen mainScreen].bounds.size.width;
+    
+    CGFloat width=290/414.0*wid;
+    
+    searchBtn.frame=CGRectMake(80, 50, width, 30);
+
     
     [searchBtn addTarget:self action:@selector(gotoSearchAddress) forControlEvents:UIControlEventTouchUpInside];
     
-    searchBtn.frame=CGRectMake(80, 50, 290, 30);
+    
+    [searchBtn setImage:[UIImage imageNamed:@"souSuoKuang"] forState:UIControlStateNormal];
+
     
     [topView addSubview:searchBtn];
     

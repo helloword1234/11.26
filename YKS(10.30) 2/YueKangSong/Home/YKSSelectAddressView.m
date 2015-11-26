@@ -25,6 +25,11 @@
 
 @implementation YKSSelectAddressView
 
+-(void)oadDta{
+    
+    [self.tableView reloadData];
+}
+
 -(void)reloadData{
 
     [self.tableView reloadData];
@@ -43,6 +48,8 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideView)];
     tap.delegate = self;
     [self addGestureRecognizer:tap];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(oadDta) name:@"oadData" object:nil];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -70,6 +77,8 @@
     [view addSubview:addressView];
     addressView.callback = callback;
     addressView.datas = [datas mutableCopy];
+    
+    
     
     
    
