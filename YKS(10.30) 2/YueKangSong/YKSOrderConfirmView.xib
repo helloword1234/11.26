@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="YKSOrderConfirmView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gib-46-sNm">
+                    <rect key="frame" x="30" y="134" width="260" height="300"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vx1-PS-khv">
+                            <rect key="frame" x="1" y="1" width="258" height="168"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="order_confirm_logo" translatesAutoresizingMaskIntoConstraints="NO" id="VOp-gd-XMI">
+                                    <rect key="frame" x="80" y="40" width="98" height="88"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="98" id="05g-uk-f71"/>
+                                        <constraint firstAttribute="height" constant="88" id="Ff2-6E-zv0"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="VOp-gd-XMI" firstAttribute="centerY" secondItem="Vx1-PS-khv" secondAttribute="centerY" id="Ogw-49-TyR"/>
+                                <constraint firstItem="VOp-gd-XMI" firstAttribute="centerX" secondItem="Vx1-PS-khv" secondAttribute="centerX" id="eaX-WP-R3K"/>
+                                <constraint firstAttribute="width" constant="258" id="hcs-Jg-VPt"/>
+                                <constraint firstAttribute="height" constant="168" id="nF5-pJ-hwK"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yha-TB-hvh">
+                            <rect key="frame" x="0.0" y="170" width="260" height="130"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rhg-jI-4Cw">
+                                    <rect key="frame" x="64" y="81" width="130" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="Ep3-In-YWc"/>
+                                        <constraint firstAttribute="width" constant="130" id="dGR-1J-tNx"/>
+                                    </constraints>
+                                    <state key="normal" title="返回首页" backgroundImage="button_box">
+                                        <color key="titleColor" red="0.26274509800000001" green="0.61176470589999998" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="backAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="GMU-yF-dn8"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单123456已提交，处理中，你可以在我的订单中查看订单状态" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEo-bS-PrR">
+                                    <rect key="frame" x="8" y="9" width="244" height="63"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="63" id="6FJ-4t-ewu"/>
+                                        <constraint firstAttribute="width" constant="244" id="n0s-6Q-gal"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.26274509800000001" green="0.61176470589999998" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="KEo-bS-PrR" firstAttribute="top" secondItem="Yha-TB-hvh" secondAttribute="topMargin" constant="1" id="NcS-QJ-MdP"/>
+                                <constraint firstItem="rhg-jI-4Cw" firstAttribute="top" secondItem="KEo-bS-PrR" secondAttribute="bottom" constant="9" id="Wgs-KO-cyW"/>
+                                <constraint firstItem="rhg-jI-4Cw" firstAttribute="leading" secondItem="Yha-TB-hvh" secondAttribute="leadingMargin" constant="56" id="ZIS-qu-0Ik"/>
+                                <constraint firstItem="KEo-bS-PrR" firstAttribute="leading" secondItem="Yha-TB-hvh" secondAttribute="leadingMargin" id="gSH-do-Zce"/>
+                                <constraint firstAttribute="height" constant="130" id="jum-j9-Z2X"/>
+                                <constraint firstAttribute="width" constant="260" id="wfW-zo-gqO"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Vx1-PS-khv" firstAttribute="leading" secondItem="gib-46-sNm" secondAttribute="leading" constant="1" id="Ach-fX-Wia"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="DO7-EU-a00"/>
+                        <constraint firstItem="Vx1-PS-khv" firstAttribute="leading" secondItem="gib-46-sNm" secondAttribute="leading" constant="1" id="OgY-ca-PGl"/>
+                        <constraint firstItem="Vx1-PS-khv" firstAttribute="top" secondItem="gib-46-sNm" secondAttribute="top" constant="1" id="Uw0-yw-V9K"/>
+                        <constraint firstItem="Yha-TB-hvh" firstAttribute="top" secondItem="Vx1-PS-khv" secondAttribute="bottom" constant="1" id="j7y-dZ-Zl1"/>
+                        <constraint firstItem="Vx1-PS-khv" firstAttribute="top" secondItem="gib-46-sNm" secondAttribute="top" constant="1" id="jjX-R3-lYz"/>
+                        <constraint firstAttribute="trailing" secondItem="Vx1-PS-khv" secondAttribute="trailing" constant="1" id="l3k-lu-r8K"/>
+                        <constraint firstItem="Yha-TB-hvh" firstAttribute="leading" secondItem="gib-46-sNm" secondAttribute="leading" id="ogi-0e-RM7"/>
+                        <constraint firstAttribute="width" constant="260" id="xFk-MO-SFr"/>
+                        <constraint firstAttribute="height" constant="300" id="xx1-OM-E0l"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="DO7-EU-a00"/>
+                        </mask>
+                    </variation>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="gib-46-sNm" secondAttribute="centerY" id="OoV-aJ-o9O"/>
+                <constraint firstAttribute="centerX" secondItem="gib-46-sNm" secondAttribute="centerX" id="Ydg-Is-jgc"/>
+                <constraint firstAttribute="centerX" secondItem="gib-46-sNm" secondAttribute="centerX" id="gmC-hG-sHS"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="gmC-hG-sHS"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="backButton" destination="rhg-jI-4Cw" id="3OC-Le-eKn"/>
+                <outlet property="orderLabel" destination="KEo-bS-PrR" id="g6a-I3-ha0"/>
+            </connections>
+            <point key="canvasLocation" x="589" y="375"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="button_box" width="130" height="35"/>
+        <image name="order_confirm_logo" width="98" height="88"/>
+    </resources>
+</document>

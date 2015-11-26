@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "filename" : "verifyCode_selected.pdf",
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "fill",
+          "width" : 15,
+          "height" : 11
+        },
+        "capInsets" : {
+          "bottom" : 9,
+          "top" : 7,
+          "right" : 34,
+          "left" : 36
+        }
+      }
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5D0238E1-F2F6-4C7C-8679-03727E9782CF</string>
+	<key>IDESourceControlProjectName</key>
+	<string>YueKangSong</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4BEA3B57FB2AC06AC52FEFD77A24BFB24A8094C4</key>
+		<string>bitbucket.org:mark_ss/--.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>YueKangSong.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4BEA3B57FB2AC06AC52FEFD77A24BFB24A8094C4</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>bitbucket.org:mark_ss/--.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4BEA3B57FB2AC06AC52FEFD77A24BFB24A8094C4</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4BEA3B57FB2AC06AC52FEFD77A24BFB24A8094C4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>YueKangSong</string>
+		</dict>
+	</array>
+</dict>
+</plist>

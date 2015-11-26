@@ -1,0 +1,72 @@
+PODS:
+  - AFNetworking (2.5.3):
+    - AFNetworking/NSURLConnection (= 2.5.3)
+    - AFNetworking/NSURLSession (= 2.5.3)
+    - AFNetworking/Reachability (= 2.5.3)
+    - AFNetworking/Security (= 2.5.3)
+    - AFNetworking/Serialization (= 2.5.3)
+    - AFNetworking/UIKit (= 2.5.3)
+  - AFNetworking/NSURLConnection (2.5.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.3)
+  - AFNetworking/Security (2.5.3)
+  - AFNetworking/Serialization (2.5.3)
+  - AFNetworking/UIKit (2.5.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - DZNSegmentedControl (1.2.2)
+  - ImagePlayerView (1.0.2)
+  - INTULocationManager (3.0.1)
+  - Masonry (0.6.1)
+  - MBProgressHUD (0.9.1)
+  - MJExtension (2.1.0)
+  - MJRefresh (1.4.6)
+  - Qiniu (7.0.10):
+    - AFNetworking (~> 2.0)
+  - SDWebImage (3.7.2):
+    - SDWebImage/Core (= 3.7.2)
+  - SDWebImage/Core (3.7.2)
+  - UITableView+FDTemplateLayoutCell (1.0)
+  - UMengAnalytics (3.5.8)
+  - UMengSocial (4.2.3)
+  - XGPush (2.3)
+
+DEPENDENCIES:
+  - AFNetworking
+  - DZNSegmentedControl (~> 1.2.2)
+  - ImagePlayerView
+  - INTULocationManager
+  - Masonry (~> 0.6.1)
+  - MBProgressHUD
+  - MJExtension
+  - MJRefresh (~> 1.4.6)
+  - Qiniu (~> 7.0)
+  - SDWebImage
+  - UITableView+FDTemplateLayoutCell
+  - UMengAnalytics (~> 3.5.8)
+  - UMengSocial (~> 4.2.3)
+  - XGPush (~> 2.3)
+
+SPEC CHECKSUMS:
+  AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
+  DZNSegmentedControl: 8a7fdd743672742c692106f4456aaede10d43131
+  ImagePlayerView: f32dbbaf9aea86d25f5ccba7fb67f644b56f9464
+  INTULocationManager: c27483113e1bbc5952ead6417f9b39824a240ebb
+  Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  MJExtension: d4fd481247b262b59cf8cdf5815661cff460aaa2
+  MJRefresh: 2eaa3fd8f67fbb86497840fb0167446f7eb61dc7
+  Qiniu: f45793482466109c7a11987cb0353010c31b0799
+  SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
+  UITableView+FDTemplateLayoutCell: 541327f6b4388af66bedffa49dcf42d0bb374205
+  UMengAnalytics: 020551718ba37da017bd85ac4c38ffba2774f3ce
+  UMengSocial: 85882abe5b20aa38ad558ece71360e16b5d50909
+  XGPush: fa2e9fce1895ea238bcd92dd0a5189a5452e15f2
+
+COCOAPODS: 0.37.0
