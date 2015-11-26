@@ -18,7 +18,6 @@
 
 - (void)reloadData;
 
-
 + (instancetype)showAddressViewToView:(UIView *)view
                                 datas:(NSArray *)datas
                              callback:(void(^)(NSDictionary *info, BOOL isCreate))callback;
