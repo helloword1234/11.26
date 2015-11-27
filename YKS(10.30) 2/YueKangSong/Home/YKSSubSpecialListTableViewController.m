@@ -87,7 +87,7 @@
     recommenVC.specialId = cell.subSpecial.specialId;
     recommenVC.title=@"药师推荐方案";
     recommenVC.formInformation.symptom=cell.subSpecial.title;
-    recommenVC.formInformation.symptomInformation=[NSString stringWithFormat:@"                  %@",cell.subSpecial.specialDescription];
+    recommenVC.formInformation.symptomInformation=cell.subSpecial.specialDescription;
 //    recommenVC.drugListType = YKSDrugListTypeSpecail;
     [self.navigationController pushViewController:recommenVC animated:YES];
     
