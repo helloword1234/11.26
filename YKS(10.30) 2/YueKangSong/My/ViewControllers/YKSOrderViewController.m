@@ -84,7 +84,7 @@
 }
 
 - (void)switchOrder:(DZNSegmentedControl *)control {
-    NSLog(@"control = %ld",control.selectedSegmentIndex);
+    //NSLog(@"control = %ld",control.selectedSegmentIndex);
     self.index = control.selectedSegmentIndex;
     [self.shareView removeFromSuperview];
 //    [self.OrderLabel removeFromSuperview];
@@ -282,8 +282,9 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderTitleCell" forIndexPath:indexPath];
         
         cell.textLabel.text = [YKSTools titleByOrderStatus:_status];
+        NSLog(@"%@",[YKSTools titleByOrderStatus:_status]);
         if (self.index == 3) {
-            cell.textLabel.text = @"订单取消";
+            cell.textLabel.text = @"订单已取消";
         }
         cell.detailTextLabel.text = dic[@"orderid"];
         return cell;
@@ -299,7 +300,7 @@
         NSArray *gcounts = [drugs valueForKeyPath:@"gcount"];
         cell.countLabel.text = [[NSString alloc] initWithFormat:@"共%@件商品", [gcounts valueForKeyPath:@"@sum.integerValue"]];
         cell.freightLabel.text = [[NSString alloc] initWithFormat:@"运费：%0.2f", [dic[@"serviceMoney"] floatValue]];
-        cell.priceLabel.text = [[NSString alloc] initWithFormat:@"实付：%0.2f", [dic[@"finallyPrice"] floatValue]];
+        cell.priceLabel.text = [[NSString alloc] initWithFormat:@"合计：%0.2f", [dic[@"finallyPrice"] floatValue]];
         return cell;
     } else  {
         YKSOrderListStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderStatusCell" forIndexPath:indexPath];

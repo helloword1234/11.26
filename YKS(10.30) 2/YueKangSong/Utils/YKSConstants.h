@@ -56,7 +56,7 @@ static const CGFloat kCycleHeight = 140;
 #define kDefaultTimeOutInterval 10.0f
 
 
-typedef NS_ENUM(NSInteger, YKSOrderStatus) {\
+typedef NS_ENUM(NSInteger, YKSOrderStatus) {
     YKSOrderStatusCancel = -1, //订单取消
     YKSOrderStatusPending = 1, //待处理
     YKSOrderStatusConfirm = 2, //卖家确认
