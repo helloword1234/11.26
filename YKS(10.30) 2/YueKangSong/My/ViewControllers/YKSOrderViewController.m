@@ -27,29 +27,29 @@
 @property (assign, nonatomic) YKSOrderStatus status;
 @property (assign, nonatomic) NSInteger page;
 
-@property (nonatomic,strong) UIButton *shareButton;
 
+@property (nonatomic,assign) NSInteger index;
+//这该取消
+@property (nonatomic,strong) UIView *shareView;
 
 @end
 
 @implementation YKSOrderViewController
 
-- (UIButton *)shareButton
+- (UIView *)shareView
 {
-    if(!_shareButton)
-    {
-        _shareButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        _shareButton.backgroundColor = [UIColor redColor];
-        _shareButton.frame = CGRectMake(137, 7, 91, 31);
+    if (!_shareView) {
+        _shareView = [[UIView alloc] init];
+        _shareView.backgroundColor = [UIColor whiteColor];
+        _shareView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 44);
     }
-    return _shareButton;
+    return _shareView;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    self.index = 1;
     
     [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.view];
     
@@ -84,6 +84,10 @@
 }
 
 - (void)switchOrder:(DZNSegmentedControl *)control {
+    NSLog(@"control = %ld",control.selectedSegmentIndex);
+    self.index = control.selectedSegmentIndex;
+    [self.shareView removeFromSuperview];
+//    [self.OrderLabel removeFromSuperview];
     if (control.selectedSegmentIndex == 0) {
         _status = YKSOrderStatusPending;
         _datas = _pendingDatas;
@@ -105,6 +109,9 @@
         }
     }else if (control.selectedSegmentIndex == 3)
     {
+        self.index = 3;
+        
+        
         _status = YKSOrderStatusCancel;
         if (!_cancelDatas)
         {
@@ -261,6 +268,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
+    if (self.index == 3) {
+        
+        return 2 + [_datas[section][@"list"] count];
+    }
     return 3 + [_datas[section][@"list"] count];
 }
 
@@ -269,7 +280,11 @@
     NSArray *drugs = dic[@"list"];
     if (indexPath.row == 0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderTitleCell" forIndexPath:indexPath];
+        
         cell.textLabel.text = [YKSTools titleByOrderStatus:_status];
+        if (self.index == 3) {
+            cell.textLabel.text = @"订单取消";
+        }
         cell.detailTextLabel.text = dic[@"orderid"];
         return cell;
     } else if (indexPath.row <= drugs.count) {
@@ -288,10 +303,17 @@
         return cell;
     } else  {
         YKSOrderListStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderStatusCell" forIndexPath:indexPath];
+        
+        
+        if (self.index == 3) {
+            [cell.contentView addSubview:self.shareView];
+        }
+        
         return cell;
     }
     
 }
+
 
 
 #pragma mark - Navigation
