@@ -75,7 +75,7 @@
         self.button.backgroundColor = [UIColor redColor];
         self.button.titleLabel.textColor = [UIColor redColor];
         [self.button addTarget:self action:@selector(addShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
-        self.button.frame = CGRectMake(240, 5, 120, 30);
+        self.button.frame = CGRectMake(SCREEN_WIDTH - 140, 5, 120, 30);
         [self addSubview:self.button];
         [YKSTools showFreightPriceTextByTotalPrice:price
                                           callback:^(NSAttributedString *totalPriceString,  NSString *freightPriceString) {

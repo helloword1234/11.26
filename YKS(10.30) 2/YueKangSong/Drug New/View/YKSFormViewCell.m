@@ -104,10 +104,10 @@
         self.symptomInformationName.text = symptomInformationName;
         self.symptomInformationName.frame = CGRectMake(NAME_LABEL_X, 2 * LABEL_INTERVAL + self.symptom.frame.origin.y + self.symptom.frame.size.height, NAME_LABEL_W, NAME_LABEL_H);
         [self.symptomInformationName setFont:LABEL_NAME_FONT];
-        [self addSubview:self.symptomInformationName];
+        self.symptomInformationName.backgroundColor = [UIColor whiteColor];
         
         //症状信息
-        self.symptomInformation.text = symptomInformation;
+        self.symptomInformation.text = [NSString stringWithFormat:@"%@  %@",symptomInformationName,symptomInformation];
         self.symptomInformation.frame = CGRectMake(NAME_LABEL_X, 2 * LABEL_INTERVAL + self.symptom.frame.origin.y + self.symptom.frame.size.height, window.bounds.size.width - 30.0f, LABEL_INFORMATION_H);
         self.symptomInformation.textColor = [UIColor lightGrayColor];
         self.symptomInformation.lineBreakMode = NSLineBreakByWordWrapping;
@@ -118,7 +118,7 @@
         CGSize size = [symptomInformation boundingRectWithSize:constraint options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
         [self.symptomInformation setFrame:CGRectMake(NAME_LABEL_X, self.symptomInformationName.frame.origin.y, window.bounds.size.width - 30.0f, MAX(size.height,LABEL_INFORMATION_H))];
         [self addSubview:self.symptomInformation];
-
+        [self addSubview:self.symptomInformationName];
 
         //药师推荐label
         self.doctorKeepPushingName.frame = CGRectMake(NAME_LABEL_X , self.symptomInformationName.frame.origin.y + self.symptomInformation.frame.size.height + 2 * LABEL_INTERVAL, NAME_LABEL_W + 30, NAME_LABEL_H);
