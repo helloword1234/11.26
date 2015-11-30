@@ -56,6 +56,10 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *freightLabel;
 
 @property (nonatomic, assign) CGFloat originTotalPrice;
+
+
+
+
 @end
 
 @implementation YKSShoppingCartBuyVC

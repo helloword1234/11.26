@@ -32,6 +32,10 @@
 @property (strong, nonatomic) NSMutableArray *appearDatas; // 过渡数据
 @property (weak, nonatomic) IBOutlet UIView *segcontainView; // 分段控制器
 
+//@property(nonatomic,strong)NSMutableArray *couponArray; // 优惠券
+//@property(nonatomic,strong)NSString *fileLimt;// 限制条件
+//@property(nonatomic,strong)NSString *yes;// 未使用
+//@property(nonatomic,strong) NSString *statu; // 状态
 @end
 
 @implementation YKSCouponViewController
@@ -170,6 +174,10 @@
     // Do any additional setup after loading the view.
 }
 
+
+
+
+
 #pragma mark - custom
 - (void)requestDataByPage:(NSInteger)page {
     [GZBaseRequest couponList:page
@@ -184,10 +192,12 @@
                              [self showToastMessage:@"网络加载失败"];
                              return ;
                          }
+                         
                          if (ServerSuccess(responseObject)) {
                              _datas = responseObject[@"data"][@"couponlist"];
                              
-                             [_datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                            // _couponArray = _datas;
+                            [_datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                  if ([obj[@"is_out_of_date"] integerValue]==1) {
                                      [_pastDatas addObject:obj];
                                  }else{
@@ -309,6 +319,19 @@
     }
 }
 
+
+//-(void)returnText:(ReturnCouponBlock)block
+//{
+//    self.returnCouponBlock = block;
+//}
+//
+//-(void)viewWillDisappear:(BOOL)animated
+//{
+//    if (self.returnCouponBlock!=nil)
+//    {
+//        self.returnCouponBlock(self.couponArray);
+//    }
+//}
 
  // Override to support conditional editing of the table view.
 // - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

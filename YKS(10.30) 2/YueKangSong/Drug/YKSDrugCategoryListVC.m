@@ -18,6 +18,10 @@
 @property (nonatomic, strong) NSArray *datas;
 @property (weak, nonatomic) IBOutlet UIView *qrSuperView;
 
+
+
+
+
 @end
 
 @implementation YKSDrugCategoryListVC
@@ -49,7 +53,10 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

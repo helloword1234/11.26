@@ -16,6 +16,7 @@
 #import "YKSCloseButton.h"
 #import "YKSCouponViewController.h"
 #import "YKSUserModel.h"
+#import "YKSCouponViewController.h"
 
 #import "YKSAppDelegate.h"
 #import "Pingpp.h"
@@ -68,8 +69,15 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 
 @property(nonatomic,strong)NSMutableArray *paytypeArray;
 
+@property NSInteger Count;// 优惠券数量；
 
+@property(strong,nonatomic)NSMutableArray *couponArray2;
 
+//@property(nonatomic,strong)NSMutableArray *couponArray; // 优惠券
+
+@property (strong,nonatomic) NSMutableArray *neverDatas; // 未使用的数据
+@property(strong,nonatomic)  NSMutableArray *didDatas;   // 已使用的数据
+@property(strong,nonatomic)  NSMutableArray *pastDatas;  // 已过期的数据
 @end
 
 
@@ -83,12 +91,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
-    
-    //[Pingpp enableBtn:PingppBtnWx]; // 目前只选择了微信的支付方式（具体渠道查看YKSConstants.h）
-    
-    _uploadImages = [NSMutableArray array];
+         _uploadImages = [NSMutableArray array];
     
     NSLog(@"_drugInfo = %@", _drugInfo);
     _isPrescription = [_drugInfo[@"gtag"] boolValue];
@@ -110,13 +113,109 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     if ([YKSUserModel shareInstance].currentSelectAddress) {
         _addressInfos = [[YKSUserModel shareInstance] currentSelectAddress];
     }
+    
+   [self requestDataByPage:1];
+  //  _Count = _neverDatas.count;
+   
+    [self getpay];
+    
     [self.tableView reloadData];
-    
-    
-    
-    
+
 }
 
+
+// 优惠券数据请求
+- (void)requestDataByPage:(NSInteger)page
+{
+    
+    [GZBaseRequest couponList:page callback:^(id responseObject, NSError *error) {
+        if (ServerSuccess(responseObject))
+        {
+            
+            NSArray *array= responseObject[@"data"][@"couponlist"];
+            _couponArray2=[NSMutableArray arrayWithArray:array];
+            
+            _neverDatas=[NSMutableArray array];
+            [_couponArray2 enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                if ([obj[@"is_out_of_date"] integerValue]==1) {
+                    //[_pastDatas addObject:obj];
+                }else{
+                    if ([obj[@"is_used"] integerValue]==1) {
+                        //[_didDatas addObject:obj];
+                    }
+                    else{
+                        
+                        [_neverDatas addObject:obj];
+                    }
+                }
+            }];
+        
+            NSMutableArray  *Carray=[[NSMutableArray alloc] init];
+            
+              [_neverDatas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                 
+                  NSString *a =[NSString stringWithFormat:@"%@",obj[@"fileLimit"]];
+                 // NSLog(@"+++++++++++++++++++%@",obj[@"fileLimit"]);
+                       //  CGFloat limit = [obj[@"fileLimit"] floatValue];
+                  
+                  if([a isEqualToString: @"<null>"])
+                  {
+                    a=@"0";
+                  }
+                  CGFloat b=[a floatValue];
+                if ([obj[@"condition"]isEqualToString:@""]||(_originTotalPrice >= b))
+                      {
+                          
+                          [Carray addObject:obj];
+                      }
+                 }];
+            NSLog(@"%@",Carray);
+             _Count = Carray.count;
+      
+             [self.tableView reloadData];
+            
+        }
+    }];
+}
+
+
+
+// 优惠券数量判断
+-(void)coupon
+{
+    _Count = 0;
+    for (int i =0; i<_neverDatas.count; i++)// keyong && youxiao
+    {
+        
+        NSDictionary *dic = [_neverDatas objectAtIndex:i];
+
+        
+    }
+}
+
+// 获得支付渠道
+-(void)getpay
+{
+    
+    [GZBaseRequest getpaytype:^(id responseObject, NSError *error) {
+        if (ServerSuccess(responseObject))
+        {
+            _paytypeArray =[NSArray arrayWithArray:responseObject[@"data"]];
+            //            for (int  i = 0; i<array.count; i++)
+            //            {
+            //                NSDictionary *dic = [array objectAtIndex:i];
+            //
+            //                [[NSUserDefaults standardUserDefaults] setObject:dic forKey:@"pay_type"];
+            //            }
+//            [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"pay_type"];
+            [self.tableView reloadData];
+        }
+        else{
+            [self showToastMessage:responseObject[@"msg"]];
+            
+        }
+    }];
+}
 
 
 #pragma mark - custom
@@ -155,6 +254,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             {
 
                 NSDictionary *dict =@{@"channel" : self.channel};
+                
                 YKSSingleBuyViewController *__weak weakSelf = self;
                 //[self showAlertWait];
                 [GZBaseRequest submitOrderContrast:@[@{@"gid": _drugInfo[@"gid"],
@@ -217,6 +317,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             //请求网络获取药品处方药非处方药详情
             [self showProgress];
             NSDictionary *dict=@{@"channel":@""};
+            
             [GZBaseRequest submitOrderContrast:@[@{@"gid": _drugInfo[@"gid"],
                                                    @"gcount": @(_buyCount),
                                                    @"gtag": _drugInfo[@"gtag"]}]
@@ -232,6 +333,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                                               return ;
                                           }
                                           //这里都提交订单了,里面应该有价格提交吧
+                                          
                                           if (ServerSuccess(responseObject)) {
                                               NSLog(@"订单处理中 %@", responseObject);
                                               [YKSOrderConfirmView showOrderToView:self.view.window orderId:responseObject[@"data"][@"orderid"] callback:^{
@@ -414,9 +516,9 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     if (_isPrescription) {
         if (section == 4)
         {
-            NSArray *array=[[NSUserDefaults standardUserDefaults] objectForKey:@"pay_type"];
-            
-            if (array.count == 1 )
+         // NSArray *array=[[NSUserDefaults standardUserDefaults] objectForKey:@"pay_type"];
+       
+            if (_paytypeArray.count == 1 )
             {
                 return 2;
             }
@@ -428,9 +530,9 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         {
             if (section==3)
             {
-                NSArray *array=[[NSUserDefaults standardUserDefaults] objectForKey:@"pay_type"];
+              //  NSArray *array=[[NSUserDefaults standardUserDefaults] objectForKey:@"pay_type"];
                 
-                if (array.count == 1 )
+                if (_paytypeArray.count == 1 )
                 {
                     return 2;
                 }
@@ -530,11 +632,18 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         else
         {
             YKSBuyCouponCell *couponCell = [tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:indexPath];
+            
             if (_couponInfo) {
                 couponCell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2f优惠劵", [_couponInfo[@"faceprice"] floatValue]];
             }else{
-                couponCell.detailTextLabel.text = @"";
-            }
+                
+                NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:2];
+                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationFade];
+                
+                 NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+
+                couponCell.detailTextLabel.text = couponCount;
+            } 
             return couponCell;
         }
     }
@@ -546,6 +655,14 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             if (_couponInfo) {
                 couponCell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2f优惠劵", [_couponInfo[@"faceprice"] floatValue]];
             }
+            
+            else{
+                
+                NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+                
+                couponCell.detailTextLabel.text = couponCount;
+            }
+            
             return couponCell;
         }
         else{
@@ -556,7 +673,44 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             if (!cell) {
                 cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:iden];
             }
-            cell.textLabel.text=@"123";
+            
+            if (indexPath.row==0) {
+                
+                cell.userInteractionEnabled=NO;
+                UILabel *lable=[[UILabel alloc]initWithFrame:CGRectMake(13, 8, 100, 14)];
+                
+                lable.text=@"支付方式";
+                
+                [cell.contentView addSubview:lable];
+            }
+            else if (indexPath.row==1){
+                
+                cell.shouldIndentWhileEditing=YES;
+                
+                cell.textLabel.text=@"货到付款";
+                
+                _daoFuBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+                
+                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
+                _daoFuBtn.frame=CGRectMake(SCREEN_WIDTH-22-25, 15, 17, 17);
+                
+                [cell.contentView addSubview:_daoFuBtn];
+                
+            }
+            
+            else if (indexPath.row==2){
+                cell.textLabel.text=@"微信支付";
+                _onLineBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+                
+                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
+                _onLineBtn.frame=CGRectMake(SCREEN_WIDTH-22-25,15, 17, 17);
+                
+                [cell.contentView addSubview:_onLineBtn];
+            }
+
+            
             return cell;
         }
         
@@ -671,7 +825,13 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     }
     _originTotalPrice = [_drugInfo[@"gprice"] floatValue] *_buyCount;
     
+
+
+    
+   
     [self showPirce:drugCell];
+    
+     [self.tableView reloadData];
 }
 
 - (void)minusCount:(UIButton *)sender {
@@ -691,15 +851,16 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         _buyCount = 1;
     }
     _originTotalPrice = [_drugInfo[@"gprice"] floatValue] *_buyCount;
+
     
-    if (_originTotalPrice<[self.couponInfo[@"faceprice"] floatValue]) {
-        self.couponInfo = nil;
-        
-#pragma kkkk
-        //        YKSBuyCouponCell *couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
-        //        couponCell.detailTextLabel.text = @"";
-        
-    }
+//    if (_originTotalPrice<[self.couponInfo[@"faceprice"] floatValue]) {
+//        self.couponInfo = nil;
+//        
+//#pragma kkkk
+//        //        YKSBuyCouponCell *couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+//        //        couponCell.detailTextLabel.text = @"";
+//        
+//    }
     [self.tableView reloadData];
     
     [self showPirce:drugCell];
@@ -741,6 +902,13 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         //        } else {
         //            vc.totalPirce = _totalPrice + [_couponInfo[@"faceprice"] floatValue];
         //        }
+        
+//        [vc returnText:^(NSMutableArray *couponArray) {
+//            
+//            self.couponArray2 = couponArray;
+//        }];
+//        
+        
         vc.callback = ^(NSDictionary *info) {
             _couponInfo = info;
             if (_couponInfo && _couponInfo[@"faceprice"]) {

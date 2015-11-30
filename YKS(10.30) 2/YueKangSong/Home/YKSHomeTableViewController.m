@@ -50,6 +50,9 @@
 @property(nonatomic,strong)NSArray *drugDatas;
 //当前地址button
 @property (weak, nonatomic) IBOutlet UIButton *addressBtn;
+
+
+
 @end
 
 @implementation YKSHomeTableViewController
@@ -123,24 +126,8 @@
     
     [self requestData];
     
-    [self getpaytype];
-}
+ }
 // 判断支付渠道（因为网络请求异步，要放在首页请求，放在缓存）
--(void)getpaytype
-{
-    [GZBaseRequest getpaytype:^(id responseObject, NSError *error) {
-        if (ServerSuccess(responseObject))
-        {
-            NSArray *array=[NSArray arrayWithArray:responseObject[@"data"]];
-            [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"pay_type"];
-            
-        }
-        else{
-            [self showToastMessage:responseObject[@"msg"]];
-
-        }
-    }];
-}
 //地址逻辑判断
 -(void)diZhiLuoJiPanDuan{
 if ([YKSUserModel isLogin]) {

@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+//typedef void (^ReturnCouponBlock)(NSMutableArray *couponArray);
+
 @interface YKSCouponViewController : UIViewController
 
 @property (nonatomic, assign) CGFloat totalPirce;
 @property (nonatomic, strong) void(^callback)(NSDictionary *couponInfo);
 
+//@property (nonatomic, copy) ReturnCouponBlock returnCouponBlock;
+//
+//- (void)returnText:(ReturnCouponBlock)block;
+//
 @end
