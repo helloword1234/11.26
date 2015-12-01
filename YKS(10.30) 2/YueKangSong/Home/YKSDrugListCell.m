@@ -19,15 +19,23 @@
 
 - (void)setDrugInfo:(NSDictionary *)drugInfo {
     _drugInfo = drugInfo;
+    NSLog(@"_drugInforepertory ========= %@......",_drugInfo[@"repertory"]);
     _recipeFlagView.hidden = ![_drugInfo[@"gtag"] boolValue];
     [_logoImageView sd_setImageWithURL:[NSURL URLWithString:drugInfo[@"glogo"]] placeholderImage:[UIImage imageNamed:@"default160"]];
     _titleLabel.text = DefuseNUllString(drugInfo[@"gtitle"]);
     _contentLabel.text = DefuseNUllString(drugInfo[@"keywords"]);
     _priceLabel.attributedText = [YKSTools priceString:[drugInfo[@"gprice"] floatValue]];
     
-//    self.sellOverIV.image = [UIImage imageNamed:@"sellOvew"];
-//    NSString *s = _drugInfo[@"repertory"];
-//    self.sellOverIV.hidden = s.boolValue;
+    
+//    UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"EDFCE291-F6C3-4FBD-937F-13A828BBD941"]];
+//    image.contentMode = UIViewContentModeScaleToFill;
+//    image.frame = CGRectMake(_priceLabel.frame.origin.x + _priceLabel.frame.size.width - 40, _contentLabel.frame.size.height + _contentLabel.frame.origin.y + 15, 40, 40);
+    //[self addSubview:image];
+    
+    self.sellOverIV.image = [UIImage imageNamed:@"soldout"];
+//    self.sellOverIV.backgroundColor = [UIColor lightGrayColor];
+    NSString *s = _drugInfo[@"repertory"];
+    self.sellOverIV.hidden = s.boolValue;
     
     
 }
