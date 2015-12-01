@@ -36,7 +36,11 @@
 
 @property (strong, nonatomic) NSDictionary *info;
 
+@property (weak, nonatomic) IBOutlet UIButton *shoppingButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *addButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *coverButton;
 
 @end
 
@@ -45,6 +49,13 @@
 #pragma mark - ViewController Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.coverButton.enabled = NO;
+    self.coverButton.hidden = YES;
+    if (_drugInfo[@"repertory"]){
+        self.addButton.hidden = YES;
+        self.shoppingButton.hidden = YES;
+        self.coverButton.hidden = NO;
+    }
     _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.5);
     _imageURLStrings = [_drugInfo[@"banners"] componentsSeparatedByString:@","]; // 把后台传回来的图片分割为N个部分。
 
