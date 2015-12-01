@@ -183,14 +183,29 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 // 优惠券数量判断
 -(void)coupon
 {
-    _Count = 0;
-    for (int i =0; i<_neverDatas.count; i++)// keyong && youxiao
-    {
+    NSMutableArray  *Carray=[[NSMutableArray alloc] init];
+    
+    [_neverDatas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
-        NSDictionary *dic = [_neverDatas objectAtIndex:i];
+        NSString *a =[NSString stringWithFormat:@"%@",obj[@"fileLimit"]];
+        // NSLog(@"+++++++++++++++++++%@",obj[@"fileLimit"]);
+        //  CGFloat limit = [obj[@"fileLimit"] floatValue];
+        
+        if([a isEqualToString: @"<null>"])
+        {
+            a=@"0";
+        }
+        CGFloat b=[a floatValue];
+        if ([obj[@"condition"]isEqualToString:@""]||(_originTotalPrice >= b))
+        {
+            
+            [Carray addObject:obj];
+        }
+    }];
+    NSLog(@"%@",Carray);
+    _Count = Carray.count;
+    
 
-        
-    }
 }
 
 // 获得支付渠道
@@ -825,10 +840,8 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     }
     _originTotalPrice = [_drugInfo[@"gprice"] floatValue] *_buyCount;
     
+    [self coupon];
 
-
-    
-   
     [self showPirce:drugCell];
     
      [self.tableView reloadData];
@@ -854,13 +867,14 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 
     
 //    if (_originTotalPrice<[self.couponInfo[@"faceprice"] floatValue]) {
-//        self.couponInfo = nil;
+//        self.couponInf`o = nil;
 //        
 //#pragma kkkk
 //        //        YKSBuyCouponCell *couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
 //        //        couponCell.detailTextLabel.text = @"";
 //        
 //    }
+    [self coupon];
     [self.tableView reloadData];
     
     [self showPirce:drugCell];
