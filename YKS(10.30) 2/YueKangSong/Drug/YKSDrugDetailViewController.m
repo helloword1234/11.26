@@ -35,17 +35,27 @@
 @property (assign, nonatomic) BOOL isCreat;
 
 @property (strong, nonatomic) NSDictionary *info;
-
+//立即购买
 @property (weak, nonatomic) IBOutlet UIButton *shoppingButton;
-
+//加入购物车
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
-
+//缺货遮盖按钮
 @property (weak, nonatomic) IBOutlet UIButton *coverButton;
-
+//药品单位
+@property (nonatomic,strong) UILabel *companyLabel;
 @end
 
 @implementation YKSDrugDetailViewController
-
+- (UILabel *)companyLabel{
+    
+    if (!_companyLabel)
+    {
+        _companyLabel = [[UILabel alloc] init];
+        _companyLabel.font = [UIFont systemFontOfSize:15];
+        _companyLabel.textColor = [UIColor darkGrayColor];
+    }
+    return _companyLabel;
+}
 #pragma mark - ViewController Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -467,6 +477,11 @@
                                  range:NSMakeRange(4, originPrice.length - 4)];
         nameCell.originPriceLabel.attributedText = attribuedString;
         
+        NSLog(@"med_unit ================ %@",_drugInfo[@"med_unit"]);
+        
+        self.companyLabel.text = [NSString stringWithFormat:@"%@",_drugInfo[@"med_unit"]];
+        self.companyLabel.frame = CGRectMake(nameCell.priceLabel.frame.origin.x + nameCell.priceLabel.frame.size.width - 5, nameCell.priceLabel.frame.origin.y, 50, nameCell.priceLabel.frame.size.height);
+        [nameCell.contentView addSubview:self.companyLabel];
         
         if ([_drugInfo[@"iscollect"] boolValue]) {
             [nameCell.collectButton setImage:[UIImage imageNamed:@"collect_selected"] forState:UIControlStateNormal];
