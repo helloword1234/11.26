@@ -57,9 +57,14 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, assign) CGFloat originTotalPrice;
 
+@property(nonatomic,strong)NSMutableArray *paytypeArray;
 
+@property NSInteger Count; //优惠券数量
 
-
+@property (strong,nonatomic) NSMutableArray *neverDatas; // 未使用的数据
+@property(strong,nonatomic)  NSMutableArray *didDatas;   // 已使用的数据
+@property(strong,nonatomic)  NSMutableArray *pastDatas;  // 已过期的数据
+@property(nonatomic,strong)NSMutableArray * couponArray2;
 @end
 
 @implementation YKSShoppingCartBuyVC
@@ -106,7 +111,88 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     //_addressInfos = [[YKSUserModel shareInstance] currentSelectAddress];
     _addressInfos = [UIViewController selectedAddressUnArchiver];
     
+    [self getpay];
+    [self requestDataByPage:1];
     [self.tableView reloadData];
+}
+
+
+// 优惠券数据请求
+- (void)requestDataByPage:(NSInteger)page
+{
+    
+    [GZBaseRequest couponList:page callback:^(id responseObject, NSError *error) {
+        if (ServerSuccess(responseObject))
+        {
+            
+            NSArray *array= responseObject[@"data"][@"couponlist"];
+            _couponArray2=[NSMutableArray arrayWithArray:array];
+            
+            _neverDatas=[NSMutableArray array];
+            [_couponArray2 enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                if ([obj[@"is_out_of_date"] integerValue]==1) {
+                    //[_pastDatas addObject:obj];
+                }else{
+                    if ([obj[@"is_used"] integerValue]==1) {
+                        //[_didDatas addObject:obj];
+                    }
+                    else{
+                        
+                        [_neverDatas addObject:obj];
+                    }
+                }
+            }];
+            
+            NSMutableArray  *Carray=[[NSMutableArray alloc] init];
+            
+            [_neverDatas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                
+                NSString *a =[NSString stringWithFormat:@"%@",obj[@"fileLimit"]];
+                // NSLog(@"+++++++++++++++++++%@",obj[@"fileLimit"]);
+                //  CGFloat limit = [obj[@"fileLimit"] floatValue];
+                
+                if([a isEqualToString: @"<null>"])
+                {
+                    a=@"0";
+                }
+                CGFloat b=[a floatValue];
+                if ([obj[@"condition"]isEqualToString:@""]||(_originTotalPrice >= b))
+                {
+                    
+                    [Carray addObject:obj];
+                }
+            }];
+            NSLog(@"%@",Carray);
+            _Count = Carray.count;
+            
+            [self.tableView reloadData];
+            
+        }
+    }];
+}
+
+// 获得支付渠道
+-(void)getpay
+{
+    
+    [GZBaseRequest getpaytype:^(id responseObject, NSError *error) {
+        if (ServerSuccess(responseObject))
+        {
+            _paytypeArray =[NSArray arrayWithArray:responseObject[@"data"]];
+            //            for (int  i = 0; i<array.count; i++)
+            //            {
+            //                NSDictionary *dic = [array objectAtIndex:i];
+            //
+            //                [[NSUserDefaults standardUserDefaults] setObject:dic forKey:@"pay_type"];
+            //            }
+            //            [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"pay_type"];
+            [self.tableView reloadData];
+        }
+        else{
+            [self showToastMessage:responseObject[@"msg"]];
+            
+        }
+    }];
 }
 
 #pragma mark - custom
@@ -283,11 +369,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                                       [self showToastMessage:@"网络加载失败"];
                                       return ;
                                   }
-                                  
-                                  
-                                  
-                                  
-                                  if (ServerSuccess(responseObject))
+                                            if (ServerSuccess(responseObject))
                                   {
                                       NSArray *gids = [gcontrast valueForKeyPath:@"gid"];
                                       //购物车清空
@@ -384,9 +466,9 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     if (_isPrescription) {
         if (section == 4)
         {
-            NSArray *array=[[NSUserDefaults standardUserDefaults] objectForKey:@"pay_type"];
+            // NSArray *array=[[NSUserDefaults standardUserDefaults] objectForKey:@"pay_type"];
             
-            if (array.count == 1 )
+            if (_paytypeArray.count == 1 )
             {
                 return 2;
             }
@@ -398,9 +480,9 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     {
         if (section==3)
         {
-            NSArray *array=[[NSUserDefaults standardUserDefaults] objectForKey:@"pay_type"];
+            //  NSArray *array=[[NSUserDefaults standardUserDefaults] objectForKey:@"pay_type"];
             
-            if (array.count == 1 )
+            if (_paytypeArray.count == 1 )
             {
                 return 2;
             }
@@ -409,7 +491,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         }
     }
     return 1;
-}
+ }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
@@ -497,7 +579,11 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             if (_couponInfo) {
                 couponCell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2f优惠劵", [_couponInfo[@"faceprice"] floatValue]];
             }else{
-                couponCell.detailTextLabel.text = @"";
+                NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+                couponCell.detailTextLabel.textColor=[UIColor redColor];
+
+                couponCell.detailTextLabel.text = couponCount;
+
             }
             return couponCell;
         }
@@ -509,6 +595,14 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             if (_couponInfo) {
                 couponCell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2f优惠劵", [_couponInfo[@"faceprice"] floatValue]];
             }
+            else
+            {
+                NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+                couponCell.detailTextLabel.textColor=[UIColor redColor];
+
+                couponCell.detailTextLabel.text = couponCount;
+
+            }
             return couponCell;
         }
         else{
@@ -519,7 +613,44 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             if (!cell) {
                 cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:iden];
             }
-            cell.textLabel.text=@"123";
+            if (indexPath.row==0) {
+                
+                cell.userInteractionEnabled=NO;
+                UILabel *lable=[[UILabel alloc]initWithFrame:CGRectMake(13, 8, 100, 14)];
+                
+                lable.text=@"支付方式";
+                
+                [cell.contentView addSubview:lable];
+            }
+            else if (indexPath.row==1){
+                
+                cell.shouldIndentWhileEditing=YES;
+                
+                cell.textLabel.text=@"货到付款";
+                
+                _daoFuBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+                
+                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
+                _daoFuBtn.frame=CGRectMake(SCREEN_WIDTH-22-25, 15, 17, 17);
+                
+                [cell.contentView addSubview:_daoFuBtn];
+                
+            }
+            
+            else if (indexPath.row==2){
+                
+                cell.textLabel.text=@"微信支付";
+                
+                _onLineBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+                
+                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
+                _onLineBtn.frame=CGRectMake(SCREEN_WIDTH-22-25,15, 17, 17);
+                
+                [cell.contentView addSubview:_onLineBtn];
+            }
+
             return cell;
         }
     }

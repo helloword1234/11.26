@@ -656,7 +656,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                 [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationFade];
                 
                  NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
-
+                couponCell.detailTextLabel.textColor=[UIColor redColor];
                 couponCell.detailTextLabel.text = couponCount;
             } 
             return couponCell;
@@ -674,7 +674,8 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             else{
                 
                 NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
-                
+                couponCell.detailTextLabel.textColor=[UIColor redColor];
+
                 couponCell.detailTextLabel.text = couponCount;
             }
             
