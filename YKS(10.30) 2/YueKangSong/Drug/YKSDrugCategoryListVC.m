@@ -18,10 +18,6 @@
 @property (nonatomic, strong) NSArray *datas;
 @property (weak, nonatomic) IBOutlet UIView *qrSuperView;
 
-
-
-
-
 @end
 
 @implementation YKSDrugCategoryListVC
