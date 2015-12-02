@@ -127,7 +127,7 @@
     [self requestData];
     
  }
-// 判断支付渠道（因为网络请求异步，要放在首页请求，放在缓存）
+
 //地址逻辑判断
 -(void)diZhiLuoJiPanDuan{
 if ([YKSUserModel isLogin]) {

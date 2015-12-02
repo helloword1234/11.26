@@ -45,6 +45,32 @@
         _myCenterTitleLabel.text = @"注册/登录";
         _myCenterLabel.text = @"";
     }
+    if (![YKSUserModel isLogin])
+    {
+        self.YQMLabel.text=@"邀请得大礼";
+      
+    }
+    else
+    {
+        [GZBaseRequest getYQMhuizhangphone:[YKSUserModel shareInstance].telePhone AndcallBack:^(id responseObject, NSError *error) {
+            // NSLog(@"aaa%@",responseObject);
+            if (ServerSuccess(responseObject)) {
+                NSString *YQMlabel = [NSString stringWithFormat: @"邀请得大礼 [我的邀请码：%@]" ,responseObject[@"data"][@"promoteCode"]];
+                
+                self.YQMLabel.text = YQMlabel;
+                
+                self.YQMLabel.userInteractionEnabled=NO;
+                
+            }
+             [self.tableView reloadData];
+        } ];
+        [self.tableView reloadData];
+
+    }
+    
+    
+
+    //[self.tableView reloadData];
     }
 
 
@@ -56,21 +82,6 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
-    [GZBaseRequest getYQMhuizhangphone:[YKSUserModel shareInstance].telePhone AndcallBack:^(id responseObject, NSError *error) {
-        // NSLog(@"aaa%@",responseObject);
-        if (ServerSuccess(responseObject)) {
-            NSString *YQMlabel = [NSString stringWithFormat: @"邀请得大礼 [我的邀请码：%@]" ,responseObject[@"data"][@"promoteCode"]];
-            
-            self.YQMLabel.text = YQMlabel;
-            self.YQMLabel.userInteractionEnabled=NO;
-            if (![YKSUserModel isLogin])
-            {
-              self.YQMLabel.text=@"邀请得大礼";
-            }
-        }
-        [self.tableView reloadData];
-    } ];
-   
 }
 
 - (IBAction)msgAction:(id)sender {
