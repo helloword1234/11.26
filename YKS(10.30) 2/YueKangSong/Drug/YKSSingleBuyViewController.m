@@ -218,23 +218,28 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 {
     
     [GZBaseRequest getpaytype:^(id responseObject, NSError *error) {
+        
         if (ServerSuccess(responseObject))
         {
             _paytypeArray =[NSMutableArray arrayWithArray:responseObject[@"data"]];
-          
-            [_paytypeArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+           
+            _wxArray = [NSMutableArray array];
+            [_paytypeArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *  stop) {
+                
                 if ([obj[@"pay_type"]isEqualToString:@"wx"])
                 {
+                    
                     [_wxArray addObject:obj];
+                    
                 }
                 else if ([obj[@"pay_type"]isEqualToString:@"cash"])
                 {
                     [_cashArray addObject:obj];
                 }
-               
+               [self.tableView reloadData];
             }];
             
-            [self.tableView reloadData];
+            
         }
         else{
             [self showToastMessage:responseObject[@"msg"]];
@@ -280,9 +285,14 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             {
 
                 NSDictionary *dict =@{@"channel" : self.channel};
-                NSString *paytype = [_wxArray objectAtIndex:0];
+                
+                NSDictionary *dic = [_wxArray objectAtIndex:0];
+                
+               // NSString *paytype =dic[@"pay_type"];
+                
                 YKSSingleBuyViewController *__weak weakSelf = self;
                 //[self showAlertWait];
+                
                 [GZBaseRequest submitOrderContrast:@[@{@"gid": _drugInfo[@"gid"],
                                                        @"gcount": @(_buyCount),
                                                        @"gtag": _drugInfo[@"gtag"]}]
@@ -290,16 +300,19 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                                          addressId:_addressInfos[@"id"]
                                             images:_uploadImages
                                             charge:dict
-                                          pay_type:paytype                                          callback:^(id responseObject, NSError *error) {
+                                          pay_type:dic[@"pay_type"]                                          callback:^(id responseObject, NSError *error) {
                                               if (error) {
                                                   [self showToastMessage:@"网络加载失败"];
                                                   return ;
                                               }
+                                              
                                             if (ServerSuccess(responseObject)){
                                                   [self showToastMessage:kWaiting];
                                                   NSString * charge1 = responseObject[@"data"][@"charge"];
+                                                
                                                   NSData *data=[NSJSONSerialization dataWithJSONObject:charge1 options:0 error:nil];
                                                   NSString *charge=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                                                
                                                   dispatch_async(dispatch_get_main_queue(), ^{
                                                       [Pingpp createPayment:charge  viewController:weakSelf appURLScheme:KUrlScheme withCompletion:^(NSString *result, PingppError *error) {
                                                           
@@ -478,13 +491,13 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     {
         if (indexPath.section == 4)
         {
-            if (indexPath.row == 1)
+            if (indexPath.row == 2)
             {
                 [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
                 [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
                 self.channel=@"wx";
             }
-            else if (indexPath.row == 2)
+            else if (indexPath.row == 1)
             {
                 [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
                 [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateSelected];
@@ -497,14 +510,14 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         if (indexPath.section == 3)
         {
             
-            if (indexPath.row == 1)
+            if (indexPath.row == 2)
             {
                 [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
                 [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
                 self.channel=@"wx";
             }
             
-            else if (indexPath.row == 2)
+            else if (indexPath.row == 1)
             {
                 [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
                 [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];

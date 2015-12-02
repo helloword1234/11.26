@@ -52,7 +52,10 @@
 -(void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBar.hidden=NO;
 }
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [_searchBar endEditing:YES];
 
+}
 #pragma mark - custom
 
 -(void)search{
