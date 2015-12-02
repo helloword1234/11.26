@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^returnYQMBlock)(NSString *YQMString);
 @interface YKSYQMTableViewController : UITableViewController
 
+@property(nonatomic,strong)returnYQMBlock returnLabelBlock;
+
+-(void)returnYQM:(returnYQMBlock)block;
 @end

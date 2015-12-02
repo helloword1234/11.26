@@ -10,11 +10,15 @@
 #import "YKSUserModel.h" 
 #import "YKSHomeTableViewController.h"
 #import "GZBaseRequest.h"
+
+#import "YKSYQMTableViewController.h"
 @interface YKSMyViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *myCenterTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *myCenterLabel;
 //@property(strong,nonatomic) UILabel *YQMLabel;
+
+//@property (weak, nonatomic) IBOutlet UILabel *YQMLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *YQMLabel;
 
@@ -55,22 +59,18 @@
     [GZBaseRequest getYQMhuizhangphone:[YKSUserModel shareInstance].telePhone AndcallBack:^(id responseObject, NSError *error) {
         // NSLog(@"aaa%@",responseObject);
         if (ServerSuccess(responseObject)) {
-            NSString *YQMlabel = [NSString stringWithFormat: @"我的邀请码      %@" ,responseObject[@"data"][@"promoteCode"]];
+            NSString *YQMlabel = [NSString stringWithFormat: @"邀请得大礼 [我的邀请码：%@]" ,responseObject[@"data"][@"promoteCode"]];
             
             self.YQMLabel.text = YQMlabel;
             self.YQMLabel.userInteractionEnabled=NO;
             if (![YKSUserModel isLogin])
             {
-              self.YQMLabel.text=@"我的邀请码";
+              self.YQMLabel.text=@"邀请得大礼";
             }
         }
-        
+        [self.tableView reloadData];
     } ];
-    
-
-  
-
-    
+   
 }
 
 - (IBAction)msgAction:(id)sender {
@@ -115,16 +115,16 @@
         [self performSegueWithIdentifier:@"gotoYKSMyInfoDetailVC" sender:nil];
     } else if (indexPath.section == 1) {
         switch (indexPath.row) {
-            case 1: {
+            case 0: {
                 [self performSegueWithIdentifier:@"gotoCollectVC" sender:nil];
             }
                 break;
                 
-            case 2: {
+            case 1: {
                 [self performSegueWithIdentifier:@"gotoCouponVC" sender:nil];
             }
                 break;
-            case 3: {
+            case 2: {
                 [self performSegueWithIdentifier:@"gotoAddressVC" sender:nil];
             }
                 break;
@@ -132,7 +132,11 @@
                 break;
         }
     }else if (indexPath.section == 2){
+        
         [self performSegueWithIdentifier:@"yaoqingma" sender:nil];
+
+
+        
     }
     else if (indexPath.section == 3) {
         switch (indexPath.row) {

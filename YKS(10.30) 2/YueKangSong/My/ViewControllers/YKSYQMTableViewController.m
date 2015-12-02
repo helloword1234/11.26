@@ -186,6 +186,7 @@
             
         
         self.myYQMLabel.text = responseObject[@"data"][@"promoteCode"];
+    
         self.zhijieyqrs.text = responseObject[@"data"][@"invitercnt1"];
         self.jianjieyqmrs.text = responseObject[@"data"][@"invitercnt2"];
             NSString * sss =  responseObject[@"data"][@"couponTotal"];
@@ -297,6 +298,22 @@
             [YKSTools showToastMessage:@"分享失败" inView:self.view];
         }
     });
+}
+
+
+-(void)returnYQM:(returnYQMBlock)block
+{
+    self.returnLabelBlock = block;
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    if (self.returnLabelBlock != nil)
+    {
+        
+        self.returnLabelBlock(self.myYQMLabel.text);
+    }
+    NSLog(@"-------------------%@",self.returnLabelBlock);
 }
 
 @end
