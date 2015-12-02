@@ -493,9 +493,11 @@
                                  range:NSMakeRange(4, originPrice.length - 4)];
         nameCell.originPriceLabel.attributedText = attribuedString;
         
-        self.companyLabel.text = [NSString stringWithFormat:@"%@",_drugInfo[@"med_unit"]];
-        self.companyLabel.frame = CGRectMake(nameCell.priceLabel.frame.origin.x + nameCell.priceLabel.frame.size.width - 5, nameCell.priceLabel.frame.origin.y, 50, nameCell.priceLabel.frame.size.height);
-        [nameCell.contentView addSubview:self.companyLabel];
+        if (!IS_EMPTY_STRING(_drugInfo[@"med_unit"])){
+            self.companyLabel.text = [NSString stringWithFormat:@"/%@",_drugInfo[@"med_unit"]];
+            self.companyLabel.frame = CGRectMake(nameCell.priceLabel.frame.origin.x + nameCell.priceLabel.frame.size.width - 5, nameCell.priceLabel.frame.origin.y, 50, nameCell.priceLabel.frame.size.height);
+            [nameCell.contentView addSubview:self.companyLabel];
+        }
         
         if ([_drugInfo[@"iscollect"] boolValue]) {
             [nameCell.collectButton setImage:[UIImage imageNamed:@"collect_selected"] forState:UIControlStateNormal];

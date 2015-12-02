@@ -25,8 +25,7 @@
     _titleLabel.text = DefuseNUllString(drugInfo[@"gtitle"]);
     _contentLabel.text = DefuseNUllString(drugInfo[@"keywords"]);
     _priceLabel.attributedText = [YKSTools priceString:[drugInfo[@"gprice"] floatValue]];
-    
-    
+
 //    UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"EDFCE291-F6C3-4FBD-937F-13A828BBD941"]];
 //    image.contentMode = UIViewContentModeScaleToFill;
 //    image.frame = CGRectMake(_priceLabel.frame.origin.x + _priceLabel.frame.size.width - 40, _contentLabel.frame.size.height + _contentLabel.frame.origin.y + 15, 40, 40);
