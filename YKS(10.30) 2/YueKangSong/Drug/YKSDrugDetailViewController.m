@@ -70,12 +70,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.coverButton.enabled = NO;
+    self.addButton.hidden = NO;
+    self.shoppingButton.hidden = NO;
+    self.NullImage.hidden = YES;
     self.coverButton.hidden = YES;
-    if (_drugInfo[@"repertory"]){
-        NSLog(@"_drugInfo详情 ============ %@",_drugInfo[@"repertory"]);
+    NSLog(@"_drugInfo详情 ================== %@",_drugInfo[@"repertory"]);
+    if ([_drugInfo[@"repertory"] isEqualToString:@"0"]){
         self.addButton.hidden = YES;
         self.shoppingButton.hidden = YES;
         self.coverButton.hidden = NO;
+        self.NullImage.hidden = NO;
         self.NullImage.frame = CGRectMake(200, 200, 200, 200);
     }
     _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.5);
