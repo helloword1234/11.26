@@ -34,6 +34,7 @@
     
     self.sellOverIV.image = [UIImage imageNamed:@"soldout"];
 //    self.sellOverIV.backgroundColor = [UIColor lightGrayColor];
+    NSLog(@"_drugInfo ============ %@",_drugInfo[@"repertory"]);
     NSString *s = _drugInfo[@"repertory"];
     self.sellOverIV.hidden = s.boolValue;
     

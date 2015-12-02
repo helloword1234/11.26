@@ -72,6 +72,7 @@
     self.coverButton.enabled = NO;
     self.coverButton.hidden = YES;
     if (_drugInfo[@"repertory"]){
+        NSLog(@"_drugInfo详情 ============ %@",_drugInfo[@"repertory"]);
         self.addButton.hidden = YES;
         self.shoppingButton.hidden = YES;
         self.coverButton.hidden = NO;

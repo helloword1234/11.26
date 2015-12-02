@@ -474,6 +474,10 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             }
             return 3;
         }
+        if (section == 1)
+        {
+            return _drugs.count +1;
+        }
     }
     
     if (!_isPrescription)
@@ -488,6 +492,10 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             }
             
             return 3;
+        }
+        if (section ==1)
+        {
+            return _drugs.count+1;
         }
     }
     return 1;
