@@ -20,7 +20,7 @@
     //通过set方法加载控制器传递过来的数组（数组中的数据是从服务器请求的）
     _datas = datas;
     for (int x = 0 ; x < datas.count; x++) {
-        if (x > datas.count) {
+        if (x > 3) {
             break;
         }
         UIWindow *window = [[[UIApplication sharedApplication] windows]lastObject];
