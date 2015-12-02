@@ -43,9 +43,19 @@
 @property (weak, nonatomic) IBOutlet UIButton *coverButton;
 //药品单位
 @property (nonatomic,strong) UILabel *companyLabel;
+//显示已售罄
+@property (nonatomic,strong) UIImageView *NullImage;
 @end
 
 @implementation YKSDrugDetailViewController
+- (UIImageView *)NullImage
+{
+    if (!_NullImage) {
+        _NullImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"soldout"]];
+        _NullImage.frame = CGRectZero;
+    }
+    return _NullImage;
+}
 - (UILabel *)companyLabel{
     
     if (!_companyLabel)
@@ -65,6 +75,7 @@
         self.addButton.hidden = YES;
         self.shoppingButton.hidden = YES;
         self.coverButton.hidden = NO;
+        self.NullImage.frame = CGRectMake(200, 200, 200, 200);
     }
     _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.5);
     _imageURLStrings = [_drugInfo[@"banners"] componentsSeparatedByString:@","]; // 把后台传回来的图片分割为N个部分。
@@ -86,7 +97,7 @@
     
     
     [self.tableView.tableHeaderView addSubview:_scrollView];
-    
+    [self.tableView.tableHeaderView addSubview:_NullImage];
     _pageControl = [[UIPageControl alloc]init];
 //    _pageControl.hidesForSinglePage = YES;
     _pageControl.contentMode = UIViewContentModeCenter;
@@ -476,8 +487,6 @@
         [attribuedString addAttributes:@{NSStrikethroughStyleAttributeName: @(NSUnderlineStyleSingle)}
                                  range:NSMakeRange(4, originPrice.length - 4)];
         nameCell.originPriceLabel.attributedText = attribuedString;
-        
-        NSLog(@"med_unit ================ %@",_drugInfo[@"med_unit"]);
         
         self.companyLabel.text = [NSString stringWithFormat:@"%@",_drugInfo[@"med_unit"]];
         self.companyLabel.frame = CGRectMake(nameCell.priceLabel.frame.origin.x + nameCell.priceLabel.frame.size.width - 5, nameCell.priceLabel.frame.origin.y, 50, nameCell.priceLabel.frame.size.height);

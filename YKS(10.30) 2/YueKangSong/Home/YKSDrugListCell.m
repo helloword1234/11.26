@@ -19,7 +19,7 @@
 
 - (void)setDrugInfo:(NSDictionary *)drugInfo {
     _drugInfo = drugInfo;
-    NSLog(@"_drugInforepertory ========= %@......",_drugInfo[@"repertory"]);
+
     _recipeFlagView.hidden = ![_drugInfo[@"gtag"] boolValue];
     [_logoImageView sd_setImageWithURL:[NSURL URLWithString:drugInfo[@"glogo"]] placeholderImage:[UIImage imageNamed:@"default160"]];
     _titleLabel.text = DefuseNUllString(drugInfo[@"gtitle"]);
