@@ -99,11 +99,11 @@
 //监听键盘的弹出
 -(void)keyBoardWasShow:(NSNotification *)noti{
     
-    CGRect frame=[[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey]CGRectValue];
+//    CGRect frame=[[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey]CGRectValue];
+//    
+//    CGFloat height=frame.size.height;
     
-    CGFloat height=frame.size.height;
-    
-    self.tableView.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCRENN_HEIGHT-25-height);
+    self.tableView.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCRENN_HEIGHT-25);
     
 }
 
