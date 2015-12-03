@@ -74,6 +74,7 @@
         }
         [GZBaseRequest specialListCallback:^(id responseObject, NSError *error) {
             if (ServerSuccess(responseObject)) {
+                NSLog(@"datas ============== %@",_datas);
                 _datas = responseObject[@"data"][@"list"];
                 [self.tableView reloadData];
                 [[NSUserDefaults standardUserDefaults] setObject:_datas forKey:@"kHomeDatas"];
