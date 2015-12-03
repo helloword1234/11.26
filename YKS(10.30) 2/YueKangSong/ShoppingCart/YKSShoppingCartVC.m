@@ -19,7 +19,7 @@
 {
     NSTimer *theTimer;
 }
-// 1111111111111111111111111111111111111
+
 - (IBAction)Add;
 - (IBAction)Minus;
 //22222
@@ -78,6 +78,8 @@
     [super viewWillAppear:animated];
     if (![YKSUserModel isLogin]) {
         _bottomView.hidden = YES;
+        
+        [_datas removeAllObjects];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未登录"
                                                         message:@"请登录后查看购物车"
                                                        delegate:nil
@@ -90,6 +92,7 @@
             } else {
                 [YKSTools login:self];
             }
+           
         }];
     } else {
         [self requestData];
@@ -108,8 +111,10 @@
             [self showToastMessage:@"网络加载失败"];
             return ;
         }
+        
         if (ServerSuccess(responseObject)) {
             NSLog(@"购物车 = %@", responseObject);
+            
             [self handleData:responseObject];
         } else {
             [self showToastMessage:responseObject[@"msg"]];
@@ -498,6 +503,7 @@
         
         // 只是删除了UI界面
         [_datas removeObjectAtIndex:indexPath.row];
+        
         __block CGFloat totalPrice = 0;
         [_datas enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
             if ([obj[@"isBuy"] boolValue]) {

@@ -224,6 +224,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             _paytypeArray =[NSMutableArray arrayWithArray:responseObject[@"data"]];
            
             _wxArray = [NSMutableArray array];
+            _cashArray = [NSMutableArray array];
             [_paytypeArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *  stop) {
                 
                 if ([obj[@"pay_type"]isEqualToString:@"wx"])
@@ -235,6 +236,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                 else if ([obj[@"pay_type"]isEqualToString:@"cash"])
                 {
                     [_cashArray addObject:obj];
+                    
                 }
                [self.tableView reloadData];
             }];
@@ -354,8 +356,11 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             }
             //请求网络获取药品处方药非处方药详情
             [self showProgress];
-            NSDictionary *dict=@{@"channel":@""};
-            NSString *paytype = [_cashArray objectAtIndex:0];
+            
+            NSDictionary *dict=@{@"channel":@"cash"};
+         
+            NSDictionary *dic = [_cashArray objectAtIndex:0];
+
             [GZBaseRequest submitOrderContrast:@[@{@"gid": _drugInfo[@"gid"],
                                                    @"gcount": @(_buyCount),
                                                    @"gtag": _drugInfo[@"gtag"]}]
@@ -363,10 +368,13 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                                      addressId:_addressInfos[@"id"]
                                         images:_uploadImages
                                         charge:dict
-                                      pay_type:paytype
+                                      pay_type:dic[@"pay_type"]
+             
                                       callback:^(id responseObject, NSError *error) {
                                           [self hideProgress];
+                                          
                                           if (error) {
+                                              
                                               [self showToastMessage:@"网络加载失败"];
                                               return ;
                                           }
@@ -389,6 +397,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                                                   }
                                               }];
                                           } else {
+                                              
                                               [self showToastMessage:responseObject[@"msg"]];
                                           }
                                           
@@ -521,7 +530,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             {
                 [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
                 [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
-                self.channel = @"hd";
+                self.channel = @"cash";
             }
         }
     }

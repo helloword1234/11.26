@@ -65,6 +65,11 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 @property(strong,nonatomic)  NSMutableArray *didDatas;   // 已使用的数据
 @property(strong,nonatomic)  NSMutableArray *pastDatas;  // 已过期的数据
 @property(nonatomic,strong)NSMutableArray * couponArray2;
+
+//  支付渠道
+@property(nonatomic,strong)NSMutableArray *wxArray; //微信支付
+@property(nonatomic,strong)NSMutableArray *cashArray;//货到付款
+
 @end
 
 @implementation YKSShoppingCartBuyVC
@@ -176,17 +181,29 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 {
     
     [GZBaseRequest getpaytype:^(id responseObject, NSError *error) {
+        
         if (ServerSuccess(responseObject))
         {
-            _paytypeArray =[NSArray arrayWithArray:responseObject[@"data"]];
-            //            for (int  i = 0; i<array.count; i++)
-            //            {
-            //                NSDictionary *dic = [array objectAtIndex:i];
-            //
-            //                [[NSUserDefaults standardUserDefaults] setObject:dic forKey:@"pay_type"];
-            //            }
-            //            [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"pay_type"];
-            [self.tableView reloadData];
+            _paytypeArray =[NSMutableArray arrayWithArray:responseObject[@"data"]];
+            
+            _wxArray = [NSMutableArray array];
+            _cashArray = [NSMutableArray array];
+            [_paytypeArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *  stop) {
+                
+                if ([obj[@"pay_type"]isEqualToString:@"wx"])
+                {
+                    
+                    [_wxArray addObject:obj];
+                    
+                }
+                else if ([obj[@"pay_type"]isEqualToString:@"cash"])
+                {
+                    [_cashArray addObject:obj];
+                }
+                [self.tableView reloadData];
+            }];
+            
+            
         }
         else{
             [self showToastMessage:responseObject[@"msg"]];
@@ -194,6 +211,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         }
     }];
 }
+
 
 #pragma mark - custom
 - (void)addImageAction:(YKSCloseButton *)sender {
@@ -282,6 +300,10 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     if ([self.channel isEqualToString: @"wx"]) {
         
         NSDictionary *dict =@{@"channel" : self.channel};
+        
+        NSDictionary *dic = [_wxArray objectAtIndex:0];
+        
+
         YKSShoppingCartBuyVC *__weak weakSelf = self;
         //[self showAlertWait];
         
@@ -291,7 +313,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                              addressId:_addressInfos[@"id"]
                                 images:_uploadImages
                                 charge:dict
-                              pay_type:@"2"
+                              pay_type:dic[@"pay_type"]
      
                               callback:^(id responseObject, NSError *error) {
                                   [self hideProgress];
@@ -355,13 +377,16 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 
     [self showProgress];
     //提交信息,这里会清空这个购物车的
-     NSDictionary *dict=@{@"channel":@""};
+    NSDictionary *dict=@{@"channel":@"cash"};
+    
+    NSDictionary *dic = [_cashArray objectAtIndex:0];
+    
     [GZBaseRequest submitOrderContrast:gcontrast
                               couponid:_couponInfo ? _couponInfo[@"id"] : nil
                              addressId:_addressInfos[@"id"]
                                 images:_uploadImages
                                 charge:dict
-                              pay_type:@"1"
+                              pay_type:dic[@"pay_type"]
      
                               callback:^(id responseObject, NSError *error) {
                                   [self hideProgress];

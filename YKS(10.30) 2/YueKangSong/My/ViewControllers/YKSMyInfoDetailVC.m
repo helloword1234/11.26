@@ -66,7 +66,11 @@
     }];
 #endif
 }
-
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.phoneField endEditing:YES];
+    [self.nameField endEditing:YES];
+}
 #pragma mark - custom
 - (void)textFiledUserInteractionEnabled:(BOOL)enabled {
     _nameField.userInteractionEnabled = enabled;

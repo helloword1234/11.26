@@ -51,8 +51,6 @@
         [alert show];
         [alert callBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == 0) {
-                self.tabBarController.selectedIndex = 0;
-            } else {
                 [YKSTools login:self];
             }
         }];
