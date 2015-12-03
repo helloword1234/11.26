@@ -14,6 +14,7 @@
 #import <MJRefresh/MJRefresh.h>
 #import "YKSOrderDetailViewController.h"
 #import <UMSocial.h>
+#import "YKSUserModel.h"
 
 @interface YKSOrderViewController () <DZNSegmentedControlDelegate, UITableViewDataSource, UITableViewDelegate, UMSocialUIDelegate>
 
@@ -36,6 +37,28 @@
 
 @implementation YKSOrderViewController
 
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (![YKSUserModel isLogin]) {
+       // _bottomView.hidden = YES;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未登录"
+                                                        message:@"请登录后查看购物车"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"登录"
+                                              otherButtonTitles: nil];
+
+        [alert show];
+        [alert callBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex == 0) {
+                self.tabBarController.selectedIndex = 0;
+            } else {
+                [YKSTools login:self];
+            }
+        }];
+    }
+}
+
 - (UIView *)shareView
 {
     if (!_shareView) {
@@ -48,11 +71,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+     self.index = 1;
     
-    self.index = 1;
-    
-    [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.view];
-    
+    [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
+ 
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 20.0f)];
     
     _status = YKSOrderStatusPending;
@@ -66,6 +89,7 @@
         [bself requestDataByPage:bself.datas.count / 10 + 1 orderStatus:bself.status];
     }];
     self.tableView.footer.hidden = YES;
+    [self.tableView reloadData];
 }
 
 #pragma mark - custom
@@ -198,7 +222,8 @@
                                                [self.tableView reloadData];
                                            }
                                        } else {
-                                           [self showToastMessage:responseObject[@"msg"] time:0.5f];
+
+                                           // [self showToastMessage:responseObject[@"msg"] time:0.5f];
                                        }
                                        
                                    }];

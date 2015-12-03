@@ -215,10 +215,17 @@
     [self performSegueWithIdentifier:@"gotoYKSSearchStreetVC" sender:nil];
 }
 
+
+-(void)textFieldChange:(UITextField *)textField
+{
+    if (textField == _nameField) {
+        if (textField.text.length > 6) {
+            textField.text = [textField.text substringToIndex:6];
+        }
+    }
+}
 #pragma mark - IBOutlets
 - (IBAction)confirm:(id)sender {
-    
-    
     
     [self.view endEditing:YES];
     
@@ -226,8 +233,14 @@
     _nameField.text=name;
     if (IS_EMPTY_STRING(_nameField.text)) {
         [self showToastMessage:@"请填写收货人"];
+
         return ;
     }
+    
+    [_nameField addTarget:self action:@selector(textFieldChange:) forControlEvents:UIControlEventEditingChanged];
+   // 这样就可以更好地限制输入长度：
+    
+
     if (IS_EMPTY_STRING(_phoneField.text)) {
         [self showToastMessage:@"请填写手机号"];
         return;
@@ -249,7 +262,7 @@
         return;
     }
     
-    NSString *detail=[YKSTools nameFormatter:_detailAddressField.text];
+    NSString *detail=[YKSTools detailAddress:_detailAddressField.text];
     _detailAddressField.text=detail;
     if (IS_EMPTY_STRING(_detailAddressField.text)) {
         [self showToastMessage:@"请填写详细地址"];
@@ -639,6 +652,7 @@
     
     UIStoryboard *mainBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     YKSAddAddressVC *vc = [mainBoard instantiateViewControllerWithIdentifier:@"YKSAddAddressVC"];
+    
     vc.addressInfo = [addressInfo mutableCopy];
     vc.isCurrentLocation = YES;
     vc.hidesBottomBarWhenPushed = YES;
@@ -705,5 +719,8 @@
     
     
 }
+
+
+
 
 @end

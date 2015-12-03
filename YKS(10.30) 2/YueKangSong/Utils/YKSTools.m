@@ -58,6 +58,19 @@
     return name;
 }
 
++(NSString *)detailAddress:(NSString *)address
+{
+    NSString *addressRegex = @"[^\u4e00-\u9fa5a-zA-Z0-9]";
+    
+    NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:
+                                              
+                                              addressRegex options:0 error:nil];
+    address  = [regularExpression stringByReplacingMatchesInString:address options:0 range:NSMakeRange(0, address.length) withTemplate:@""];
+    
+    return address;
+    
+}
+
 + (NSString *)formatterDateStamp:(NSInteger)timestamp {
     NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:timestamp];
     NSDateFormatter *dateFormatter2 = [[NSDateFormatter alloc] init];
@@ -191,7 +204,10 @@
     } else if (status == YKSOrderStatusShipping) {
         return @"配送中";
     } else if (status == YKSOrderStatusReceived) {
-        return @"订单已签收";
+        return @"已签收";
+    }else if (status == YKSOrderStatusCancel)
+    {
+        return @"已取消";
     }
     return @"";
 }

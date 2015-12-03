@@ -179,11 +179,10 @@
     searchBtn.frame=CGRectMake(80, 50, width, 30);
 
     
-    [searchBtn addTarget:self action:@selector(gotoSearchAddress) forControlEvents:UIControlEventTouchUpInside];
+    [searchBtn addTarget:self action:@selector(gotoSearchAddress) forControlEvents:UIControlEventTouchDown];
     
     
-    [searchBtn setImage:[UIImage imageNamed:@"souSuoKuang"] forState:UIControlStateNormal];
-
+    [searchBtn setImage:[UIImage imageNamed:@"detail"] forState:UIControlStateNormal];
     
     [topView addSubview:searchBtn];
     
