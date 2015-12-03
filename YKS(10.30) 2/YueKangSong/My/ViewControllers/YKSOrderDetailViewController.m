@@ -27,6 +27,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     if (!IS_EMPTY_STRING(_orderInfo[@"express_orderid"])) {
+        
         [GZBaseRequest expressInfo:_orderInfo[@"express_orderid"]
                           callback:^(id responseObject, NSError *error) {
                               if (error) {

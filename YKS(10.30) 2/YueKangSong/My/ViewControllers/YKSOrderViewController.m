@@ -14,6 +14,7 @@
 #import <MJRefresh/MJRefresh.h>
 #import "YKSOrderDetailViewController.h"
 #import <UMSocial.h>
+#import "YKSUserModel.h"
 
 @interface YKSOrderViewController () <DZNSegmentedControlDelegate, UITableViewDataSource, UITableViewDelegate, UMSocialUIDelegate>
 
@@ -36,6 +37,27 @@
 
 @implementation YKSOrderViewController
 
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (![YKSUserModel isLogin]) {
+       // _bottomView.hidden = YES;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未登录"
+                                                        message:@"请登录后查看购物车"
+                                                       delegate:nil
+                                              cancelButtonTitle:@""
+                                              otherButtonTitles:@"登录", nil];
+        [alert show];
+        [alert callBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex == 0) {
+                self.tabBarController.selectedIndex = 0;
+            } else {
+                [YKSTools login:self];
+            }
+        }];
+    }
+}
+
 - (UIView *)shareView
 {
     if (!_shareView) {
@@ -48,11 +70,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.index = 1;
-    
     [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.view];
-    
+ 
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 20.0f)];
     
     _status = YKSOrderStatusPending;

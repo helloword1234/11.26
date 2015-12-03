@@ -215,14 +215,15 @@
     [self performSegueWithIdentifier:@"gotoYKSSearchStreetVC" sender:nil];
 }
 
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-//{
-//    if (textField == _nameField.text) {
-//        if (textField.length > 20) return NO;
-//    }
-//    
-//    return YES;
-//}
+
+-(void)textFieldChange:(UITextField *)textField
+{
+    if (textField == _nameField) {
+        if (textField.text.length > 6) {
+            textField.text = [textField.text substringToIndex:6];
+        }
+    }
+}
 #pragma mark - IBOutlets
 - (IBAction)confirm:(id)sender {
     
@@ -235,7 +236,11 @@
 
         return ;
     }
-   
+    
+    [_nameField addTarget:self action:@selector(textFieldChange:) forControlEvents:UIControlEventEditingChanged];
+   // 这样就可以更好地限制输入长度：
+    
+
     if (IS_EMPTY_STRING(_phoneField.text)) {
         [self showToastMessage:@"请填写手机号"];
         return;
@@ -714,5 +719,8 @@
     
     
 }
+
+
+
 
 @end

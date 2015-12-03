@@ -204,7 +204,10 @@
     } else if (status == YKSOrderStatusShipping) {
         return @"配送中";
     } else if (status == YKSOrderStatusReceived) {
-        return @"订单已签收";
+        return @"已签收";
+    }else if (status == YKSOrderStatusCancel)
+    {
+        return @"已取消";
     }
     return @"";
 }
