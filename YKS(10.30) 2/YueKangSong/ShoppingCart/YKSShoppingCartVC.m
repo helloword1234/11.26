@@ -15,6 +15,8 @@
 #import "YKSShoppingCartBuyVC.h"
 #import "YKSLineView.h"
 #import <MBProgressHUD.h>
+#import "YKSDrugListViewController.h"
+#import "YKSDrugListCell.h"
 @interface YKSShoppingCartVC () <UITableViewDelegate, UITableViewDataSource>
 {
     NSTimer *theTimer;
@@ -76,6 +78,7 @@
 //这里就请求到数据了
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
     if (![YKSUserModel isLogin]) {
         _bottomView.hidden = YES;
         
@@ -348,7 +351,19 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSLog(@"self.datas[indexPath.row] ========= %@",self.datas[indexPath.row]);
+
 }
+
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    if ([segue.identifier isEqualToString:@"drugDetail"]) {
+//        YKSDrugListViewController *vc = segue.destinationViewController;
+//        YKSDrugListCell *cell = (YKSDrugListCell *)sender;
+//       // vc.drugInfo = cell.drugInfo;
+//    }
+//    // Get the new view controller using [segue destinationViewController].
+//    // Pass the selected object to the new view controller.
+//}
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -411,10 +426,17 @@
 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     if ([segue.identifier isEqualToString:@"gotoYKSShoppingCartBuyVC"]) {
         YKSShoppingCartBuyVC *buyVC = segue.destinationViewController;
         buyVC.drugs = sender;
         buyVC.totalPrice = _totalPrice;
+    }else if ([segue.identifier isEqualToString:@"gotoDrug"])
+    {
+        self.tabBarController.tabBar.hidden = YES;
+        YKSDrugListViewController *vc = segue.destinationViewController;
+        YKSDrugListCell *cell = (YKSDrugListCell *)sender;
+        vc.drugInfo = cell.drugInfo;
     }
 }
 
