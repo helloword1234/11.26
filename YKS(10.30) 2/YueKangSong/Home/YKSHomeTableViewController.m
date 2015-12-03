@@ -138,20 +138,14 @@
         if ( ! ([dic isEqualToDictionary:@{}] || (dic == nil) || ( dic == NULL) )){
             
             INTULocationManager *locMgr = [INTULocationManager sharedInstance];
-            [locMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyNeighborhood
-                                               timeout:10.0f
+            [locMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyNeighborhood timeout:10.0f
                                                  block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-                                                     
             NSString *latLongString = [[NSString alloc] initWithFormat:@"%f,%f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude];
-                                                 
             [[GZHTTPClient shareClient] GET:BaiduMapGeocoderApi
                                  parameters:@{@"location": latLongString}
-             
-                                    success:^(NSURLSessionDataTask *task, id responseObject) {
-                                    }
+                                    success:^(NSURLSessionDataTask *task, id responseObject) {}
                                     failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                    }];
-                                                 }];
+                                    }];}];
             
             [self setBtnTitleWithCurrentAddress];
         }

@@ -19,5 +19,5 @@ typedef NS_ENUM(NSInteger, YKSDrugListType) {
 @property (strong, nonatomic) NSArray *datas;
 @property (strong, nonatomic) NSString *specialId;
 @property (assign, nonatomic) YKSDrugListType drugListType;
-
+@property (strong, nonatomic) NSDictionary *drugInfo;
 @end

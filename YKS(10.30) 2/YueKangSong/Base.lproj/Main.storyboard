@@ -2306,7 +2306,7 @@
                         <viewControllerLayoutGuide type="bottom" id="K0X-RO-mOv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zuC-Nm-981">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -2854,7 +2854,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QaO-AZ-5pS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2074" y="258"/>
+            <point key="canvasLocation" x="1359" y="-552"/>
         </scene>
         <!--确认订单-->
         <scene sceneID="qIf-lO-3jo">
@@ -4279,11 +4279,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="405"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="shoppingCartListCell" id="Atc-gu-YuL" userLabel="ShoppingCartList" customClass="YKSShoppingCartListCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="shoppingCartListCell" id="Atc-gu-YuL" userLabel="ShoppingCartList" customClass="YKSShoppingCartListCell">
                                         <rect key="frame" x="0.0" y="22" width="414" height="110"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Atc-gu-YuL" id="dpA-V0-8lQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="109"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="381" height="109"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rqZ-sI-eWs">
@@ -4411,6 +4411,7 @@
                                             <outlet property="recipeFlagView" destination="fRk-cG-Xcv" id="Dql-4L-Xit"/>
                                             <outlet property="selectButton" destination="RjN-kU-XSo" id="7oR-Fe-CxB"/>
                                             <outlet property="titleLabel" destination="WyI-Lo-Rm1" id="I7c-wW-JIq"/>
+                                            <segue destination="gfh-7B-ni5" kind="push" identifier="gotoDrug" id="nBh-hM-kvj"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -4472,7 +4473,7 @@
                     </tableViewCellContentView>
                 </tableViewCell>
             </objects>
-            <point key="canvasLocation" x="1047" y="292"/>
+            <point key="canvasLocation" x="901" y="258"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="nh7-Xx-nq8">
@@ -5290,12 +5291,12 @@
         <image name="间接邀请.png" width="139" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jy8-um-db3"/>
-        <segue reference="X8J-kY-NHO"/>
         <segue reference="yPI-Be-LDN"/>
         <segue reference="ZiF-fl-Tes"/>
         <segue reference="3mk-1C-4Cj"/>
+        <segue reference="X8J-kY-NHO"/>
+        <segue reference="jy8-um-db3"/>
+        <segue reference="nBh-hM-kvj"/>
         <segue reference="8Xj-f4-WUK"/>
-        <segue reference="ZBU-eq-TkH"/>
     </inferredMetricsTieBreakers>
 </document>
