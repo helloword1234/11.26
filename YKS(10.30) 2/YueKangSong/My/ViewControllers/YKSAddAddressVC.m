@@ -237,7 +237,7 @@
         return ;
     }
     
-    [_nameField addTarget:self action:@selector(textFieldChange:) forControlEvents:UIControlEventEditingChanged];
+    [self textFieldChange:_nameField];
    // 这样就可以更好地限制输入长度：
     
 
