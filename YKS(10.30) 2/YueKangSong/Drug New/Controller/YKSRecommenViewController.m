@@ -33,6 +33,9 @@
 
 @property (strong, nonatomic) NSDictionary *info;
 
+
+@property (nonatomic,strong) NSMutableArray *datasArray;
+
 @end
 
 @implementation YKSRecommenViewController
@@ -69,11 +72,19 @@
 //一键加入购物车 代理方法
 - (void)addShopping:(UIButton *)addButton
 {
-    if (self.datas.count==0) {
+    self.datasArray = [NSMutableArray array];
+    [self.datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (![obj[@"repertory"] isEqualToString:@"0"]) {
+            [self.datasArray addObject:obj];
+        }
+         NSLog(@"self.datasArray ================= %ld",self.datasArray.count);
+
+    }];
+    
+    if (self.datasArray.count==0) {
         [self showToastMessage:@"没有商品可以加入购物车！！！"];
         return;
     }
-    
     [self jumpAddCard];
 }
 
@@ -138,7 +149,7 @@
                         NSLog(@"responseObject = %@", responseObject);
                         NSDictionary *dic = responseObject[@"data"];
                         if ([dic isKindOfClass:[NSDictionary class]] && dic[@"addresslist"]) {
-                            [YKSUserModel shareInstance].addressLists = _datas;
+                            [YKSUserModel shareInstance].addressLists = _datasArray;
                         }
                     } else {
                         [self showToastMessage:responseObject[@"msg"]];
@@ -167,7 +178,7 @@
         
         __block NSMutableArray *gcontrasts = [NSMutableArray new];
         __block NSMutableArray *gids = [NSMutableArray new];
-        [_datas enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+        [_datasArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
             NSDictionary *dic = @{@"gid": obj[@"gid"],
                                   @"gcount": @(1),
                                   @"gtag": obj[@"gtag"],

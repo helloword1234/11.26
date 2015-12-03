@@ -18,6 +18,8 @@
 @property (nonatomic,strong) UILabel *priceLabel;
 //显示药品主要治疗信息
 @property (nonatomic,strong) UILabel *medicineLabel;
+//已售罄
+@property (nonatomic,strong) UIImageView *nullImage;
 @end
 
 @implementation YKSPlanDisPlayCell
@@ -52,10 +54,26 @@
     return _medicineLabel;
     
 }
-
+- (UIImageView *)nullImage
+{
+    if (!_nullImage) {
+        _nullImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"soldout"]];
+    }
+    return _nullImage;
+}
 
 - (void)setDrugInfo:(NSDictionary *)drugInfo {
     _drugInfo = drugInfo;
+    
+    
+    self.nullImage.frame = CGRectMake(SCREEN_WIDTH - 100, 10, 80, 80);
+    [self addSubview:self.nullImage];
+    if ([_drugInfo[@"repertory"] isEqualToString:@"0"])
+    {
+        self.nullImage.hidden = NO;
+    }else{
+        self.nullImage.hidden = YES;
+    }
     [self.image sd_setImageWithURL:[NSURL URLWithString:drugInfo[@"glogo"]] placeholderImage:[UIImage imageNamed:@"default160"]];
     self.image.frame = CGRectMake(20, 20, 50, 60);
     [self addSubview:self.image];
