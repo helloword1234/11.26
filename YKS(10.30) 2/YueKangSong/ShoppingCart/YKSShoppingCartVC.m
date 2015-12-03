@@ -68,8 +68,8 @@
     [YKSTools insertEmptyImage:@"shopping_cart_empty"
                           text:@"购物车是空的"
                           view:self.view];
-    
 
+    
 //    theTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(timer) userInfo:nil repeats:YES];
 }
 
@@ -78,8 +78,13 @@
     [super viewWillAppear:animated];
     if (![YKSUserModel isLogin]) {
         _bottomView.hidden = YES;
+       // NSLog(@"%@",_datas);
         
         [_datas removeAllObjects];
+      //  NSLog(@"%@",_datas);
+
+        [self.tableView reloadData];
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未登录"
                                                         message:@"请登录后查看购物车"
                                                        delegate:nil
@@ -92,8 +97,7 @@
             } else {
                 [YKSTools login:self];
             }
-           
-        }];
+         }];
     } else {
         [self requestData];
     }

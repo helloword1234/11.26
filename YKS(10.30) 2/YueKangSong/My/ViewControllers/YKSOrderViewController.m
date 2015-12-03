@@ -42,6 +42,9 @@
     [super viewWillAppear:animated];
     if (![YKSUserModel isLogin]) {
        // _bottomView.hidden = YES;
+        [_datas removeAllObjects];
+        [self.tableView reloadData];
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未登录"
                                                         message:@"请登录后查看购物车"
                                                        delegate:nil
@@ -72,7 +75,7 @@
 
      self.index = 1;
     
-    [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
+      //[YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
  
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 20.0f)];
     
@@ -87,6 +90,22 @@
         [bself requestDataByPage:bself.datas.count / 10 + 1 orderStatus:bself.status];
     }];
     self.tableView.footer.hidden = YES;
+    
+//    if ((_pendingDatas = nil))
+//    {
+//        [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
+//    }
+//    
+//    else if ((_shippingDatas = nil))
+//    
+//    {
+//        [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
+//    }
+//    
+//    else if ((_receivedDatas = nil))
+//    {
+//       [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
+//    }
     [self.tableView reloadData];
 }
 
@@ -170,10 +189,12 @@
                                        } else {
                                            [self.tableView.footer endRefreshing];
                                        }
+                                       
                                        if (error) {
                                            [self showToastMessage:@"网络加载失败"];
                                            return ;
                                        }
+                                       
                                        if (ServerSuccess(responseObject)) {
                                            NSDictionary *dic = responseObject[@"data"];
                                            if ([dic isKindOfClass:[NSDictionary class]] && dic[@"glist"]) {
@@ -220,7 +241,7 @@
                                                [self.tableView reloadData];
                                            }
                                        } else {
-
+                                          [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
                                            // [self showToastMessage:responseObject[@"msg"] time:0.5f];
                                        }
                                        

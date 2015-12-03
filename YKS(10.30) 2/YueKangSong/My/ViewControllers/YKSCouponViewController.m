@@ -148,11 +148,6 @@
     
     
     [_segcontainView addSubview:_segmentControl];
-
-    
-    
-    
-    
     _didDatas = [NSMutableArray array];
     _pastDatas = [NSMutableArray array];
     _neverDatas = [NSMutableArray array];
@@ -180,6 +175,7 @@
 
 #pragma mark - custom
 - (void)requestDataByPage:(NSInteger)page {
+    
     [GZBaseRequest couponList:page
                      callback:^(id responseObject, NSError *error) {
                          NSLog(@"%@",responseObject);
@@ -235,6 +231,7 @@
         [self showToastMessage:@"请输入优惠劵编号"];
         return;
     }
+    
     [GZBaseRequest convertCouponBByCode:_textField.text
                                callback:^(id responseObject, NSError *error) {
                                    NSLog(@"responseObject = %@", responseObject);
@@ -242,6 +239,7 @@
                                        [self showToastMessage:@"网络加载失败"];
                                        return ;
                                    }
+                                   
                                    if (ServerSuccess(responseObject)) {
                                        [self showToastMessage:@"兑换成功"];
                                        _textField.text = @"";

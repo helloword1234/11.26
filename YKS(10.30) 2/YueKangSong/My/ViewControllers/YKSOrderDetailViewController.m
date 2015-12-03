@@ -26,17 +26,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     if (!IS_EMPTY_STRING(_orderInfo[@"express_orderid"])) {
         
         [GZBaseRequest expressInfo:_orderInfo[@"express_orderid"]
                           callback:^(id responseObject, NSError *error) {
+                              
                               if (error) {
                                   [self showToastMessage:@"网络加载失败"];
                                   return ;
                               }
                               
                               if (ServerSuccess(responseObject)) {
-                                  NSArray *progressArray = responseObject[@"data"][@"orderDetail"];
+                                 // NSArray *progressArray = responseObject[@"data"][@"orderDetail"];
                                   
                                   
                                   NSDictionary *dic = responseObject[@"data"][@"orderDetail"];
@@ -221,7 +223,7 @@
                                       
                                       // 状态判断
                                       
-                                      if (progressArray.count==1)
+                                      if (times.count == 1)
                                       {
                                           dJbtn.selected=YES;
                                           kDbtn.selected=NO;
@@ -230,17 +232,19 @@
                                           [Btn3 setTitle:@"暂无信息" forState: UIControlStateNormal];
                                           
                                       }
-                                      else if(progressArray.count == 2)
+                                      
+                                      else if(times.count == 2)
                                       {
-                                          dJbtn.selected=NO;
+                                          dJbtn.selected=YES;
                                           kDbtn.selected=YES;
                                           qSbtn.selected=NO;
                                           [Btn3 setTitle:@"暂无信息" forState:UIControlStateNormal];
                                       }
-                                      else if (progressArray.count ==3)
+                                      
+                                      else if (times.count == 3)
                                       {
-                                          dJbtn.selected =NO;
-                                          kDbtn.selected =NO;
+                                          dJbtn.selected =YES;
+                                          kDbtn.selected =YES;
                                           qSbtn.selected=YES;
                                       }
                                       
