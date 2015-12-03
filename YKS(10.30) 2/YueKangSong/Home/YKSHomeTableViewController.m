@@ -122,7 +122,7 @@
     _addressBtn.frame = CGRectMake(0, 0, SCREEN_WIDTH - 10, 25);
     self.navigationItem.title = @"";
     self.tableView.tableHeaderView = [self tableviewHeaderView];
-    
+    [self startSingleLocationRequest];
     [self requestDrugCategoryList];
     
     [self requestData];
@@ -131,21 +131,39 @@
 
 //地址逻辑判断
 -(void)diZhiLuoJiPanDuan{
-if ([YKSUserModel isLogin]) {
-    
-    NSDictionary *dic=[YKSUserModel shareInstance].currentSelectAddress;
-    
-    if ( ! ([dic isEqualToDictionary:@{}] || (dic == nil) || ( dic == NULL) )){
-        [self setBtnTitleWithCurrentAddress];
+    if ([YKSUserModel isLogin]) {
+        
+        NSDictionary *dic=[YKSUserModel shareInstance].currentSelectAddress;
+        
+        if ( ! ([dic isEqualToDictionary:@{}] || (dic == nil) || ( dic == NULL) )){
+            
+            INTULocationManager *locMgr = [INTULocationManager sharedInstance];
+            [locMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyNeighborhood
+                                               timeout:10.0f
+                                                 block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+                                                     
+            NSString *latLongString = [[NSString alloc] initWithFormat:@"%f,%f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude];
+                                                 
+            [[GZHTTPClient shareClient] GET:BaiduMapGeocoderApi
+                                 parameters:@{@"location": latLongString}
+             
+                                    success:^(NSURLSessionDataTask *task, id responseObject) {
+                                    }
+                                    failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                    }];
+                                                 }];
+            
+            [self setBtnTitleWithCurrentAddress];
+        }
+        else {
+            [self startSingleLocationRequest];
+        }
     }
     else {
         [self startSingleLocationRequest];
     }
-}
-else {
-    [self startSingleLocationRequest];
-}
-[self setAddressBtnFrame];
+    
+    [self setAddressBtnFrame];
 }
 //请求药品类别列表数据
 -(void)requestDrugCategoryList{
@@ -257,7 +275,7 @@ else {
                  [UIViewController setMyLocation:dic];
                  
              }
-          [self setAddressBtnTitle];
+        [self setAddressBtnTitle];
                                  
         [self setAddressBtnFrame];
          }
