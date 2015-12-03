@@ -29,6 +29,7 @@
 + (NSAttributedString *)priceString:(CGFloat)price smallSize:(CGFloat)smallSize largeSize:(CGFloat)largeSize;
 
 +(NSString *)nameFormatter:(NSString *)name;
++(NSString *)detailAddress:(NSString *)address;
 
 + (void)login:(UIViewController *)parentViewController;
 

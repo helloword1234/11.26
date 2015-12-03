@@ -215,10 +215,16 @@
     [self performSegueWithIdentifier:@"gotoYKSSearchStreetVC" sender:nil];
 }
 
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//    if (textField == _nameField.text) {
+//        if (textField.length > 20) return NO;
+//    }
+//    
+//    return YES;
+//}
 #pragma mark - IBOutlets
 - (IBAction)confirm:(id)sender {
-    
-    
     
     [self.view endEditing:YES];
     
@@ -226,8 +232,10 @@
     _nameField.text=name;
     if (IS_EMPTY_STRING(_nameField.text)) {
         [self showToastMessage:@"请填写收货人"];
+
         return ;
     }
+   
     if (IS_EMPTY_STRING(_phoneField.text)) {
         [self showToastMessage:@"请填写手机号"];
         return;
@@ -249,7 +257,7 @@
         return;
     }
     
-    NSString *detail=[YKSTools nameFormatter:_detailAddressField.text];
+    NSString *detail=[YKSTools detailAddress:_detailAddressField.text];
     _detailAddressField.text=detail;
     if (IS_EMPTY_STRING(_detailAddressField.text)) {
         [self showToastMessage:@"请填写详细地址"];
@@ -639,6 +647,7 @@
     
     UIStoryboard *mainBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     YKSAddAddressVC *vc = [mainBoard instantiateViewControllerWithIdentifier:@"YKSAddAddressVC"];
+    
     vc.addressInfo = [addressInfo mutableCopy];
     vc.isCurrentLocation = YES;
     vc.hidesBottomBarWhenPushed = YES;

@@ -454,7 +454,7 @@
         if (obj[@"needBuyCount"]<0) {
             [obj setValue:@"0" forKey:@"needBuyCount"];
         }
-        
+
         
         oldStartPrice += ( [obj[@"needBuyCount"] integerValue])  * [obj[@"gprice"] floatValue];
     }];
