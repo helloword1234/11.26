@@ -139,16 +139,11 @@
         NSDictionary *dic=[YKSUserModel shareInstance].currentSelectAddress;
         
         if ( ! ([dic isEqualToDictionary:@{}] || (dic == nil) || ( dic == NULL) )){
-            
-            INTULocationManager *locMgr = [INTULocationManager sharedInstance];
-            [locMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyNeighborhood timeout:10.0f
-                                                 block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-            NSString *latLongString = [[NSString alloc] initWithFormat:@"%f,%f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude];
             [[GZHTTPClient shareClient] GET:BaiduMapGeocoderApi
-                                 parameters:@{@"location": latLongString}
+                                 parameters:@{@"location": dic}
                                     success:^(NSURLSessionDataTask *task, id responseObject) {}
                                     failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                    }];}];
+                                    }];
             
             [self setBtnTitleWithCurrentAddress];
         }

@@ -28,13 +28,6 @@
 @property (assign, nonatomic) YKSOrderStatus status;
 @property (assign, nonatomic) NSInteger page;
 
-//没有订单数据的占位图片
-@property (nonatomic,strong) UIImageView *nullImage;
-@property (nonatomic,strong) UIImageView *OnNullImage;
-//占位label
-@property (nonatomic,strong) UILabel *nullLabel;
-@property (nonatomic,strong) UILabel *OnNullLabel;
-
 @property (nonatomic,assign) NSInteger index;
 //这该取消
 @property (nonatomic,strong) UIView *shareView;
@@ -42,55 +35,10 @@
 @end
 
 @implementation YKSOrderViewController
-- (UIImageView *)nullImage
-{
-    if (!_nullImage) {
-        _nullImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"order_list_empty"]];
-        _nullImage.frame = CGRectZero;
-        _nullImage.hidden = YES;
-    }
-    return _nullImage;
-}
-- (UILabel *)nullLabel
-{
-    if (!_nullLabel) {
-        _nullLabel = [[UILabel alloc] init];
-        _nullLabel.frame = CGRectZero;
-        _nullLabel.text = @"您的订单为空";
-        _nullLabel.font = [UIFont systemFontOfSize:12];
-        _nullLabel.textColor = [UIColor darkGrayColor];
-        _nullLabel.hidden = YES;
-    }
-    return _nullLabel;
-}
-- (UIImageView *)OnNullImage
-{
-    if (!_OnNullImage) {
-        _OnNullImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"order_list_empty"]];
-        _OnNullImage.frame = CGRectZero;
-        _OnNullImage.hidden = YES;
-    }
-    return _OnNullImage;
-}
-- (UILabel *)_OnNullLabel
-{
-    if (!_OnNullLabel) {
-        _OnNullLabel = [[UILabel alloc] init];
-        _OnNullLabel.frame = CGRectZero;
-        _OnNullLabel.text = @"您的订单为空";
-        _OnNullLabel.font = [UIFont systemFontOfSize:12];
-        _OnNullLabel.textColor = [UIColor darkGrayColor];
-        _OnNullLabel.hidden = YES;
-    }
-    return _OnNullLabel;
-}
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    
-    [self.tableView addSubview:self.nullImage];
-    [self.tableView addSubview:self.nullLabel];
         if (![YKSUserModel isLogin]) {
        // _bottomView.hidden = YES;
         [_datas removeAllObjects];
@@ -142,21 +90,7 @@
     }];
     self.tableView.footer.hidden = YES;
     
-//    if ((_pendingDatas = nil))
-//    {
-//        [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
-//    }
-//    
-//    else if ((_shippingDatas = nil))
-//    
-//    {
-//        [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
-//    }
-//    
-//    else if ((_receivedDatas = nil))
-//    {
-//       [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
-//    }
+
     [self.tableView reloadData];
 }
 
@@ -185,8 +119,6 @@
         _datas = _pendingDatas;
     } else if (control.selectedSegmentIndex == 1) {
         _status = YKSOrderStatusShipping;
-        [self.tableView addSubview:self.OnNullImage];
-        [self.tableView addSubview:self.OnNullLabel];
         if (!_shippingDatas) {
             _datas = nil;
             [self requestDataByPage:1 orderStatus:YKSOrderStatusShipping];
@@ -280,58 +212,6 @@
                                                    _receivedDatas = tempArray;
                                                }else if (status == YKSOrderStatusCancel){
                                                    _cancelDatas = tempArray;
-                                               }
-                                               
-                                               
-                                               if (_pendingDatas.count == 0)
-                                               {
-                                                   self.nullImage.frame = CGRectMake(SCREEN_WIDTH/2 - 50, (SCRENN_HEIGHT - 64)/2 - 100, 100, 100);
-                                                   self.nullLabel.frame = CGRectMake(self.nullImage.frame.origin.x + 10, self.nullImage.frame.origin.y + self.nullImage.frame.size.height - 10, 200, 50);
-//                                                   self.nullLabel.hidden = NO;
-//                                                   self.nullImage.hidden = NO;
-                                               }
-                                               else{
-                                                   _pendingDatas = nil;
-                                                   self.nullImage.frame = CGRectZero;
-                                                   self.nullLabel.frame = CGRectZero;
-//                                                   self.nullImage.hidden = YES;
-//                                                   self.nullLabel.hidden = YES;
-                                               }
-                                               
-                                               if (_shippingDatas.count == 0)
-                                               {
-                                                   self.OnNullImage.frame = CGRectMake(SCREEN_WIDTH/2 - 50, (SCRENN_HEIGHT - 64)/2 - 100, 100, 100);
-                                                   self.OnNullLabel.frame = CGRectMake(self.nullImage.frame.origin.x + 10, self.nullImage.frame.origin.y + self.nullImage.frame.size.height - 10, 200, 50);
-//                                                   self.nullLabel.hidden = NO;
-//                                                   self.nullImage.hidden = NO;
-                                               }
-                                               else{
-                                                   _shippingDatas = nil;
-                                                   self.OnNullImage.frame = CGRectZero;
-                                                   self.OnNullLabel.frame = CGRectZero;
-//                                                   self.nullImage.hidden = YES;
-//                                                   self.nullLabel.hidden = YES;
-                                               }
-                                               
-                                               if (_receivedDatas.count == 0)
-                                               {
-                                                   self.nullLabel.hidden = NO;
-                                                   self.nullImage.hidden = NO;
-                                               }
-                                               else{
-                                                   _receivedDatas = nil;
-                                                   self.nullImage.hidden = YES;
-                                                   self.nullLabel.hidden = YES;
-                                               }
-                                               if (_cancelDatas.count == 0)
-                                               {
-                                                   self.nullLabel.hidden = NO;
-                                                   self.nullImage.hidden = NO;
-                                               }
-                                               else{
-                                                   _cancelDatas = nil;
-                                                   self.nullImage.hidden = YES;
-                                                   self.nullLabel.hidden = YES;
                                                }
                                                
                                                _datas = tempArray;
