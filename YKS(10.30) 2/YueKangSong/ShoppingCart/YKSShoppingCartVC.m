@@ -240,6 +240,7 @@
         return ;
     }
     if ([sender.titleLabel.text isEqualToString:@"购买"]) {
+        self.tabBarController.tabBar.hidden=YES;
         [self performSegueWithIdentifier:@"gotoYKSShoppingCartBuyVC" sender:selectDatas];
     }
     
