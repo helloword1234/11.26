@@ -22,7 +22,9 @@
     // Do any additional setup after loading the view.
     [_textView becomeFirstResponder];
 }
-
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [_textView resignFirstResponder];
+}
 - (IBAction)submitFeedback:(id)sender {
     if (IS_EMPTY_STRING(_textView.text)) {
         [self showToastMessage:@"请填写内容"];

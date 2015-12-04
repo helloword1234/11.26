@@ -70,6 +70,9 @@
 {
     [self.phoneField endEditing:YES];
     [self.nameField endEditing:YES];
+    [_sexPickerView removeFromSuperview];
+    [_agePickserView removeFromSuperview];
+
 }
 #pragma mark - custom
 - (void)textFiledUserInteractionEnabled:(BOOL)enabled {
