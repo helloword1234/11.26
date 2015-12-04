@@ -57,7 +57,7 @@
 - (UIImageView *)nullImage
 {
     if (!_nullImage) {
-        _nullImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"soldout"]];
+        _nullImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"soldouts"]];
     }
     return _nullImage;
 }
@@ -66,8 +66,8 @@
     _drugInfo = drugInfo;
     
     
-    self.nullImage.frame = CGRectMake(SCREEN_WIDTH - 100, 10, 80, 80);
-    [self addSubview:self.nullImage];
+    self.nullImage.frame = CGRectMake(SCREEN_WIDTH - 125, 10, 80, 60);
+    
     if ([_drugInfo[@"repertory"] isEqualToString:@"0"])
     {
         self.nullImage.hidden = NO;
@@ -92,7 +92,7 @@
     self.priceLabel.textColor = [UIColor redColor];
     self.priceLabel.frame = CGRectMake(self.image.frame.origin.x + self.image.frame.size.width + 10, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height + self.medicineLabel.frame.size.height , 120, 20);
     [self addSubview:self.priceLabel];
-    
+    [self addSubview:self.nullImage];
 }
 
 @end

@@ -31,7 +31,7 @@
 //    image.frame = CGRectMake(_priceLabel.frame.origin.x + _priceLabel.frame.size.width - 40, _contentLabel.frame.size.height + _contentLabel.frame.origin.y + 15, 40, 40);
     //[self addSubview:image];
     
-    self.sellOverIV.image = [UIImage imageNamed:@"soldout"];
+    self.sellOverIV.image = [UIImage imageNamed:@"soldouts"];
 //    self.sellOverIV.backgroundColor = [UIColor lightGrayColor];
     NSLog(@"_drugInfo ============ %@",_drugInfo[@"repertory"]);
     NSString *s = _drugInfo[@"repertory"];

@@ -39,8 +39,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *shoppingButton;
 //加入购物车
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
-//缺货遮盖按钮
-@property (weak, nonatomic) IBOutlet UIButton *coverButton;
+
 //药品单位
 @property (nonatomic,strong) UILabel *companyLabel;
 //显示已售罄
@@ -51,7 +50,7 @@
 - (UIImageView *)NullImage
 {
     if (!_NullImage) {
-        _NullImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"soldout"]];
+        _NullImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"soldouts"]];
         _NullImage.frame = CGRectZero;
     }
     return _NullImage;
@@ -69,18 +68,22 @@
 #pragma mark - ViewController Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.coverButton.enabled = NO;
-    self.addButton.hidden = NO;
-    self.shoppingButton.hidden = NO;
+
+    self.addButton.enabled = YES;
+    self.shoppingButton.enabled = YES;
     self.NullImage.hidden = YES;
-    self.coverButton.hidden = YES;
+    [self.addButton setImage:[UIImage imageNamed:@"shoppingcart_icon_normal"] forState:UIControlStateNormal];
+    [self.shoppingButton setImage:[UIImage imageNamed:@"buy"] forState:UIControlStateNormal];
+    self.addButton.backgroundColor = [UIColor redColor];
     NSLog(@"_drugInfo详情 ================== %@",_drugInfo[@"repertory"]);
     if ([_drugInfo[@"repertory"] isEqualToString:@"0"]){
-        self.addButton.hidden = YES;
-        self.shoppingButton.hidden = YES;
-        self.coverButton.hidden = NO;
+        self.addButton.enabled = NO;
+        self.shoppingButton.enabled = NO;
+        self.addButton.backgroundColor = [UIColor clearColor];
+        [self.addButton setImage:[UIImage imageNamed:@"加入购物车"] forState:UIControlStateNormal];
+        [self.shoppingButton setImage:[UIImage imageNamed:@"¥"] forState:UIControlStateNormal];
         self.NullImage.hidden = NO;
-        self.NullImage.frame = CGRectMake(200, 200, 200, 200);
+        self.NullImage.frame = CGRectMake(SCREEN_WIDTH - 100, _headerView.frame.size.height - 40, 100, 75);
     }
     _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.5);
     _imageURLStrings = [_drugInfo[@"banners"] componentsSeparatedByString:@","]; // 把后台传回来的图片分割为N个部分。
