@@ -42,6 +42,7 @@
                                   
                                   
                                   NSDictionary *dic = responseObject[@"data"][@"orderDetail"];
+                                  
                                   if (dic) {
                                       UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 250)];
                                       footView.backgroundColor = [UIColor clearColor];
@@ -305,6 +306,7 @@
                                       [footView addSubview:view1];
                                       [footView addSubview:view];
                                       self.tableView.tableFooterView = footView;
+                                      
                                   }
                                   
                                   

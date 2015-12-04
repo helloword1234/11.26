@@ -231,6 +231,7 @@
 
 - (void)requestDataByPage:(NSInteger)page orderStatus:(YKSOrderStatus)status {
     [self showProgress];
+    
     [GZBaseRequest searchOrderByOrderStatus:status
                                        page:page
                                    callback:^(id responseObject, NSError *error) {
@@ -250,12 +251,14 @@
                                        
                                        if (ServerSuccess(responseObject)) {
                                            NSDictionary *dic = responseObject[@"data"];
+                                           
                                            if ([dic isKindOfClass:[NSDictionary class]] && dic[@"glist"]) {
                                                NSMutableArray *tempArray;
                                                if (status == YKSOrderStatusPending) {
                                                    tempArray = _pendingDatas;
                                                } else if (status == YKSOrderStatusShipping) {
                                                    tempArray = _shippingDatas;
+                                                   
                                                } else if (status == YKSOrderStatusReceived) {
                                                    tempArray = _receivedDatas;
                                                }else if (status == YKSOrderStatusCancel){

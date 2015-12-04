@@ -22,7 +22,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *YQMLabel;
 
-
+@property(nonatomic,strong)UILabel *yqmLabel;
 @end
 
 @implementation YKSMyViewController
@@ -47,7 +47,8 @@
     }
     if (![YKSUserModel isLogin])
     {
-        self.YQMLabel.text=@"邀请得大礼";
+       // self.YQMLabel.text=@"邀请得大礼";
+        [self.yqmLabel removeFromSuperview];
       
     }
     else
@@ -55,11 +56,19 @@
         [GZBaseRequest getYQMhuizhangphone:[YKSUserModel shareInstance].telePhone AndcallBack:^(id responseObject, NSError *error) {
             // NSLog(@"aaa%@",responseObject);
             if (ServerSuccess(responseObject)) {
-                NSString *YQMlabel = [NSString stringWithFormat: @"邀请得大礼 [我的邀请码：%@]" ,responseObject[@"data"][@"promoteCode"]];
                 
-                self.YQMLabel.text = YQMlabel;
-                
+//                NSString *YQMlabel = [NSString stringWithFormat: @"邀请得大礼 [我的邀请码：%@]" ,responseObject[@"data"][@"promoteCode"]];
+//                
+//                self.YQMLabel.text = YQMlabel;
+               _yqmLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 4,150, 35)];
+                _yqmLabel.backgroundColor=[UIColor clearColor];
+//
+                NSString *text = [NSString stringWithFormat: @"[我的邀请码:%@]",responseObject[@"data"][@"promoteCode"] ];
+                _yqmLabel.text = text;
+               _yqmLabel.textColor=[UIColor colorWithRed:255.0f/255.0f green:35.0f/255.0f blue:44.0f/255.0f alpha:1];
+                _yqmLabel.font=[UIFont fontWithName:nil size:14];
                 self.YQMLabel.userInteractionEnabled=NO;
+                [self.YQMLabel addSubview:_yqmLabel];
                 
             }
              [self.tableView reloadData];

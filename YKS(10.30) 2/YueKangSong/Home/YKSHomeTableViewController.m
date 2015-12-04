@@ -70,12 +70,15 @@
     if (!_datas) {
         if ([[NSUserDefaults standardUserDefaults] objectForKey:@"kHomeDatas"]) {
             _datas = [[NSUserDefaults standardUserDefaults] objectForKey:@"kHomeDatas"];
+            
             [self.tableView reloadData];
         }
         [GZBaseRequest specialListCallback:^(id responseObject, NSError *error) {
+            
             if (ServerSuccess(responseObject)) {
                 NSLog(@"datas ============== %@",_datas);
                 _datas = responseObject[@"data"][@"list"];
+                
                 [self.tableView reloadData];
                 [[NSUserDefaults standardUserDefaults] setObject:_datas forKey:@"kHomeDatas"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
@@ -589,6 +592,7 @@
         }
         cell.tapAction = ^(YKSSpecial *special){
             [self performSegueWithIdentifier:@"gotoSplecialList" sender:special];
+            
         };
          
         return cell;

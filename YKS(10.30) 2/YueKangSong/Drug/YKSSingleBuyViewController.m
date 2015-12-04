@@ -500,18 +500,19 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     {
         if (indexPath.section == 4)
         {
-            if (indexPath.row == 2)
-            {
-                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
-                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
-                self.channel=@"wx";
-            }
-            else if (indexPath.row == 1)
-            {
-                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
-                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateSelected];
-                self.channel=@"hd";
-            }
+//            if (indexPath.row == 2)
+//            {
+//                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+//                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
+//                self.channel=@"wx";
+//            }
+//            else if (indexPath.row == 1)
+//            {
+//                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
+//                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateSelected];
+//                self.channel=@"hd";
+//            }
+            [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
         }
     }
     if (!(_isPrescription))
@@ -519,19 +520,20 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         if (indexPath.section == 3)
         {
             
-            if (indexPath.row == 2)
-            {
-                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
-                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
-                self.channel=@"wx";
-            }
-            
-            else if (indexPath.row == 1)
-            {
-                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
-                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
-                self.channel = @"cash";
-            }
+//            if (indexPath.row == 2)
+//            {
+//                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+//                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
+//                self.channel=@"wx";
+//            }
+//            
+//            else if (indexPath.row == 1)
+//            {
+//                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
+//                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+//                self.channel = @"cash";
+//            }
+            [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
         }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -565,11 +567,11 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         {
          // NSArray *array=[[NSUserDefaults standardUserDefaults] objectForKey:@"pay_type"];
        
-            if (_paytypeArray.count == 1 )
-            {
-                return 2;
-            }
-             return 3;
+//            if (_paytypeArray.count == 1 )
+//            {
+//                return 2;
+//            }
+             return 1;
         }
     }
     
@@ -579,12 +581,12 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             {
               //  NSArray *array=[[NSUserDefaults standardUserDefaults] objectForKey:@"pay_type"];
                 
-                if (_paytypeArray.count == 1 )
-                {
-                    return 2;
-                }
+//                if (_paytypeArray.count == 1 )
+//                {
+//                    return 2;
+//                }
                 
-                return 3;
+                return 1;
             }
          }
     return 1;
@@ -733,40 +735,54 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             
             if (indexPath.row==0) {
                 
-                cell.userInteractionEnabled=NO;
-                UILabel *lable=[[UILabel alloc]initWithFrame:CGRectMake(13, 8, 100, 14)];
+//                cell.userInteractionEnabled=NO;
+//                UILabel *lable=[[UILabel alloc]initWithFrame:CGRectMake(13, 8, 100, 14)];
+//                
+//                lable.text=@"支付方式";
+//                
+//                [cell.contentView addSubview:lable];
+  
+                                cell.shouldIndentWhileEditing=YES;
                 
-                lable.text=@"支付方式";
+                                cell.textLabel.text=@"货到付款";
                 
-                [cell.contentView addSubview:lable];
-            }
-            else if (indexPath.row==1){
+                                _daoFuBtn =[UIButton buttonWithType:UIButtonTypeCustom];
                 
-                cell.shouldIndentWhileEditing=YES;
-                
-                cell.textLabel.text=@"货到付款";
-                
-                _daoFuBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-                
-                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
-                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
-                _daoFuBtn.frame=CGRectMake(SCREEN_WIDTH-22-25, 15, 17, 17);
-                
-                [cell.contentView addSubview:_daoFuBtn];
-                
-            }
-            
-            else if (indexPath.row==2){
-                cell.textLabel.text=@"微信支付";
-                _onLineBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-                
-                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
-                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
-                _onLineBtn.frame=CGRectMake(SCREEN_WIDTH-22-25,15, 17, 17);
-                
-                [cell.contentView addSubview:_onLineBtn];
-            }
+                                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+                                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
+                                _daoFuBtn.frame=CGRectMake(SCREEN_WIDTH-22-25, 15, 17, 17);
+                                
+                                [cell.contentView addSubview:_daoFuBtn];
 
+                
+            }
+//            else if (indexPath.row==1){
+//                
+//                cell.shouldIndentWhileEditing=YES;
+//                
+//                cell.textLabel.text=@"货到付款";
+//                
+//                _daoFuBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+//                
+//                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+//                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
+//                _daoFuBtn.frame=CGRectMake(SCREEN_WIDTH-22-25, 15, 17, 17);
+//                
+//                [cell.contentView addSubview:_daoFuBtn];
+//                
+//            }
+//            
+//            else if (indexPath.row==2){
+//                cell.textLabel.text=@"微信支付";
+//                _onLineBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+//                
+//                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+//                [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
+//                _onLineBtn.frame=CGRectMake(SCREEN_WIDTH-22-25,15, 17, 17);
+//                
+//                [cell.contentView addSubview:_onLineBtn];
+//            }
+//
             
             return cell;
         }
@@ -783,39 +799,53 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         
         if (indexPath.row==0) {
             
-            cell.userInteractionEnabled=NO;
-            UILabel *lable=[[UILabel alloc]initWithFrame:CGRectMake(13, 8, 100, 14)];
+//            cell.userInteractionEnabled=NO;
+//            UILabel *lable=[[UILabel alloc]initWithFrame:CGRectMake(13, 8, 100, 14)];
+//            
+//            lable.text=@"支付方式";
+//            
+//            [cell.contentView addSubview:lable];
             
-            lable.text=@"支付方式";
+                        cell.shouldIndentWhileEditing=YES;
             
-            [cell.contentView addSubview:lable];
+                        cell.textLabel.text=@"货到付款";
+            
+                        _daoFuBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+            
+                        [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+                        [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
+                        _daoFuBtn.frame=CGRectMake(SCREEN_WIDTH-22-25, 15, 17, 17);
+                        
+                        [cell.contentView addSubview:_daoFuBtn];
+
+            
         }
-        else if (indexPath.row==1){
-            
-            cell.shouldIndentWhileEditing=YES;
-            
-            cell.textLabel.text=@"货到付款";
-            
-            _daoFuBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-            
-            [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
-            [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
-            _daoFuBtn.frame=CGRectMake(SCREEN_WIDTH-22-25, 15, 17, 17);
-            
-            [cell.contentView addSubview:_daoFuBtn];
-            
-        }
-        
-        else if (indexPath.row==2){
-            cell.textLabel.text=@"微信支付";
-            _onLineBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-            
-            [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
-            [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
-            _onLineBtn.frame=CGRectMake(SCREEN_WIDTH-22-25,15, 17, 17);
-            
-            [cell.contentView addSubview:_onLineBtn];
-        }
+//        else if (indexPath.row==1){
+//            
+//            cell.shouldIndentWhileEditing=YES;
+//            
+//            cell.textLabel.text=@"货到付款";
+//            
+//            _daoFuBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+//            
+//            [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+//            [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
+//            _daoFuBtn.frame=CGRectMake(SCREEN_WIDTH-22-25, 15, 17, 17);
+//            
+//            [cell.contentView addSubview:_daoFuBtn];
+//            
+//        }
+//        
+//        else if (indexPath.row==2){
+//            cell.textLabel.text=@"微信支付";
+//            _onLineBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+//            
+//            [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+//            [_onLineBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
+//            _onLineBtn.frame=CGRectMake(SCREEN_WIDTH-22-25,15, 17, 17);
+//            
+//            [cell.contentView addSubview:_onLineBtn];
+//        }
         return cell;
     }
 }
