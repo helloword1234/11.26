@@ -65,6 +65,7 @@
                                     return ;
                                 }
                                 if (ServerSuccess(responseObject)) {
+                                    
                                     NSDictionary *dic = responseObject[@"data"];
                                     if (dic.count == 0) {
                                         _datas = nil;
@@ -72,8 +73,11 @@
                                         if ([dic isKindOfClass:[NSDictionary class]] && dic[@"glist"]) {
                                             if (page == 1) {
                                                 _datas = [responseObject[@"data"][@"glist"] mutableCopy];
+                                                
                                             } else {
-                                                [_datas addObjectsFromArray:responseObject[@"data"][@"glist"]];
+                                                [_datas addObjectsFromArray:responseObject[@"data"][@"glist"]
+                                                 
+                                                 ];
                                             }
                                             if ([dic[@"totle"] integerValue] == _datas.count) {
                                                 self.tableView.footer.hidden = YES;
@@ -158,7 +162,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     YKSDrugListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"drugList" forIndexPath:indexPath];
+    
     cell.drugInfo = self.datas[indexPath.row];
+    
     cell.multipleSelectionBackgroundView = [UIView new];
     //    UIView *selectView = [UIView new];
     //    selectView.backgroundColor = [UIColor clearColor];
@@ -176,6 +182,7 @@
         UIStoryboard *mainBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         YKSDrugDetailViewController *vc = [mainBoard instantiateViewControllerWithIdentifier:@"YKSDrugDetailViewController"];
         vc.drugInfo = _datas[indexPath.row];
+        
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

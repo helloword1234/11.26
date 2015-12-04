@@ -35,6 +35,10 @@
         }
         if (ServerSuccess(responseObject)) {
             _datas = responseObject[@"data"][@"categorylist"];
+            if (_datas == nil)
+            {
+                [self showToastMessage:@"没有相关药品"];
+            }
             [self.tableView reloadData];
         } else {
             [self showToastMessage:responseObject[@"msg"]];

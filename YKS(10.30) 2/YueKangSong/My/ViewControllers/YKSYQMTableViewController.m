@@ -32,7 +32,10 @@
     [self.view endEditing:YES];
     
     [GZBaseRequest getYQMPromotephone:[YKSUserModel shareInstance].telePhone andcode:self.sendyqmLabel.text AndcallBack:^(id responseObject, NSError *error) {
-        
+        if (error) {
+            [self showToastMessage:@"网络加载失败"];
+            return ;
+        }
         
         if (ServerSuccess(responseObject)) {
             self.sendyqmLabel.text = responseObject[@"data"][@"invitenum"];
@@ -159,6 +162,11 @@
 //    }];
     
     [GZBaseRequest getYQMhuizhangphone:[YKSUserModel shareInstance].telePhone AndcallBack:^(id responseObject, NSError *error) {
+        
+        if (error) {
+            [self showToastMessage:@"网络加载失败"];
+            return ;
+        }
         NSLog(@"aaa%@",responseObject);
 //        NSString *s = {\"userid\":\"123\",\"phoneNo\":\"185990909878\",\"promoteCode\":\"2398\",\"inviteCnt1\":\"50\",\"inviteCnt2\":\"230\",\"couponTotal\":\"350\",\"rankings\":\"80%\",\"isRoot\":\"1\"}
 //        {
