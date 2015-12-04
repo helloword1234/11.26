@@ -9,10 +9,11 @@
 #import "YKSFeedbackViewController.h"
 #import "GZBaseRequest.h"
  
-@interface YKSFeedbackViewController ()
+@interface YKSFeedbackViewController ()<UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
+@property(nonatomic,strong)UILabel *placeholderlabel;
 @end
 
 @implementation YKSFeedbackViewController
@@ -20,8 +21,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //_textView = [[UITextView alloc]init];
     [_textView becomeFirstResponder];
+//      _textView.text=@"输入您的意见反馈，将不断促使我们进步...";
+//     _textView.textColor = [UIColor lightGrayColor];
+    
+  
+    _placeholderlabel=[[UILabel alloc]init];
+      _placeholderlabel.frame = CGRectMake(4, -8, SCREEN_WIDTH,50);
+    _placeholderlabel.textColor= [UIColor lightGrayColor];
+    _placeholderlabel.backgroundColor=[UIColor clearColor];
+    _placeholderlabel.text=@"输入您的意见反馈，将不断促使我们进步...";
+    _placeholderlabel.enabled=NO;
+    [self.textView addSubview:_placeholderlabel];
+    self.textView.delegate=self;
 }
+
+-(void)textViewDidChange:(UITextView *)textView
+{
+    if ([textView.text length] == 0) {
+        [_placeholderlabel setHidden:NO];
+    }else{
+        [_placeholderlabel setHidden:YES];
+    }
+}
+
+
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [_textView resignFirstResponder];
 }

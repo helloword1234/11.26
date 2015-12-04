@@ -681,7 +681,12 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             YKSBuyCouponCell *couponCell = [tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:indexPath];
             
             if (_couponInfo) {
-                couponCell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2f优惠劵", [_couponInfo[@"faceprice"] floatValue]];
+//                couponCell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2f优惠劵", [_couponInfo[@"faceprice"] floatValue]];
+                NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+                couponCell.detailTextLabel.textColor=[UIColor redColor];
+                couponCell.detailTextLabel.text = couponCount;
+
+                
             }else{
                 
                 NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:2];
@@ -700,7 +705,11 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         if (indexPath.section==3) {
             YKSBuyCouponCell *couponCell = [tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:indexPath];
             if (_couponInfo) {
-                couponCell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2f优惠劵", [_couponInfo[@"faceprice"] floatValue]];
+//                couponCell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2f优惠劵", [_couponInfo[@"faceprice"] floatValue]];
+                NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+                couponCell.detailTextLabel.textColor=[UIColor redColor];
+                couponCell.detailTextLabel.text = couponCount;
+
             }
             
             else{

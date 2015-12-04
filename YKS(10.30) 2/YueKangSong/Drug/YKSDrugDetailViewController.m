@@ -155,12 +155,14 @@
                                      }
         }];
     } else {
+        
         [GZBaseRequest addCollectByGid:_drugInfo[@"gid"]
                               callback:^(id responseObject, NSError *error) {
                                   if (error) {
                                       [self showToastMessage:@"网络加载失败"];
                                       return ;
                                   }
+                                  
                                   if (ServerSuccess(responseObject)) {
                                       [sender setImage:[UIImage imageNamed:@"collect_selected"]
                                               forState:UIControlStateNormal];
