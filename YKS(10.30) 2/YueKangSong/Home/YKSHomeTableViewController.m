@@ -303,6 +303,8 @@
 // 注意这里的：“province”,目前加入了 city_name  这里不能只是11。
 - (NSDictionary *)currentAddressInfo {
     
+  
+    
     NSString *district = _myAddressInfo[@"addressComponent"][@"district"];
     NSString *street = _myAddressInfo[@"addressComponent"][@"street"];
     NSString *street_number = _myAddressInfo[@"addressComponent"][@"street_number"];
@@ -433,6 +435,7 @@
     selectAddressView = [YKSSelectAddressView showAddressViewToView:myVC.view
                                                               datas:@[[self currentAddressInfo]]
                                                            callback:^(NSDictionary *info, BOOL isCreate) {
+                                                               
     //新添
        self.info = info;
        self.isCreat = isCreate;
@@ -485,12 +488,15 @@
         if (ServerSuccess(responseObject)) {
             NSDictionary *dic = responseObject[@"data"];
             if ([dic isKindOfClass:[NSDictionary class]] && dic[@"addresslist"]) {
+                
                 selectAddressView.datas = [dic[@"addresslist"] mutableCopy];
                 [YKSUserModel shareInstance].addressLists = selectAddressView.datas;
+                
                 if (!selectAddressView.datas) {
                     selectAddressView.datas = [NSMutableArray array];
                 }
                 
+                [[NSUserDefaults standardUserDefaults] setObject:[self currentAddressInfo] forKey:@"homeTableViewCurrentAddress"];
                 [selectAddressView.datas insertObject:[self currentAddressInfo] atIndex:0];
                 [selectAddressView reloadData];
             }

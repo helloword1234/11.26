@@ -10,6 +10,8 @@
 #import "YKSConstants.h"
 #import "YKSSelectAddressListCell.h"
 #import "YKSMyAddressViewcontroller.h"
+#import "GZBaseRequest.h"
+#import "YKSUserModel.h"
 
 @interface YKSSelectAddressView() <UIGestureRecognizerDelegate,relodData>
 
@@ -31,8 +33,27 @@
 }
 
 -(void)reloadData{
+    
+    
+    [GZBaseRequest addressListCallback:^(id responseObject, NSError *error) {
+        if (ServerSuccess(responseObject)) {
+            NSDictionary *dic = responseObject[@"data"];
+            if ([dic isKindOfClass:[NSDictionary class]] && dic[@"addresslist"]) {
+                
+                _datas = [dic[@"addresslist"] mutableCopy];
+                
+                [YKSUserModel shareInstance].addressLists = _datas;
+                
+                NSDictionary *dic=[[NSUserDefaults standardUserDefaults]objectForKey:@"homeTableViewCurrentAddress"];
+                
+                [_datas insertObject:dic atIndex:0];
+                
+                            [self.tableView reloadData];
+            }
+        }
+    }];
 
-    [self.tableView reloadData];
+
 }
 - (void)awakeFromNib {
     flag=YES;
@@ -180,7 +201,7 @@
     
     
     
-
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:@"selectAddressVCRelodData" object:nil];
     
     YKSSelectAddressListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YKSSelectAddressListCell"];
    

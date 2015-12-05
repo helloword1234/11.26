@@ -49,6 +49,15 @@
 
 @implementation YKSAddAddressVC
 
+
+-(void)viewDidDisappear:(BOOL)animated{
+
+    [super viewDidDisappear:animated];
+    
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"selectAddressVCRelodData" object:nil];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

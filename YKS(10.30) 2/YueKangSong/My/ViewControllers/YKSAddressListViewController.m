@@ -36,6 +36,7 @@
             if ([dic isKindOfClass:[NSDictionary class]] && dic[@"addresslist"]) {
                 _datas = dic[@"addresslist"];
                 [YKSUserModel shareInstance].addressLists = _datas;
+                
                 [self.tableView reloadData];
             }
         } else {
@@ -43,6 +44,12 @@
         }
     }];
 }
+
+
+
+
+
+
 
 
 - (void)viewDidLoad {
@@ -62,6 +69,9 @@
     
     // Do any additional setup after loading the view.
     self.tableView.tableFooterView = [UIView new];
+    
+    
+    
 }
 
 //-(void)popToMine{
@@ -87,6 +97,8 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
+    
+  
     
     return self.datas.count;
 }
