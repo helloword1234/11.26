@@ -95,6 +95,9 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 }
 
 - (void)viewDidLoad {
+    
+    [self requestAddressData];
+    
     [super viewDidLoad];
          _uploadImages = [NSMutableArray array];
     
@@ -125,6 +128,32 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     [self getpay];
     
     [self.tableView reloadData];
+
+}
+-(void)requestAddressData{
+
+    [GZBaseRequest addressListCallback:^(id responseObject, NSError *error) {
+        if (ServerSuccess(responseObject)) {
+            NSDictionary *dic = responseObject[@"data"];
+            if ([dic isKindOfClass:[NSDictionary class]] && dic[@"addresslist"]) {
+                
+                NSArray *array = [dic[@"addresslist"] mutableCopy];
+                
+                NSDictionary *dict1=[YKSUserModel shareInstance].currentSelectAddress;
+                
+                for (NSDictionary *dict in array) {
+                    
+                    NSNumber *a=dict[@"id"];
+                    NSNumber *b=dict1[@"id"];
+                    
+                    if ([a isEqual:b]) {
+                        [YKSUserModel shareInstance].currentSelectAddress=dict;
+                        [self.tableView reloadData];
+                    }
+                }
+            }
+        }
+    }];
 
 }
 
@@ -484,7 +513,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //这里他慢了
-    NSDictionary *currentAddr = [UIViewController selectedAddressUnArchiver];
+    NSDictionary *currentAddr = [YKSUserModel shareInstance].currentSelectAddress;
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
@@ -592,7 +621,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     return 1;
 }
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *currentAddr = [UIViewController selectedAddressUnArchiver];
+    NSDictionary *currentAddr = [YKSUserModel shareInstance].currentSelectAddress;
     
     if (indexPath.section == 0)
     {

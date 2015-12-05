@@ -45,6 +45,8 @@
 
 @property (strong, nonatomic) NSDictionary *info;
 
+@property(nonatomic,copy)NSString *fflag;
+
 @end
 
 @implementation YKSAddAddressVC
@@ -60,6 +62,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.fflag=@"0";
+    
+    NSDictionary *ddic=[YKSUserModel shareInstance].currentSelectAddress;
+    
+    if ([_addressInfo isEqualToDictionary:ddic]) {
+        
+        self.fflag=@"1";
+        
+    }
+    
     
     _City_Name.font=[UIFont systemFontOfSize:14];
     
@@ -286,7 +299,11 @@
     NSLog(@"%@aaaa%@",_streetDic,_detailAddressField.text);
     
     
+   
+    
+    
     if (!_addressInfo || _isCurrentLocation) {
+        
         [GZBaseRequest addAddressExpressArea:areaCode
                                    community:_streetField.text
                              communityLatLng:latLng
@@ -370,6 +387,14 @@
         
         
     }
+    
+    if ([self.fflag isEqualToString:@"1"]) {
+      
+        
+
+    }
+    
+
 }
 
 - (IBAction)deleteAction:(id)sender {

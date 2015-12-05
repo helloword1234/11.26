@@ -23,15 +23,16 @@
 @implementation YKSSubSpecialListTableViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.title = self.special.title;
+    
     self.datas = [NSMutableArray new];
     [self requestSubSpecialList];
     __weak YKSSubSpecialListTableViewController *bself = self;
     [self.tableView addLegendHeaderWithRefreshingBlock:^{
         [bself requestSubSpecialList];
     }];
-    self.navigationItem.title=@"";
 }
 
 #pragma mark - costom

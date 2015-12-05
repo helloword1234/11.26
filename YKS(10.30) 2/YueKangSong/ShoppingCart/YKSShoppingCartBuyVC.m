@@ -83,9 +83,37 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 -(void)viewDidAppear:(BOOL)animated
 
 {
-    _addressInfos = [UIViewController selectedAddressUnArchiver];
-    
+    _addressInfos = [YKSUserModel shareInstance].currentSelectAddress;
+    [self requestAddressData];
     [self.tableView reloadData];
+    
+}
+
+-(void)requestAddressData{
+    
+    [GZBaseRequest addressListCallback:^(id responseObject, NSError *error) {
+        if (ServerSuccess(responseObject)) {
+            NSDictionary *dic = responseObject[@"data"];
+            if ([dic isKindOfClass:[NSDictionary class]] && dic[@"addresslist"]) {
+                
+                NSArray *array = [dic[@"addresslist"] mutableCopy];
+                
+                NSDictionary *dict1=[YKSUserModel shareInstance].currentSelectAddress;
+                
+                for (NSDictionary *dict in array) {
+                    
+                    NSNumber *a=dict[@"id"];
+                    NSNumber *b=dict1[@"id"];
+                    
+                    if ([a isEqual:b]) {
+                        [YKSUserModel shareInstance].currentSelectAddress=dict;
+                        _addressInfos=[YKSUserModel shareInstance].currentSelectAddress;
+                        [self.tableView reloadData];
+                    }
+                }
+            }
+        }
+    }];
     
 }
 - (void)viewDidLoad {
@@ -114,7 +142,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                                           _freightLabel.text = freightPriceString;
                                       }];
     //_addressInfos = [[YKSUserModel shareInstance] currentSelectAddress];
-    _addressInfos = [UIViewController selectedAddressUnArchiver];
+    _addressInfos = [ YKSUserModel shareInstance].currentSelectAddress;
     
     [self getpay];
     [self requestDataByPage:1];
@@ -531,7 +559,8 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         YKSBuyAddressCell *addressCell = [tableView dequeueReusableCellWithIdentifier:@"BuyAddressCell" forIndexPath:indexPath];
         NSDictionary *dic = _addressInfos;
         
-        if ([[YKSUserModel shareInstance] currentSelectAddress]) {
+        
+        if ([YKSUserModel shareInstance].currentSelectAddress) {
             
             if ([[YKSUserModel shareInstance].currentSelectAddress[@"sendable"] integerValue] == 1) {
                 addressCell.accessoryType = UITableViewCellAccessoryNone;

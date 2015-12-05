@@ -44,6 +44,10 @@
                 
                 [YKSUserModel shareInstance].addressLists = _datas;
                 
+                if (!_datas) {
+                    _datas = [NSMutableArray array];
+                }
+                
                 NSDictionary *dic=[[NSUserDefaults standardUserDefaults]objectForKey:@"homeTableViewCurrentAddress"];
                 
                 [_datas insertObject:dic atIndex:0];
@@ -259,6 +263,7 @@
                 
             }
         }
+        
         _callback(_datas[indexPath.row], isCreate);
         
         
