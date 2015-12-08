@@ -214,6 +214,7 @@
                                               UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                                               YKSShoppingCartVC *shopVC = [storyboard instantiateViewControllerWithIdentifier:@"YKSShoppingCartVC"];
                                               self.tabBarController.tabBar.hidden = YES;
+                                              shopVC.isEqulTo = YES;
                                               [self.navigationController pushViewController:shopVC animated:YES];
                                               
                                           } else {

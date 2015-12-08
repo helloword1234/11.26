@@ -70,7 +70,6 @@
 #pragma mark - ViewController Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.addButton.enabled = YES;
     self.shoppingButton.enabled = YES;
     self.NullImage.hidden = YES;

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface YKSShoppingCartVC : UIViewController
-
+@property (nonatomic,assign) BOOL isEqulTo;
 @end

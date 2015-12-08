@@ -78,7 +78,8 @@
 //这里就请求到数据了
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    self.tabBarController.tabBar.hidden = NO;
+
+    self.tabBarController.tabBar.hidden = self.isEqulTo;
     if (![YKSUserModel isLogin]) {
         _bottomView.hidden = YES;
        // NSLog(@"%@",_datas);
