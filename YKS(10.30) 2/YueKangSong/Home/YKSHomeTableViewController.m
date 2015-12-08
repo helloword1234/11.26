@@ -51,8 +51,6 @@
 //当前地址button
 @property (weak, nonatomic) IBOutlet UIButton *addressBtn;
 
-
-
 @end
 
 @implementation YKSHomeTableViewController
