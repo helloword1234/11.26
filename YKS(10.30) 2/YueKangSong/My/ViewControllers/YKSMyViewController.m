@@ -23,14 +23,36 @@
 @property (weak, nonatomic) IBOutlet UILabel *YQMLabel;
 
 @property(nonatomic,strong)UILabel *yqmLabel;
+
+//@property(nonatomic,strong)NSString *yqmText;
 @end
 
 @implementation YKSMyViewController
-
+//
+//-(UILabel *)yqmLabel
+//{
+//    if (_yqmLabel==nil) {
+//        _yqmLabel = [[UILabel alloc] init];
+//    }
+//    return _yqmLabel;
+//}
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if (![YKSUserModel isLogin])
+    {
+         self.YQMLabel.text=@"邀请得大礼";
+        
+       [self.yqmLabel removeFromSuperview];
+        
+       // [self.tableView reloadData];
+    }
+ 
+
+        
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -45,41 +67,39 @@
         _myCenterTitleLabel.text = @"注册/登录";
         _myCenterLabel.text = @"";
     }
-    if (![YKSUserModel isLogin])
+ 
+
+    
+    if ([YKSUserModel isLogin])
+        
     {
-       // self.YQMLabel.text=@"邀请得大礼";
-        [self.yqmLabel removeFromSuperview];
-      
-    }
-    else
-    {
+       // _yqmLabel = [[UILabel alloc]init];
+        
         [GZBaseRequest getYQMhuizhangphone:[YKSUserModel shareInstance].telePhone AndcallBack:^(id responseObject, NSError *error) {
             // NSLog(@"aaa%@",responseObject);
             if (ServerSuccess(responseObject)) {
                 
-//                NSString *YQMlabel = [NSString stringWithFormat: @"邀请得大礼 [我的邀请码：%@]" ,responseObject[@"data"][@"promoteCode"]];
 //                
-//                self.YQMLabel.text = YQMlabel;
-               _yqmLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 4,150, 35)];
+//                               NSString *YQMlabel = [NSString stringWithFormat: @"邀请得大礼 [我的邀请码：%@]" ,responseObject[@"data"][@"promoteCode"]];
+//                
+//                                self.YQMLabel.text = YQMlabel;
+                
+                
+                _yqmLabel.frame =  CGRectMake(90, 4,150, 35);
                 _yqmLabel.backgroundColor=[UIColor clearColor];
-//
-                NSString *text = [NSString stringWithFormat: @"[我的邀请码:%@]",responseObject[@"data"][@"promoteCode"] ];
-                _yqmLabel.text = text;
-               _yqmLabel.textColor=[UIColor colorWithRed:255.0f/255.0f green:35.0f/255.0f blue:44.0f/255.0f alpha:1];
+                
+                _yqmLabel.text= [NSString stringWithFormat: @"[我的邀请码:%@]",responseObject[@"data"][@"promoteCode"] ];
+                
+                _yqmLabel.textColor=[UIColor colorWithRed:255.0f/255.0f green:35.0f/255.0f blue:44.0f/255.0f alpha:1];
                 _yqmLabel.font=[UIFont fontWithName:nil size:14];
                 self.YQMLabel.userInteractionEnabled=NO;
-                [self.YQMLabel addSubview:_yqmLabel];
-                
+               [self.YQMLabel addSubview:_yqmLabel];
+                //
             }
-             [self.tableView reloadData];
+            [self.tableView reloadData];
         } ];
         [self.tableView reloadData];
-
     }
-    
-    
-
-    //[self.tableView reloadData];
     }
 
 
@@ -90,6 +110,10 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+//    self.tableView.delegate=self;
+//    self.tableView.dataSource=self;
+  
+    _yqmLabel=[[UILabel alloc] init];
   
 }
 
@@ -110,11 +134,13 @@
 //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdetify];
 //    if (!cell) {
 //
+//        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+//        
 //        if (indexPath.section == 2)
 //        {
 //        if (indexPath.row == 0) {
 //            
-//            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+//            cell.detailTextLabel.text=_yqmText;
 //
 //        }
 //    }
@@ -122,6 +148,7 @@
 //    return cell;
 //
 //}
+
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

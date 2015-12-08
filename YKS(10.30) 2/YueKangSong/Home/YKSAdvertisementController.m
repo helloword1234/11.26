@@ -25,7 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    NSString *str = kBaseURLString;
+
+    NSString *str = @"http://api.yuekangsong.com/activity/index?op_type=indexpage";
     NSURL *urlStr = [NSURL URLWithString:str];
     
     self.resultData = [NSData dataWithContentsOfURL:urlStr];

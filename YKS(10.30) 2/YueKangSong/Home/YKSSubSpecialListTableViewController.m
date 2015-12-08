@@ -90,12 +90,9 @@
     recommenVC.formInformation.symptom=cell.subSpecial.title;
     recommenVC.formInformation.symptomInformation=cell.subSpecial.specialDescription;
 //    recommenVC.drugListType = YKSDrugListTypeSpecail;
+    self.tabBarController.tabBar.hidden = YES;
     [self.navigationController pushViewController:recommenVC animated:YES];
-    
-    
-    
-    
-    
+   
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

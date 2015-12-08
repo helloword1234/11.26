@@ -9,9 +9,10 @@
 #import "YKSRotaryPopViewController.h"
 
 
-@interface YKSRotaryPopViewController ()
+@interface YKSRotaryPopViewController ()<UIScrollViewDelegate>
 
 @property (nonatomic,strong) NSMutableDictionary *dictionary;
+@property (nonatomic,strong) UIImageView *image;
 @end
 
 @implementation YKSRotaryPopViewController
@@ -39,15 +40,28 @@
     [super viewDidLoad];
     self.title = @"悦康送";
     self.view.backgroundColor = [UIColor whiteColor];
-    UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH / 320 * self.view.frame.size.height)];
-    [image sd_setImageWithURL:_dictionary[@"actiontarget"] placeholderImage:[UIImage imageNamed:@"defatul320"]];
+    self.image = [[UIImageView alloc] init];
+    [self.image sd_setImageWithURL:_dictionary[@"actiontarget"] placeholderImage:[UIImage imageNamed:@"defatul320"]];
+
+    CGFloat imageH = [_dictionary[@"action_height"] floatValue] / 480 * SCRENN_HEIGHT;
+    CGFloat imageW = [_dictionary[@"action_width"] floatValue] / 320 * SCREEN_WIDTH;
+    
+    self.image.frame = CGRectMake(0,0,imageW,imageH);
+
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
-    scrollView.contentSize = CGSizeMake(0, image.frame.size.height);
+    scrollView.delegate = self;
+    scrollView.maximumZoomScale = 1.0;
+    scrollView.minimumZoomScale = 0.55;
+    scrollView.contentSize = CGSizeMake(imageW, imageH);
     scrollView.bounces = NO;
     scrollView.pagingEnabled = YES;
     scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
-    [scrollView addSubview:image];
+    [scrollView addSubview:self.image];
+}
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.image;
 }
 
 @end

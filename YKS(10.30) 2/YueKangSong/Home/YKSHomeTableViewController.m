@@ -97,6 +97,7 @@
                                           }
                                           if (ServerSuccess(responseObject)) {
                                               _imageURLStrings = responseObject[@"data"][@"data"];
+                                              
                                               //调用轮播视图方法
                                               [self.scrollView addScrollView:_imageURLStrings];
                                               }
@@ -707,6 +708,15 @@
     vc.specialId = dic[@"id"];
     vc.drugListType = YKSDrugListTypeCategory;
     vc.title = dic[@"title"];
+    
+//    if (_drugDatas == nil)
+//        
+//    {
+//        NSLog(@"=====%@",_drugDatas);
+//        [self showToastMessage:@"没有药品"];
+//        
+//        return;
+//    }
     [self.navigationController pushViewController:vc animated:YES];
 }
 

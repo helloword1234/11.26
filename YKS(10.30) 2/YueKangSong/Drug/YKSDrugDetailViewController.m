@@ -44,6 +44,8 @@
 @property (nonatomic,strong) UILabel *companyLabel;
 //显示已售罄
 @property (nonatomic,strong) UIImageView *NullImage;
+
+@property int number;  //点击加入购物车的次数
 @end
 
 @implementation YKSDrugDetailViewController
@@ -345,6 +347,17 @@
 
 - (void)jumpAddCard
 {
+    _number++;
+    NSString *repertory = _drugInfo[@"repertory"];
+    
+    int b = [repertory intValue];
+    
+    if (_number >= b)
+        
+    {
+        [self showToastMessage:@"已超出最大库存"];
+        return;
+    }
     //这里已经加载网络.拉倒当前地址了
     NSDictionary *currentAddr = [UIViewController selectedAddressUnArchiver];
     
@@ -404,6 +417,9 @@
                               @"iscollect": _drugInfo[@"iscollect"],
                               @"gmanual": _drugInfo[@"gmanual"]
                               };
+        
+    
+     
         
         
         [GZBaseRequest addToShoppingcartParams:@[dic]

@@ -213,6 +213,7 @@
                                               [self showToastMessage:@"加入购物车成功"];
                                               UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                                               YKSShoppingCartVC *shopVC = [storyboard instantiateViewControllerWithIdentifier:@"YKSShoppingCartVC"];
+                                              self.tabBarController.tabBar.hidden = YES;
                                               [self.navigationController pushViewController:shopVC animated:YES];
                                               
                                           } else {

@@ -78,6 +78,12 @@
                           }
                           if (ServerSuccess(responseObject)) {
                               NSDictionary *dic = responseObject[@"data"];
+                              if ([dic count] == 0) {
+                                  [self showToastMessage:@"没有相关药品数据"];
+                                  [_datas removeAllObjects];
+                                  [self.tableView reloadData];
+                                  
+                              }
                               if ([dic isKindOfClass:[NSDictionary class]] && dic[@"glist"]) {
                                   if (page == 1) {
                                       _datas = [responseObject[@"data"][@"glist"] mutableCopy];

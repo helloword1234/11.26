@@ -239,6 +239,11 @@
 {
     [self.view endEditing:YES];
 }
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+}
 /*
 #pragma mark - Navigation
 

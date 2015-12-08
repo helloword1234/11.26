@@ -44,19 +44,25 @@
         [_datas removeAllObjects];
         [self.tableView reloadData];
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未登录"
-                                                        message:@"请登录后查看购物车"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"登录"
-                                              otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未登录"
+                                                            message:@"请登录后查看订单"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"随便看看"
+                                                  otherButtonTitles:@"登录", nil];
+            [alert show];
+            [alert callBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                if (buttonIndex == 0) {
+                    self.tabBarController.selectedIndex = 0;
+                } else {
+                    [YKSTools login:self];
+                }
+            }];
 
-        [alert show];
-        [alert callBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if (buttonIndex == 0) {
-                [YKSTools login:self];
-            }
-        }];
     }
+  [self requestDataByPage:1 orderStatus:YKSOrderStatusPending];
+  
+  //  [self.tableView reloadData];
+    
 }
 
 - (UIView *)shareView
@@ -72,15 +78,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _pendingDatas=[NSMutableArray array];
+ //   _shippingDatas=[NSMutableArray array];
+  //  _receivedDatas=[NSMutableArray array];
+ //   _cancelDatas=[NSMutableArray array];
     self.index = 1;
     
       //[YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
- 
+   
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 20.0f)];
     
     _status = YKSOrderStatusPending;
     [self initControl];
-    [self requestDataByPage:1 orderStatus:_status];
+    
+
+ //   NSLog(@"================%@",_pendingDatas);
     __weak YKSOrderViewController *bself = self;
     [self.tableView addLegendHeaderWithRefreshingBlock:^{
         [bself requestDataByPage:1 orderStatus:bself.status];
@@ -90,7 +102,7 @@
     }];
     self.tableView.footer.hidden = YES;
     
-
+    
     [self.tableView reloadData];
 }
 
@@ -114,15 +126,37 @@
     self.index = control.selectedSegmentIndex;
     [self.shareView removeFromSuperview];
 //    [self.OrderLabel removeFromSuperview];
+    
     if (control.selectedSegmentIndex == 0) {
         _status = YKSOrderStatusPending;
-        _datas = _pendingDatas;
-    } else if (control.selectedSegmentIndex == 1) {
+        if (_pendingDatas)
+        {
+            _datas = nil;
+            
+            [self requestDataByPage:1 orderStatus:YKSOrderStatusPending];
+            [self.tableView reloadData];
+            
+        }
+        else
+        {
+           _datas = _pendingDatas;
+        
+        }
+        
+        
+        
+        
+    }
+    
+    else if (control.selectedSegmentIndex == 1) {
         _status = YKSOrderStatusShipping;
         if (!_shippingDatas) {
             _datas = nil;
             [self requestDataByPage:1 orderStatus:YKSOrderStatusShipping];
-        } else {
+         //   [self.tableView reloadData];
+        }
+        
+        else {
             _datas = _shippingDatas;
         }
     } else if (control.selectedSegmentIndex == 2) {
@@ -130,10 +164,13 @@
         if (!_receivedDatas) {
             _datas = nil;
             [self requestDataByPage:1 orderStatus:YKSOrderStatusReceived];
+           // [self.tableView reloadData];
         } else {
             _datas = _receivedDatas;
         }
-    }else if (control.selectedSegmentIndex == 3)
+    }
+    
+    else if (control.selectedSegmentIndex == 3)
     {
         self.index = 3;
         
@@ -143,6 +180,8 @@
         {
             _datas = nil;
             [self requestDataByPage:1 orderStatus:YKSOrderStatusCancel];
+          //  [self.tableView reloadData];
+            
         }else
         {
             _datas = _cancelDatas;
@@ -168,11 +207,14 @@
                                        page:page
                                    callback:^(id responseObject, NSError *error) {
                                        [self hideProgress];
+                                       
                                        if (page == 1) {
                                            if (self.tableView.header.isRefreshing) {
                                                [self.tableView.header endRefreshing];
                                            }
-                                       } else {
+                                       }
+                                       
+                                       else {
                                            [self.tableView.footer endRefreshing];
                                        }
                                        
@@ -182,12 +224,17 @@
                                        }
                                        
                                        if (ServerSuccess(responseObject)) {
+                                           
+                                           
                                            NSDictionary *dic = responseObject[@"data"];
                                            
-                                           if ([dic isKindOfClass:[NSDictionary class]] && dic[@"glist"]) {
-                                               NSMutableArray *tempArray;
+                                           if ([dic isKindOfClass:[NSDictionary class]] && dic[@"glist"])
+                                           {
+                                               
+                                               NSMutableArray *tempArray=[NSMutableArray array];
                                                if (status == YKSOrderStatusPending) {
                                                    tempArray = _pendingDatas;
+                                                   
                                                } else if (status == YKSOrderStatusShipping) {
                                                    tempArray = _shippingDatas;
                                                    
@@ -206,6 +253,7 @@
                                                
                                                if (status == YKSOrderStatusPending) {
                                                    _pendingDatas = tempArray;
+                                                   
                                                } else if (status == YKSOrderStatusShipping) {
                                                    _shippingDatas = tempArray;
                                                } else if (status == YKSOrderStatusReceived) {
@@ -215,6 +263,7 @@
                                                }
                                                
                                                _datas = tempArray;
+                                               
                                                if (_datas.count < 10 || _datas.count % 10 != 0) {
                                                    self.tableView.footer.hidden = YES;
                                                } else {
@@ -228,7 +277,7 @@
                                                [self.tableView reloadData];
                                            }
                                        } else {
-                                      [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
+                                     // [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
                                             [self showToastMessage:responseObject[@"msg"] time:0.5f];
                                        }
                                        

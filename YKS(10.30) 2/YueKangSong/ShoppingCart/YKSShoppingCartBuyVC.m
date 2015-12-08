@@ -639,12 +639,12 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         {
             YKSBuyCouponCell *couponCell = [tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:indexPath];
             if (_couponInfo) {
-//                couponCell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2f优惠劵", [_couponInfo[@"faceprice"] floatValue]];
-                NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
-                couponCell.detailTextLabel.textColor=[UIColor redColor];
-                
-                couponCell.detailTextLabel.text = couponCount;
-
+              couponCell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2f优惠劵", [_couponInfo[@"faceprice"] floatValue]];
+//                NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+//                couponCell.detailTextLabel.textColor=[UIColor redColor];
+//                
+//                couponCell.detailTextLabel.text = couponCount;
+//
             }else{
                 NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
                 couponCell.detailTextLabel.textColor=[UIColor redColor];
@@ -660,11 +660,11 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         if (indexPath.section==3) {
             YKSBuyCouponCell *couponCell = [tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:indexPath];
             if (_couponInfo) {
-//                couponCell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2f优惠劵", [_couponInfo[@"faceprice"] floatValue]];
-                NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
-                couponCell.detailTextLabel.textColor=[UIColor redColor];
-                
-                couponCell.detailTextLabel.text = couponCount;
+            couponCell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2f优惠劵", [_couponInfo[@"faceprice"] floatValue]];
+//                NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+//                couponCell.detailTextLabel.textColor=[UIColor redColor];
+//                
+//                couponCell.detailTextLabel.text = couponCount;
 
                 
             }
@@ -701,8 +701,8 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                 
                                 _daoFuBtn =[UIButton buttonWithType:UIButtonTypeCustom];
                 
-                                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
-                                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
+                               // [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+                                [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
                                 _daoFuBtn.frame=CGRectMake(SCREEN_WIDTH-22-25, 15, 17, 17);
                                 
                                 [cell.contentView addSubview:_daoFuBtn];
@@ -764,8 +764,8 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             
                         _daoFuBtn =[UIButton buttonWithType:UIButtonTypeCustom];
             
-                        [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
-                        [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateSelected];
+                       // [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay"] forState:UIControlStateNormal];
+                        [_daoFuBtn setBackgroundImage:[UIImage imageNamed:@"pay_ok"] forState:UIControlStateNormal];
                         _daoFuBtn.frame=CGRectMake(SCREEN_WIDTH-22-25, 15, 17, 17);
                         
                         [cell.contentView addSubview:_daoFuBtn];
