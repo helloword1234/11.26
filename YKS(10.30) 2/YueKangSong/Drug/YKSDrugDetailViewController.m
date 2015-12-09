@@ -491,7 +491,7 @@
 //        label.numberOfLines=0;
 //        label.backgroundColor=[UIColor redColor];
 //        [nameCell.contentView addSubview:label];
-//        
+//
         
         NSString *priceString = [NSString stringWithFormat:@"￥%0.2f  ", [_drugInfo[@"gprice"] floatValue]];
         

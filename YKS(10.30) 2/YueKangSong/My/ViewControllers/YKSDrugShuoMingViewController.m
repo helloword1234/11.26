@@ -17,8 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _shuoMingText=[[UITextView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCRENN_HEIGHT)];
+    self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCRENN_HEIGHT);
+    _shuoMingText=[[UITextView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCRENN_HEIGHT-60)];
    
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeSystem];
     
@@ -28,7 +28,7 @@
     
     [self.view addSubview:_shuoMingText];
     
-    self.shuoMingText.text = _shuoMingDic[@"gmanual"];
+    self.shuoMingText.text =  _shuoMingDic[@"gmanual"];
    _shuoMingText.layoutManager.allowsNonContiguousLayout = NO;
     _shuoMingText.showsVerticalScrollIndicator=NO;
     _shuoMingText.bounces=NO;

@@ -155,10 +155,12 @@
             [self setBtnTitleWithCurrentAddress];
         }
         else {
+//            [self.addressBtn setTitle:[NSString stringWithFormat:@"正在获取位置"] forState:UIControlStateNormal];
             [self startSingleLocationRequest];
         }
     }
     else {
+        [self.addressBtn setTitle:[NSString stringWithFormat:@"正在获取位置"] forState:UIControlStateNormal];
         [self startSingleLocationRequest];
     }
     
@@ -236,6 +238,7 @@
  *  获取ios设备当前位置（GPS 定位）
  */
 - (void)startSingleLocationRequest {
+    
     INTULocationManager *locMgr = [INTULocationManager sharedInstance];
     [locMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyNeighborhood
                                        timeout:10.0f

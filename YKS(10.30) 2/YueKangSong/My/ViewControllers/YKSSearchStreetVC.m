@@ -66,6 +66,12 @@
 
 }
 
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+
+    [_searchBar endEditing:YES];
+
+}
+
 -(void)initUI{
     
    

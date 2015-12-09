@@ -60,15 +60,7 @@
     
 }
 
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    [_nameField endEditing:YES];
-    [_phoneField endEditing:YES];
-    [_streetField endEditing:YES ];
-    [_detailAddressField endEditing:YES];
-
-
-}
-
+    
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -125,13 +117,10 @@
         _streetField.text = dic[@"addressComponent"][@"street"];
         _City_Name.text=dic[@"addressComponent"][@"city"];
         
-        
         self.streetDic=[UIViewController selectedMyLocation];
         
         self.streetDictionary=[UIViewController selectedMyLocation];
         
-        
-        //        _addressField.text = @"";
     }
     
     
@@ -172,6 +161,21 @@
     }
     
 }
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.tableView endEditing:YES];
+    [self.superclass endEditing:YES];
+}
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [_nameField endEditing:YES];
+    [_phoneField endEditing:YES];
+    [_streetField endEditing:YES ];
+    [_detailAddressField endEditing:YES];
+    [self.tableView endEditing:YES];
+}
+
 
 
 /**
