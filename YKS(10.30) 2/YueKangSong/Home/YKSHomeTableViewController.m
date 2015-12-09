@@ -155,7 +155,11 @@
             [self setBtnTitleWithCurrentAddress];
         }
         else {
-//            [self.addressBtn setTitle:[NSString stringWithFormat:@"正在获取位置"] forState:UIControlStateNormal];
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                [self.addressBtn setTitle:[NSString stringWithFormat:@"正在获取位置"] forState:UIControlStateNormal];
+            });
+            
             [self startSingleLocationRequest];
         }
     }
