@@ -124,7 +124,7 @@
     _addressBtn.frame = CGRectMake(0, 0, SCREEN_WIDTH - 10, 25);
     self.navigationItem.title = @"";
     self.tableView.tableHeaderView = [self tableviewHeaderView];
-    [self startSingleLocationRequest];
+//    [self startSingleLocationRequest];
     [self requestDrugCategoryList];
     
     [self requestData];
