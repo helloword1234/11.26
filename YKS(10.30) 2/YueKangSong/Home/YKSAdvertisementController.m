@@ -28,17 +28,20 @@
 
     NSString *str = @"http://api.yuekangsong.com/activity/index?op_type=indexpage";
     NSURL *urlStr = [NSURL URLWithString:str];
-    
     self.resultData = [NSData dataWithContentsOfURL:urlStr];
     if (self.resultData != nil) {
         [self displayRecommendation];
+        
     }else{
         self.timer1 = [NSTimer timerWithTimeInterval:0.5f target:self selector:@selector(dismiss) userInfo:nil repeats:NO];
         [[NSRunLoop currentRunLoop] addTimer:self.timer1 forMode:NSDefaultRunLoopMode];
     }
     
-    
 }
+
+
+
+
 - (void)displayRecommendation
 {
     self.AdvertisementImage=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCRENN_HEIGHT)];

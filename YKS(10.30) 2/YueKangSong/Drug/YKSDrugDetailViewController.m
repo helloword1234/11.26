@@ -76,7 +76,7 @@
     [self.addButton setImage:[UIImage imageNamed:@"shoppingcart_icon_normal"] forState:UIControlStateNormal];
     [self.shoppingButton setImage:[UIImage imageNamed:@"buy"] forState:UIControlStateNormal];
     self.addButton.backgroundColor = [UIColor redColor];
-    NSLog(@"_drugInfo详情 ================== %@",_drugInfo[@"repertory"]);
+    NSLog(@"_drugInfo详情 ================== %@",_drugInfo);
     if ([_drugInfo[@"repertory"] isEqualToString:@"0"]){
         self.addButton.enabled = NO;
         self.shoppingButton.enabled = NO;

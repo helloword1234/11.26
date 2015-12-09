@@ -60,6 +60,15 @@
     
 }
 
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [_nameField endEditing:YES];
+    [_phoneField endEditing:YES];
+    [_streetField endEditing:YES ];
+    [_detailAddressField endEditing:YES];
+
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

@@ -34,6 +34,7 @@
             return ;
         }
         if (ServerSuccess(responseObject)) {
+            
             _datas = responseObject[@"data"][@"categorylist"];
             if (_datas == nil)
             {

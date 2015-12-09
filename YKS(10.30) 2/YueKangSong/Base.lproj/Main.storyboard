@@ -1514,7 +1514,7 @@
         <scene sceneID="zLA-j3-N5S">
             <objects>
                 <tableViewController storyboardIdentifier="YKSAddAddressVC" id="0jr-ot-jkJ" customClass="YKSAddAddressVC" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="KRi-ru-NMy">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="KRi-ru-NMy">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
@@ -2523,7 +2523,7 @@
                         <viewControllerLayoutGuide type="bottom" id="K0X-RO-mOv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zuC-Nm-981">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -5761,7 +5761,7 @@
         <segue reference="yPI-Be-LDN"/>
         <segue reference="ZiF-fl-Tes"/>
         <segue reference="3mk-1C-4Cj"/>
-        <segue reference="efT-9c-lZ8"/>
         <segue reference="nBh-hM-kvj"/>
+        <segue reference="8Xj-f4-WUK"/>
     </inferredMetricsTieBreakers>
 </document>

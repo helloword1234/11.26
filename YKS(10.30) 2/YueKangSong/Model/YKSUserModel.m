@@ -186,6 +186,7 @@ NSString * const kUserInfo = @"userInfo";
     [[NSUserDefaults standardUserDefaults] setObject:[YKSTools returnDic:currentSelectAddress] forKey:@"kCurrentSelectAddress"];
     
     NSLog(@"%@",currentSelectAddress);
+    
     if (![_currentSelectAddress isEqual:currentSelectAddress]) {
         [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
         }];

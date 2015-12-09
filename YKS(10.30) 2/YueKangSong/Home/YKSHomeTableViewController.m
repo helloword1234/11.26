@@ -138,12 +138,20 @@
         NSDictionary *dic=[YKSUserModel shareInstance].currentSelectAddress;
         
         if ( ! ([dic isEqualToDictionary:@{}] || (dic == nil) || ( dic == NULL) )){
-            [[GZHTTPClient shareClient] GET:BaiduMapGeocoderApi
-                                 parameters:@{@"location": dic}
-                                    success:^(NSURLSessionDataTask *task, id responseObject) {}
-                                    failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                    }];
-            
+
+            if ([YKSUserModel shareInstance].lat == 0) {
+                [YKSUserModel shareInstance].lat = [dic[@"didinfo"][@"lat"] floatValue];
+                [YKSUserModel shareInstance].lng = [dic[@"didinfo"][@"lng"] floatValue];
+            }
+            //把当前位置(经纬度)传给服务器
+            if ([YKSUserModel isLogin]) {
+                [GZBaseRequest locationUploadLat:[dic[@"didinfo"][@"lat"] floatValue]
+                                             lng:[dic[@"didinfo"][@"lng"] floatValue]
+                                        callback:^(id responseObject, NSError *error) {
+                                            
+                                        }];
+            }
+
             [self setBtnTitleWithCurrentAddress];
         }
         else {
@@ -266,6 +274,8 @@
                  [UIViewController setMyLocation:dic];
                  
              }
+        
+                                 
         [self setAddressBtnTitle];
                                  
         [self setAddressBtnFrame];

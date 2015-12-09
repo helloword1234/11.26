@@ -18,14 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _shuoMingText=[[UITextView alloc]initWithFrame:self.view.frame];
+    _shuoMingText=[[UITextView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCRENN_HEIGHT)];
    
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeSystem];
     
     btn.frame=_shuoMingText.frame;
-    
-    
-    
+
     [_shuoMingText addSubview:btn];
     
     [self.view addSubview:_shuoMingText];
