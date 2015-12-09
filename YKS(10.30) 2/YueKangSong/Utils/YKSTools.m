@@ -108,6 +108,7 @@
 + (void)showToastMessage:(NSString *)message inView:(UIView *)view
 {
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithFrame:view.bounds];
+    hud.yOffset=-50;
     hud.mode = MBProgressHUDModeText;
     hud.detailsLabelText = message;
     hud.detailsLabelFont = [UIFont boldSystemFontOfSize:14];

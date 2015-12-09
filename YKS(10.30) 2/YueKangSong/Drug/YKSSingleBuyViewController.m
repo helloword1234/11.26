@@ -958,6 +958,30 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     _originTotalPrice = [_drugInfo[@"gprice"] floatValue] *_buyCount;
     
     [self coupon];
+    if (_originTotalPrice>[self.couponInfo[@"fileLimit"] floatValue]) {
+        self.couponInfo = nil;
+        if (_isPrescription)
+        {
+            YKSBuyCouponCell *couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
+            NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+            couponCell.detailTextLabel.textColor=[UIColor redColor];
+            couponCell.detailTextLabel.text = couponCount;
+        }
+        else
+        {
+            
+            YKSBuyCouponCell *couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+            
+            NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",(long)_Count];
+            
+            
+            couponCell.detailTextLabel.textColor=[UIColor redColor];
+            couponCell.detailTextLabel.text = couponCount;
+            
+            
+        }
+        
+    }
 
     [self showPirce:drugCell];
     
@@ -992,6 +1016,31 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 //        
 //    }
     [self coupon];
+    if (_originTotalPrice<[self.couponInfo[@"fileLimit"] floatValue]) {
+        self.couponInfo = nil;
+        if (_isPrescription)
+        {
+            YKSBuyCouponCell *couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
+            NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+            couponCell.detailTextLabel.textColor=[UIColor redColor];
+            couponCell.detailTextLabel.text = couponCount;
+        }
+        else
+        {
+            
+            YKSBuyCouponCell *couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+            
+            NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",(long)_Count];
+            
+            
+            couponCell.detailTextLabel.textColor=[UIColor redColor];
+            couponCell.detailTextLabel.text = couponCount;
+            
+            
+        }
+        
+    }
+    
     [self.tableView reloadData];
     
     [self showPirce:drugCell];
