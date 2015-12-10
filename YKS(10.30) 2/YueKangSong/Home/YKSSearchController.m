@@ -112,6 +112,11 @@
     [self dismissViewControllerAnimated:YES completion:^{
     }];
 }
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+
+    [_searchBar endEditing:YES];
+
+}
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     
     
@@ -152,6 +157,7 @@
 #pragma mark - UItableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [_searchBar endEditing:YES];
 }
 
 #pragma mark - Navigation
