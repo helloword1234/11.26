@@ -70,15 +70,22 @@
     [YKSTools insertEmptyImage:@"shopping_cart_empty"
                           text:@"购物车是空的"
                           view:self.view];
-
+    
     
 //    theTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(timer) userInfo:nil repeats:YES];
 }
-
+- (void)receive
+{
+    //self.isEqulTo = YES;
+}
 //这里就请求到数据了
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
+//    NSString *str = @"0";
+//    NSNumber *num = [NSNumber numberWithBool:NO];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receive) name:nil object:num];
+////    self.isEqulTo = [str ]
+//    self.isEqulTo = [num boolValue];
     self.tabBarController.tabBar.hidden = self.isEqulTo;
     if (![YKSUserModel isLogin]) {
         _bottomView.hidden = YES;
