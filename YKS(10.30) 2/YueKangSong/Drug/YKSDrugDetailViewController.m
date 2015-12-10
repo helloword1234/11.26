@@ -20,6 +20,7 @@
 #import "YKSDrugShuoMingViewController.h" // 药品说明
 #import "YKSMyAddressViewcontroller.h"
 #import "YKSSelectAddressView.h"
+#import "YKSShoppingCartVC.h"
 
 @interface YKSDrugDetailViewController () <UITableViewDelegate, ImagePlayerViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -68,8 +69,8 @@
     return _companyLabel;
 }
 #pragma mark - ViewController Methods
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)nullDrugDisplay
+{
     self.addButton.enabled = YES;
     self.shoppingButton.enabled = YES;
     self.NullImage.hidden = YES;
@@ -86,6 +87,11 @@
         self.NullImage.hidden = NO;
         self.NullImage.frame = CGRectMake(SCREEN_WIDTH - 100, _headerView.frame.size.height - 40, 100, 75);
     }
+
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self nullDrugDisplay];
     _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.5);
     _imageURLStrings = [_drugInfo[@"banners"] componentsSeparatedByString:@","]; // 把后台传回来的图片分割为N个部分。
 
@@ -449,7 +455,9 @@
     }
     
     self.shoppingCartButton.selected = NO;
+
     [self performSegueWithIdentifier:@"gotoShoppingCart" sender:nil];
+    
 }
 
 
@@ -565,6 +573,12 @@
         singleVC.drugInfo = _drugInfo;
         
     }
+    if ([segue.identifier isEqualToString:@"gotoShoppingCart"]) {
+        YKSShoppingCartVC *shopping = segue.destinationViewController;
+        shopping.isEqulTo = YES;
+        
+    }
+    
 //    else if ([segue.identifier isEqualToString:@"YKSDrugShuoMingViewController"])
 //    {
 //        YKSDrugShuoMingViewController *DrugVC = segue.destinationViewController;
