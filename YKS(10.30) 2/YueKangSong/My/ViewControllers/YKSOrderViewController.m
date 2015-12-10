@@ -39,6 +39,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+//    self.index=1;
+//     _status = YKSOrderStatusPending;
         if (![YKSUserModel isLogin]) {
        // _bottomView.hidden = YES;
         [_datas removeAllObjects];
@@ -59,7 +62,8 @@
             }];
 
     }
-  [self requestDataByPage:1 orderStatus:YKSOrderStatusPending];
+    
+  [self requestDataByPage:1 orderStatus:_status];
   
   //  [self.tableView reloadData];
     
@@ -142,10 +146,7 @@
            _datas = _pendingDatas;
         
         }
-        
-        
-        
-        
+
     }
     
     else if (control.selectedSegmentIndex == 1) {
