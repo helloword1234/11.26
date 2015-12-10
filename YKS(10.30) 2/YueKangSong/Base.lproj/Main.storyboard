@@ -3114,13 +3114,13 @@
                         <viewControllerLayoutGuide type="bottom" id="KxF-HV-4qb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OQA-UN-4zE">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yvf-2i-2GQ" customClass="YKSTopLineView">
                                 <rect key="frame" x="0.0" y="410" width="414" height="50"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Om0-es-bDd">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Om0-es-bDd">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -3146,7 +3146,7 @@
                                         <color key="textColor" red="0.81568627449999997" green="0.81568627449999997" blue="0.81568627449999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGe-pO-l6y">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGe-pO-l6y">
                                         <rect key="frame" x="117" y="7" width="285" height="36"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.2274509804" green="0.69019607839999997" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3804,7 +3804,7 @@
                                     <outlet property="delegate" destination="JiP-VA-LWw" id="xiv-dX-G8k"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKT-9y-eYs" customClass="YKSTopLineView">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eKT-9y-eYs" customClass="YKSTopLineView">
                                 <rect key="frame" x="0.0" y="474" width="320" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgn-HF-Ox7">

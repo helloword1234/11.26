@@ -160,7 +160,7 @@
     _confirmButton.layer.masksToBounds = YES;
     _confirmButton.layer.cornerRadius = 5.0f;
     _confirmButton.backgroundColor = [UIColor lightGrayColor];
-    
+    self.confirmButton.enabled = NO;
     [self requestDataByPage:1];
 //    __weak YKSCouponViewController *bself = self;
 //    [self.tableView addLegendHeaderWithRefreshingBlock:^{
@@ -170,7 +170,15 @@
 }
 
 
-
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    if (_textField.text) {
+//        self.confirmButton.enabled = YES;
+//    }else{
+//        self.confirmButton.enabled = NO;
+//    }
+//}
 
 
 #pragma mark - custom
@@ -226,12 +234,13 @@
 - (IBAction)confirmAction:(id)sender {
     [self.view endEditing:YES];
     _confirmButton.backgroundColor = [UIColor lightGrayColor];
-
+  
     if (IS_EMPTY_STRING(_textField.text)) {
         [self showToastMessage:@"请输入优惠劵编号"];
+        self.confirmButton.enabled = NO;
         return;
     }
-    
+
     [GZBaseRequest convertCouponBByCode:_textField.text
                                callback:^(id responseObject, NSError *error) {
                                    NSLog(@"responseObject = %@", responseObject);
@@ -245,6 +254,7 @@
                                        _textField.text = @"";
                                        [self requestDataByPage:1];
                                    } else {
+                                       self.confirmButton.enabled = NO;
                                        [self showToastMessage:responseObject[@"msg"]];
                                    }
                                    
@@ -253,6 +263,7 @@
 
 #pragma mark - UITextField
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.confirmButton.enabled = YES;
     _confirmButton.backgroundColor = kNavigationBar_back_color;
 }
 
@@ -270,6 +281,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     YKSCouponListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"graycouponCell" forIndexPath:indexPath];
     NSDictionary *dic = self.appearDatas[indexPath.row];
     NSString *s=dic[@"faceprice"];
