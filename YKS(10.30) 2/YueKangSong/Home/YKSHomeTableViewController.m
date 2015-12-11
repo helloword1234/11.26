@@ -636,15 +636,31 @@
         
         [cell.contentView addSubview:btn];
         
-        UILabel *nameLable=[[UILabel alloc]initWithFrame:CGRectMake(btn.frame.origin.x+10+35, 10+btn.frame.origin.y, 40, 10)];
-        nameLable.font=[UIFont systemFontOfSize:10];
+        UILabel *nameLable=[[UILabel alloc]initWithFrame:CGRectMake(btn.frame.origin.x+10+35, 6+btn.frame.origin.y, SCREEN_WIDTH/5, 10)];
+        UILabel *descLable=[[UILabel alloc]initWithFrame:CGRectMake(btn.frame.origin.x+10+35, nameLable.frame.origin.y+13, SCREEN_WIDTH/4+15, 20)];
+        descLable.numberOfLines=0;
+        
+        if (SCREEN_WIDTH == 320)
+        {
+            nameLable.font=[UIFont systemFontOfSize:12];
+            descLable.font = [UIFont systemFontOfSize:10];
+        }
+        else if (SCREEN_WIDTH == 375)
+        {
+            nameLable.font = [UIFont systemFontOfSize:14];
+            descLable.font =[UIFont systemFontOfSize:12];
+        }
+        else if (SCREEN_WIDTH == 414)
+        {
+            nameLable.font = [UIFont systemFontOfSize:15];
+            descLable.font = [UIFont systemFontOfSize:13];
+        }
         nameLable.text=self.nameArray[i];
         
         [cell.contentView addSubview:nameLable];
         
-        UILabel *descLable=[[UILabel alloc]initWithFrame:CGRectMake(btn.frame.origin.x+10+35, nameLable.frame.origin.y+5, 81, 20)];
-        descLable.numberOfLines=0;
-        descLable.font=[UIFont systemFontOfSize:9];
+
+      //  descLable.font=[UIFont systemFontOfSize:9];
         
         descLable.text=self.descArray[i];
         
