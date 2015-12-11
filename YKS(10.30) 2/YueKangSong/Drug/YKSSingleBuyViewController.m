@@ -359,12 +359,12 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                                                                   [self dismissViewControllerAnimated:NO completion:nil];
                                                                   if (self.navigationController.presentingViewController) {
                                                                       if ([self.navigationController.presentingViewController isKindOfClass:[UITabBarController class]]) {
-                                                                          [(UITabBarController *)self.navigationController.presentingViewController setSelectedIndex:0];
+                                                                          [(UITabBarController *)self.navigationController.presentingViewController setSelectedIndex:2];
                                                                       }
                                                                       [self.navigationController dismissViewControllerAnimated:NO completion:^{
                                                                       }];
                                                                   } else {
-                                                                      self.tabBarController.selectedIndex = 0;
+                                                                      self.tabBarController.selectedIndex = 2;
                                                                       [self.navigationController popToRootViewControllerAnimated:NO];
                                                                   }
                                                               }];
@@ -417,12 +417,12 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                                                   [self dismissViewControllerAnimated:NO completion:nil];
                                                   if (self.navigationController.presentingViewController) {
                                                       if ([self.navigationController.presentingViewController isKindOfClass:[UITabBarController class]]) {
-                                                          [(UITabBarController *)self.navigationController.presentingViewController setSelectedIndex:0];
+                                                          [(UITabBarController *)self.navigationController.presentingViewController setSelectedIndex:2];
                                                       }
                                                       [self.navigationController dismissViewControllerAnimated:NO completion:^{
                                                       }];
                                                   } else {
-                                                      self.tabBarController.selectedIndex = 0;
+                                                      self.tabBarController.selectedIndex = 2;
                                                       [self.navigationController popToRootViewControllerAnimated:NO];
                                                   }
                                               }];

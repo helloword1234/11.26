@@ -63,7 +63,7 @@
 
     }
     
-  [self requestDataByPage:1 orderStatus:_status];
+  [self requestDataByPage:1 orderStatus:YKSOrderStatusPending];
   
   //  [self.tableView reloadData];
     
