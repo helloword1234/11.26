@@ -74,10 +74,10 @@
 {
     self.datasArray = [NSMutableArray array];
     [self.datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (![obj[@"repertory"] isEqualToString:@"0"] || [obj[@"repertory"] intValue] == 0) {
+        if (![obj[@"repertory"] isEqualToString:@"0"] || [obj[@"repertory"] intValue] != 0) {
             [self.datasArray addObject:obj];
         }
-         NSLog(@"self.datasArray ================= %ld",self.datasArray.count);
+         NSLog(@"self.datasArray ================= %@",self.datasArray);
 
     }];
     
