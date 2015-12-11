@@ -50,6 +50,13 @@
 @end
 
 @implementation YKSDrugDetailViewController
+- (NSArray *)repertoryArry
+{
+    if (!_repertoryArry) {
+        _repertoryArry = [NSArray array];
+    }
+    return _repertoryArry;
+}
 - (UIImageView *)NullImage
 {
     if (!_NullImage) {
@@ -92,6 +99,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self nullDrugDisplay];
+    
+    NSLog(@"repertory ===== %@",self.repertoryArry);
+    
     _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.5);
     _imageURLStrings = [_drugInfo[@"banners"] componentsSeparatedByString:@","]; // 把后台传回来的图片分割为N个部分。
 

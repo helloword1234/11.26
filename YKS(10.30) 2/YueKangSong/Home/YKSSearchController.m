@@ -19,9 +19,18 @@
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+//保存搜索到的药品的库存
+@property (nonatomic,strong) NSMutableArray *repertoryAry;
+
 @end
 @implementation YKSSearchController
-
+- (NSMutableArray *)repertoryAry
+{
+    if (!_repertoryAry) {
+        _repertoryAry = [NSMutableArray array];
+    }
+    return _repertoryAry;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
@@ -78,6 +87,12 @@
                           }
                           if (ServerSuccess(responseObject)) {
                               NSDictionary *dic = responseObject[@"data"];
+                              NSArray *ary = responseObject[@"data"][@"glist"];
+                              [ary enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                  [self.repertoryAry addObject:obj[@"repertory"]];
+                              }];
+                              
+                              
                               if ([dic count] == 0) {
                                   [self showToastMessage:@"没有相关药品数据"];
                                   [_datas removeAllObjects];
@@ -151,6 +166,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     YKSDrugListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"drugList" forIndexPath:indexPath];
     cell.drugInfo = self.datas[indexPath.row];
+    
     return cell;
 }
 
@@ -167,6 +183,7 @@
         YKSDrugDetailViewController *vc = segue.destinationViewController;
         YKSDrugListCell *cell = (YKSDrugListCell *)sender;
         vc.drugInfo = cell.drugInfo;
+        vc.repertoryArry = self.repertoryAry;
     }
 }
 

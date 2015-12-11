@@ -11,5 +11,5 @@
 @interface YKSDrugDetailViewController : UIViewController
 
 @property (nonatomic, strong) NSDictionary *drugInfo;
-
+@property (nonatomic, strong) NSArray *repertoryArry;
 @end
