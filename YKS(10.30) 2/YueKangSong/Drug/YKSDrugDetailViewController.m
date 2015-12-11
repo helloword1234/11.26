@@ -84,8 +84,10 @@
     [self.addButton setImage:[UIImage imageNamed:@"shoppingcart_icon_normal"] forState:UIControlStateNormal];
     [self.shoppingButton setImage:[UIImage imageNamed:@"buy"] forState:UIControlStateNormal];
     self.addButton.backgroundColor = [UIColor redColor];
-    NSLog(@"_drugInfo详情 ================== %@",_drugInfo);
-    if ([_drugInfo[@"repertory"] isEqualToString:@"0"]){
+    
+    NSLog(@"_drugInfo详情 ================== %d",[_drugInfo[@"repertory"] intValue]);
+    
+    if ([_drugInfo[@"repertory"] isEqualToString:@"0"] || [_drugInfo[@"repertory"] isEqualToString:@"null"] || [_drugInfo[@"repertory"] isEqualToString:@"(null)"] || [_drugInfo[@"repertory"] intValue] == 0){
         self.addButton.enabled = NO;
         self.shoppingButton.enabled = NO;
         self.addButton.backgroundColor = [UIColor clearColor];
@@ -100,7 +102,7 @@
     [super viewDidLoad];
     [self nullDrugDisplay];
     
-    NSLog(@"repertory ===== %@",self.repertoryArry);
+    //NSLog(@"repertory ===== %@",self.repertoryArry);
     
     _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.5);
     _imageURLStrings = [_drugInfo[@"banners"] componentsSeparatedByString:@","]; // 把后台传回来的图片分割为N个部分。
