@@ -26,17 +26,17 @@
     _contentLabel.text = DefuseNUllString(drugInfo[@"keywords"]);
     _priceLabel.attributedText = [YKSTools priceString:[drugInfo[@"gprice"] floatValue]];
 
-    UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"soldouts"]];
-    image.contentMode = UIViewContentModeScaleToFill;
-    image.frame = CGRectMake(_priceLabel.frame.origin.x + _priceLabel.frame.size.width - 40, _contentLabel.frame.size.height + _contentLabel.frame.origin.y + 15, 40, 40);
-    [self addSubview:image];
+//    UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"soldouts"]];
+//    image.contentMode = UIViewContentModeScaleToFill;
+//    image.frame = CGRectMake(_priceLabel.frame.origin.x + _priceLabel.frame.size.width - 40, _contentLabel.frame.size.height + _contentLabel.frame.origin.y + 15, 40, 40);
+//    [self addSubview:image];
     
     self.sellOverIV.image = [UIImage imageNamed:@"soldouts"];
 //    self.sellOverIV.backgroundColor = [UIColor lightGrayColor];
     NSLog(@"_drugInfo ============ %@",_drugInfo[@"repertory"]);
     self.sellOverIV.backgroundColor = [UIColor blueColor];
     NSString *s = _drugInfo[@"repertory"];
-//    self.sellOverIV.hidden = s.boolValue;
+    self.sellOverIV.hidden = s.boolValue;
     
     
 }
