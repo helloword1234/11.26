@@ -432,7 +432,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                                       //继续处理订单,这都显示订单处理完成,确定,都回调到主页了
                                       NSLog(@"订单处理中 %@", responseObject);
                                       [YKSOrderConfirmView showOrderToView:self.view.window orderId:responseObject[@"data"][@"orderid"] callback:^{
-                                          self.tabBarController.selectedIndex = 0;
+                                          self.tabBarController.selectedIndex = 2;
                                           [self.navigationController popToRootViewControllerAnimated:NO];
                                       }];
                                   }

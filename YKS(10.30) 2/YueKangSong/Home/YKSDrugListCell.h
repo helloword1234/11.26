@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *recipeFlagView;
+@property (weak, nonatomic) IBOutlet UILabel *companyLabel;
 
 @property (strong, nonatomic) NSDictionary *drugInfo;
 

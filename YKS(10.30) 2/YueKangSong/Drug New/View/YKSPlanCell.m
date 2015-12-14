@@ -28,7 +28,7 @@
         UIImageView *image = [[UIImageView alloc]init];
         //datas[x][@"glogo"]是服务器返回的图片的地址
         [image sd_setImageWithURL:[NSURL URLWithString:datas[x][@"glogo"]] placeholderImage:[UIImage imageNamed:@"default160"]];
-        CGFloat imageViewY = 10;
+        CGFloat imageViewY = 20;
         CGFloat imageViewW = (window.bounds.size.width - 64 - 3 * 20)/4;
         CGFloat imageViewH = 65;
         CGFloat imageViewX = 32 + x * 20 + x * imageViewW;

@@ -300,10 +300,7 @@
 //设置单元格cell的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.indexRow > 1) {
-        return 115;
-    }
-    return 100;
+    return 115;
 }
 //设置分区尾的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
