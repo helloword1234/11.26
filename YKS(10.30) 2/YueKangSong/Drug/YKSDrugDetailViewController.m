@@ -85,7 +85,7 @@
     [self.shoppingButton setImage:[UIImage imageNamed:@"buy"] forState:UIControlStateNormal];
     self.addButton.backgroundColor = [UIColor redColor];
     
-    NSLog(@"_drugInfo详情 ================== %d",[_drugInfo[@"repertory"] intValue]);
+    NSLog(@"_drugInfo详情 ================== %@",_drugInfo);
     
     if ([_drugInfo[@"repertory"] isEqualToString:@"0"] || [_drugInfo[@"repertory"] isEqualToString:@"null"] || [_drugInfo[@"repertory"] isEqualToString:@"(null)"] || [_drugInfo[@"repertory"] intValue] == 0){
         self.addButton.enabled = NO;
@@ -132,7 +132,7 @@
     CGSize qsize = [_pageControl sizeForNumberOfPages:_imageURLStrings.count];
     CGRect rect = _pageControl.bounds;
     rect.size = qsize;
-    _pageControl.frame = CGRectMake((_scrollView.bounds.size.width-qsize.width)*0.5, _scrollView.bounds.size.height-15, qsize.width, qsize.height);
+    _pageControl.frame = CGRectMake((_scrollView.bounds.size.width-qsize.width)*0.5, _scrollView.bounds.size.height - 20, qsize.width, qsize.height);
     
 //    _pageControl.center = CGPointMake(SCREEN_WIDTH/2, _scrollView.bounds.size.height-5);
     [self.tableView.tableHeaderView addSubview:_pageControl];
@@ -503,7 +503,7 @@
     YKSDrugInfoCell *cell;
     if (indexPath.row == 0) {
         YKSDrugNameCell *nameCell = [tableView dequeueReusableCellWithIdentifier:@"drugNameCell" forIndexPath:indexPath];
-        nameCell.nameLabel.text = DefuseNUllString(_drugInfo[@"gtitle"]);
+        nameCell.nameLabel.text = [NSString stringWithFormat:@"%@  %@",DefuseNUllString(_drugInfo[@"gtitle"]),DefuseNUllString(_drugInfo[@"gstandard"])];
 //        NSString *priceString = [NSString stringWithFormat:@"￥%0.2f /盒", [_drugInfo[@"gprice"] floatValue]];
        
 //        UILabel *label =[[UILabel alloc]initWithFrame:CGRectMake(50,10, 200, 50)];

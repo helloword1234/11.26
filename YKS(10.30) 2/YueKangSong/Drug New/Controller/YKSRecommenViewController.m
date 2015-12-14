@@ -36,6 +36,9 @@
 
 @property (nonatomic,strong) NSMutableArray *datasArray;
 
+//记录返回多少个row
+@property (nonatomic,assign) NSInteger indexRow;
+
 @end
 
 @implementation YKSRecommenViewController
@@ -282,9 +285,11 @@
     //当记录变量index值 == 当前点击的分区值 表示展开状态
     NSString *str = [NSString stringWithFormat:@"%ld",section];
     if ([self.indexArray containsObject:str]){
+        self.indexRow = self.datas.count;
         return self.datas.count;
     }
     //未点击按钮返回1个cell
+    self.indexRow = 1;
     return 1;
 }
 //设置分区头的高度
@@ -295,6 +300,9 @@
 //设置单元格cell的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.indexRow > 1) {
+        return 115;
+    }
     return 100;
 }
 //设置分区尾的高度
