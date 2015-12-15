@@ -47,9 +47,26 @@
 @property (nonatomic,strong) UIImageView *NullImage;
 
 @property int number;  //点击加入购物车的次数
+
+@property(nonatomic,strong)UIImageView *animationImage;
 @end
 
 @implementation YKSDrugDetailViewController
+
+-(UIImageView *)animationImage
+{
+    if (!_animationImage)
+    {
+        _animationImage = [[UIImageView alloc] init];
+        // 加入购物车动画效果承载体（小圆圈）
+        _animationImage= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"animation.png"]];
+        _animationImage.frame=CGRectMake(30, SCRENN_HEIGHT-100, 20, 20);
+ 
+        [self.view addSubview:_animationImage];
+    }
+    return _animationImage;
+}
+
 - (NSArray *)repertoryArry
 {
     if (!_repertoryArry) {
@@ -242,6 +259,31 @@
 //
     
     
+    // 路径曲线
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    
+    // 开始点
+    CGPoint fromPoint = self.animationImage.center;
+    [path moveToPoint:fromPoint];
+    // 控制点 这个点控制曲线的曲度 形状
+    CGPoint controlpoint = CGPointMake( SCREEN_WIDTH/3                                                                                                                                                                                      , SCRENN_HEIGHT/4);
+    
+    // 结束点
+    
+    CGPoint toPoint = CGPointMake(SCREEN_WIDTH-20, -30);
+    
+    [path  addQuadCurveToPoint:toPoint controlPoint:controlpoint];
+    
+    // 关键帧
+    CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    moveAnim.path = path.CGPath;
+    moveAnim.removedOnCompletion = YES;
+    
+    // 动画过程实现
+    CAAnimationGroup *animGroup = [CAAnimationGroup animation];
+    animGroup.animations = [NSArray arrayWithObject:moveAnim];
+    animGroup.duration = 2;
+    [self.animationImage.layer  addAnimation:animGroup forKey:nil];
     
     }
 
@@ -456,6 +498,7 @@
                                       }];
         
     }
+
     
     
 }
