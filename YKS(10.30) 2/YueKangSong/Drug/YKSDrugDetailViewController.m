@@ -21,6 +21,7 @@
 #import "YKSMyAddressViewcontroller.h"
 #import "YKSSelectAddressView.h"
 #import "YKSShoppingCartVC.h"
+#import "JSBadgeView.h"
 
 @interface YKSDrugDetailViewController () <UITableViewDelegate, ImagePlayerViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -49,6 +50,8 @@
 @property int number;  //点击加入购物车的次数
 
 @property(nonatomic,strong)UIImageView *animationImage;
+
+@property(nonatomic,strong)JSBadgeView *badgeView;
 @end
 
 @implementation YKSDrugDetailViewController
@@ -59,7 +62,7 @@
     {
         _animationImage = [[UIImageView alloc] init];
         // 加入购物车动画效果承载体（小圆圈）
-        _animationImage= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"animation.png"]];
+        _animationImage= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"animation1.png"]];
         _animationImage.frame=CGRectMake(30, SCRENN_HEIGHT-100, 20, 20);
  
         [self.view addSubview:_animationImage];
@@ -118,7 +121,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self nullDrugDisplay];
-    
+    _number=0;
     //NSLog(@"repertory ===== %@",self.repertoryArry);
     
     _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.5);
@@ -163,6 +166,15 @@
 //    __headerView.scrollInterval = 99999;
 //    __headerView.pageControlPosition = ICPageControlPosition_BottomRight;
 //    [self._headerView reloadData];
+    
+    // 购物车图标的数字显示
+    
+    _badgeView =[[JSBadgeView alloc]initWithParentView:self.shoppingCartButton alignment:JSBadgeViewAlignmentTopRight];
+    _badgeView.badgePositionAdjustment = CGPointMake(-9,7);
+    _badgeView.badgeBackgroundColor=[UIColor redColor];
+    _badgeView.badgeOverlayColor=[UIColor redColor];
+    [_badgeView setNeedsLayout];
+    [self.shoppingCartButton addSubview:_badgeView];
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -259,33 +271,7 @@
 //
     
     
-    // 路径曲线
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    
-    // 开始点
-    CGPoint fromPoint = self.animationImage.center;
-    [path moveToPoint:fromPoint];
-    // 控制点 这个点控制曲线的曲度 形状
-    CGPoint controlpoint = CGPointMake( SCREEN_WIDTH/3                                                                                                                                                                                      , SCRENN_HEIGHT/4);
-    
-    // 结束点
-    
-    CGPoint toPoint = CGPointMake(SCREEN_WIDTH-20, -30);
-    
-    [path  addQuadCurveToPoint:toPoint controlPoint:controlpoint];
-    
-    // 关键帧
-    CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    moveAnim.path = path.CGPath;
-    moveAnim.removedOnCompletion = YES;
-    
-    // 动画过程实现
-    CAAnimationGroup *animGroup = [CAAnimationGroup animation];
-    animGroup.animations = [NSArray arrayWithObject:moveAnim];
-    animGroup.duration = 2;
-    [self.animationImage.layer  addAnimation:animGroup forKey:nil];
-    
-    }
+     }
 
 - (IBAction)butAction:(id)sender {
     
@@ -406,7 +392,7 @@
 
 - (void)jumpAddCard
 {
-    _number++;
+
     NSString *repertory = _drugInfo[@"repertory"];
     
     int b = [repertory intValue];
@@ -490,7 +476,7 @@
                                               return ;
                                           }
                                           if (ServerSuccess(responseObject)) {
-                                              [self showToastMessage:@"加入购物车成功"];
+                                             
                                               self.shoppingCartButton.selected = YES;
                                           } else {
                                               [self showToastMessage:responseObject[@"msg"]];
@@ -499,8 +485,44 @@
         
     }
 
+    self.animationImage.center = CGPointMake(SCREEN_WIDTH/4, SCRENN_HEIGHT - 30);
+    // 路径曲线
+    UIBezierPath *path = [UIBezierPath bezierPath];
     
+    //  开始点
+    CGPoint fromPoint = self.animationImage.center;
+    [path moveToPoint:fromPoint];
     
+    // 控制点 这个点控制曲线的曲度 形状
+    CGPoint controlpoint = CGPointMake( SCREEN_WIDTH/3                                                                                                                                                                                      , SCRENN_HEIGHT/4);
+    
+    // 结束点
+    
+    CGPoint toPoint = CGPointMake(SCREEN_WIDTH-20, -30);
+    [path  addQuadCurveToPoint:toPoint controlPoint:controlpoint];
+    
+    // 关键帧
+    CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    moveAnim.path = path.CGPath;
+    moveAnim.removedOnCompletion = YES;
+    
+    // 动画过程实现
+    CAAnimationGroup *animGroup = [CAAnimationGroup animation];
+    animGroup.animations = [NSArray arrayWithObject:moveAnim];
+    animGroup.duration = 0.8f;
+    animGroup.delegate=self;//一定不要忘了设置代理
+    [self.animationImage.layer  addAnimation:animGroup forKey:nil];
+    
+
+    
+}
+
+-(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    _number++;
+    NSString *number = [NSString stringWithFormat:@"%d",_number];
+    _badgeView.badgeText=number;
+     [self showToastMessage:@"加入购物车成功"];
 }
 
 - (IBAction)shoppingCartAction:(id)sender {

@@ -49,6 +49,8 @@
 		31E1D0FB1BB3E646000CDA5E /* coupongray1.png in Resources */ = {isa = PBXBuildFile; fileRef = 31E1D0FA1BB3E646000CDA5E /* coupongray1.png */; };
 		31E1D0FD1BB3E64B000CDA5E /* coupon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 31E1D0FC1BB3E64B000CDA5E /* coupon1.png */; };
 		31E1D0FF1BB3E661000CDA5E /* qian.png in Resources */ = {isa = PBXBuildFile; fileRef = 31E1D0FE1BB3E661000CDA5E /* qian.png */; };
+		31E2F3EB1C201585008B56BC /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E2F3EA1C201585008B56BC /* JSBadgeView.m */; };
+		31E2F3ED1C20166D008B56BC /* animation1.png in Resources */ = {isa = PBXBuildFile; fileRef = 31E2F3EC1C20166D008B56BC /* animation1.png */; };
 		31EE6B051BF9812A00DFF279 /* pay_ok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EE6B011BF9812A00DFF279 /* pay_ok@2x.png */; };
 		31EE6B061BF9812A00DFF279 /* pay_ok@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EE6B021BF9812A00DFF279 /* pay_ok@3x.png */; };
 		31EE6B071BF9812A00DFF279 /* pay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EE6B031BF9812A00DFF279 /* pay@2x.png */; };
@@ -285,6 +287,9 @@
 		31E1D0FA1BB3E646000CDA5E /* coupongray1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coupongray1.png; sourceTree = "<group>"; };
 		31E1D0FC1BB3E64B000CDA5E /* coupon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coupon1.png; sourceTree = "<group>"; };
 		31E1D0FE1BB3E661000CDA5E /* qian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qian.png; sourceTree = "<group>"; };
+		31E2F3E91C201585008B56BC /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
+		31E2F3EA1C201585008B56BC /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
+		31E2F3EC1C20166D008B56BC /* animation1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = animation1.png; sourceTree = "<group>"; };
 		31EE6B011BF9812A00DFF279 /* pay_ok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_ok@2x.png"; sourceTree = "<group>"; };
 		31EE6B021BF9812A00DFF279 /* pay_ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_ok@3x.png"; sourceTree = "<group>"; };
 		31EE6B031BF9812A00DFF279 /* pay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay@2x.png"; sourceTree = "<group>"; };
@@ -645,6 +650,15 @@
 			path = Channels;
 			sourceTree = "<group>";
 		};
+		31E2F3E81C201574008B56BC /* JSBadgeView */ = {
+			isa = PBXGroup;
+			children = (
+				31E2F3E91C201585008B56BC /* JSBadgeView.h */,
+				31E2F3EA1C201585008B56BC /* JSBadgeView.m */,
+			);
+			name = JSBadgeView;
+			sourceTree = "<group>";
+		};
 		3DC72E481EC24EC4F057911F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -725,6 +739,7 @@
 		3E2A10E31B01F3BA00DE1E4C = {
 			isa = PBXGroup;
 			children = (
+				31E2F3E81C201574008B56BC /* JSBadgeView */,
 				31A4A2211C0694F500730DD8 /* ping++ */,
 				3E2705B51B02308F00FC6010 /* PrefixHeader.pch */,
 				3E2A10FC1B01F3BA00DE1E4C /* Images.xcassets */,
@@ -1217,6 +1232,7 @@
 		F3D5DBD11B95E693007006EE /* ph */ = {
 			isa = PBXGroup;
 			children = (
+				31E2F3EC1C20166D008B56BC /* animation1.png */,
 				31EE6B011BF9812A00DFF279 /* pay_ok@2x.png */,
 				31EE6B021BF9812A00DFF279 /* pay_ok@3x.png */,
 				31EE6B031BF9812A00DFF279 /* pay@2x.png */,
@@ -1466,6 +1482,7 @@
 				57B3EF591BBB832F004F76F7 /* 15yuan@2x.png in Resources */,
 				F3D5DBFA1B95E693007006EE /* liuliang.png in Resources */,
 				F3D5DBCE1B95E5D9007006EE /* flow1.png in Resources */,
+				31E2F3ED1C20166D008B56BC /* animation1.png in Resources */,
 				31E1D0FF1BB3E661000CDA5E /* qian.png in Resources */,
 				3153B7C21BA91DC700C60EF0 /* gmanual.png in Resources */,
 				F3D5DBFE1B95E693007006EE /* text1.png in Resources */,
@@ -1626,6 +1643,7 @@
 				27D2A7601BF4941200217818 /* YKSRotaryPopViewController.m in Sources */,
 				3E958EB81B135C2600A18783 /* YKSSelectAddressListCell.m in Sources */,
 				9AFE1E9F1C02C90B0052AA9D /* YKSFormViewCell.m in Sources */,
+				31E2F3EB1C201585008B56BC /* JSBadgeView.m in Sources */,
 				3E9C46611B08399D009CAC1D /* YKSMyViewController.m in Sources */,
 				9AFE1EA01C02C90B0052AA9D /* YKSOneBuyCell.m in Sources */,
 			);
