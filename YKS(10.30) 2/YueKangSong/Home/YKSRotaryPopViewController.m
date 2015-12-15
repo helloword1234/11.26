@@ -46,15 +46,15 @@
     CGFloat imageH = [_dictionary[@"action_height"] floatValue] / 480 * SCRENN_HEIGHT;
     CGFloat imageW = [_dictionary[@"action_width"] floatValue] / 320 * SCREEN_WIDTH;
     
-    self.image.frame = CGRectMake(0,0,imageW,imageH);
+    self.image.frame = CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height);
 
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
     scrollView.delegate = self;
-    scrollView.maximumZoomScale = 1.0;
-    scrollView.minimumZoomScale = 0.55;
+    scrollView.maximumZoomScale = 5.0;
+
     scrollView.contentSize = CGSizeMake(imageW, imageH);
     scrollView.bounces = NO;
-    scrollView.pagingEnabled = YES;
+
     scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
     [scrollView addSubview:self.image];
