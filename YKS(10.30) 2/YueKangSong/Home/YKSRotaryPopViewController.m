@@ -42,19 +42,15 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.image = [[UIImageView alloc] init];
     [self.image sd_setImageWithURL:_dictionary[@"actiontarget"] placeholderImage:[UIImage imageNamed:@"defatul320"]];
-
-    CGFloat imageH = [_dictionary[@"action_height"] floatValue] / 480 * SCRENN_HEIGHT;
-    CGFloat imageW = [_dictionary[@"action_width"] floatValue] / 320 * SCREEN_WIDTH;
     
     self.image.frame = CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height);
 
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
     scrollView.delegate = self;
-    scrollView.maximumZoomScale = 5.0;
+    scrollView.maximumZoomScale = 2.0;
 
-    scrollView.contentSize = CGSizeMake(imageW, imageH);
+    scrollView.contentSize = CGSizeMake(self.image.frame.size.width, self.image.frame.size.height);
     scrollView.bounces = NO;
-    scrollView.pagingEnabled = YES;
     scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
     [scrollView addSubview:self.image];
