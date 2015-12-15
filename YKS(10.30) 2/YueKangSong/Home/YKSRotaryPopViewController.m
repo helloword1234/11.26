@@ -54,7 +54,7 @@
 
     scrollView.contentSize = CGSizeMake(imageW, imageH);
     scrollView.bounces = NO;
-
+    scrollView.pagingEnabled = YES;
     scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
     [scrollView addSubview:self.image];
