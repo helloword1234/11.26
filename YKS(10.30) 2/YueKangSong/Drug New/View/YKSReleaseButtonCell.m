@@ -70,7 +70,7 @@
 
 
         
-        self.clickButton.frame = CGRectMake(self.frame.size.width - 50, 5, 30, 30);
+        self.clickButton.frame = CGRectMake(0, 0, SCREEN_WIDTH, 35);
         self.clickButton.backgroundColor = [UIColor clearColor];
         [self.clickButton addTarget:self action:@selector(addButton:) forControlEvents:UIControlEventTouchUpInside];
         
