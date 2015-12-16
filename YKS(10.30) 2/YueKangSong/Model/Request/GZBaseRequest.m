@@ -405,9 +405,10 @@ NSString *const getpaytype =@"/corder/index?op_type=getpaytype";
  *  @param page     第几页 每页10条
  * http://123.56.89.98:8081/collect/index?op_type=searchlist&mobilephone=18610316343&page=0
  */
-+ (NSURLSessionDataTask *)collectListByPage:(NSInteger)page
-                                   callback:(void (^)(id responseObject, NSError *error))callback {
++ (NSURLSessionDataTask *)collectListByPage:(NSInteger)page andlat:(NSString *)lat andlng:(NSString *)lng callback:(void (^)(id responseObject, NSError *error))callback {
     NSDictionary *params = @{@"mobilephone": [YKSUserModel telePhone],
+                             @"lat":lat,
+                             @"lng":lng,
                              @"page": @(page)};
     return [[GZHTTPClient shareClient] GET:kCollectList
                                 parameters:params

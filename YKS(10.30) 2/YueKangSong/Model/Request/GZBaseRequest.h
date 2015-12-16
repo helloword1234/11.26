@@ -84,8 +84,7 @@
  *  收藏列表
  *  @param page     第几页 每页10条
  */
-+ (NSURLSessionDataTask *)collectListByPage:(NSInteger)page
-                                   callback:(void (^)(id responseObject, NSError *error))callback;
++ (NSURLSessionDataTask *)collectListByPage:(NSInteger)page andlat:(NSString *)lat andlng:(NSString *)lng callback:(void (^)(id responseObject, NSError *error))callback;
 + (NSURLSessionDataTask *)addCollectByGid:(NSString *)gid
                                  callback:(void (^)(id responseObject, NSError *error))callback;
 + (NSURLSessionDataTask *)deleteCollectByGid:(NSString *)gids

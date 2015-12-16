@@ -12,6 +12,7 @@
 #import <MJRefresh/MJRefresh.h>
 #import "YKSLineView.h"
 #import "YKSDrugDetailViewController.h"
+#import "YKSUserModel.h"
 
 @interface YKSMyCollectVC () <UITableViewDataSource, UITableViewDelegate>
 
@@ -50,8 +51,11 @@
 - (void)requestDataByPage:(NSInteger)page {
     [self showProgress];
     self.navigationItem.rightBarButtonItem.enabled = NO;
-    [GZBaseRequest collectListByPage:page
-                            callback:^(id responseObject, NSError *error) {
+    NSDictionary *dic=[YKSUserModel shareInstance].currentSelectAddress;
+    NSString *lat = dic[@"didinfo"][@"lat"];
+    NSString *lng = dic[@"didinfo"][@"lng"];
+    NSLog(@"lat ====== %@,lng ====== %@",lat,lng);
+    [GZBaseRequest collectListByPage:page andlat:lat andlng:lng callback:^(id responseObject, NSError *error) {
                                 [self hideProgress];
                                 if (page == 1) {
                                     if (self.tableView.header.isRefreshing) {
