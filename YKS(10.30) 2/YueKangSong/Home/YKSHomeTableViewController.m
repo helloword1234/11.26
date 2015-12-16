@@ -622,9 +622,38 @@
         if (!cell) {
             cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"secondCell"];
             }
-
-    for (int i=0; i<8; i++) {
         
+        UIView *view=[[UIView alloc]init];
+        view.frame=CGRectMake(0, 56, SCREEN_WIDTH, 1);
+        view.backgroundColor=[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1.0];
+        
+        UIView *view1=[[UIView alloc]init];
+        view1.frame=CGRectMake(0, 112, SCREEN_WIDTH, 1);
+        view1.backgroundColor=[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1.0];
+        [cell.contentView addSubview:view];
+        [cell.contentView addSubview:view1];
+        
+        UIView *view2=[[UIView alloc]init];
+        view2.frame=CGRectMake(0, 166, SCREEN_WIDTH, 1);
+        view2.backgroundColor=[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1.0];
+        
+        UIView *view3=[[UIView alloc]init];
+        view3.frame=CGRectMake(0, 220, SCREEN_WIDTH, 1);
+        view3.backgroundColor=[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1.0];
+        
+        [cell.contentView addSubview:view2];
+        [cell.contentView addSubview:view3];
+        
+        UIView *view4=[[UIView alloc]init];
+        view4.frame=CGRectMake(self.view.frame.size.width/2,0,1,220);
+        view4.backgroundColor=[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1.0];
+        
+        [cell.contentView addSubview:view4];
+
+
+        
+    for (int i=0; i<8; i++) {
+
         UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
         
         NSString *imageStr=self.imageArray[i];
@@ -632,8 +661,7 @@
         [btn sd_setImageWithURL:[NSURL URLWithString:imageStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"scrennshot"]];
         
         btn.frame=CGRectMake(15+i%2*(SCREEN_WIDTH/2), 10+(i/2)*56, 35, 35);
-        
-        
+       
         [cell.contentView addSubview:btn];
         
         UILabel *nameLable=[[UILabel alloc]initWithFrame:CGRectMake(btn.frame.origin.x+10+35, 6+btn.frame.origin.y, SCREEN_WIDTH/5, 10)];
@@ -682,8 +710,8 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"homeCell2" forIndexPath:indexPath];
         cell.contentView.backgroundColor=[UIColor whiteColor];
         return cell;
-    }  
-}
+    }
+   }
 
 
 //首页数据
