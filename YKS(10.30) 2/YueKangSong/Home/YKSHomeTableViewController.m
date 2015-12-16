@@ -136,17 +136,20 @@
     if ([YKSUserModel isLogin]) {
         
         NSDictionary *dic=[YKSUserModel shareInstance].currentSelectAddress;
-        
+        NSString *latAndLng = dic[@"community_lat_lng"];
+        NSArray *ary = [latAndLng componentsSeparatedByString:@","];
+        NSString *lat = ary[0];
+        NSString *lng = ary[1];
         if ( ! ([dic isEqualToDictionary:@{}] || (dic == nil) || ( dic == NULL) )){
 
             if ([YKSUserModel shareInstance].lat == 0) {
-                [YKSUserModel shareInstance].lat = [dic[@"didinfo"][@"lat"] floatValue];
-                [YKSUserModel shareInstance].lng = [dic[@"didinfo"][@"lng"] floatValue];
+                [YKSUserModel shareInstance].lat = [lat floatValue];
+                [YKSUserModel shareInstance].lng = [lng floatValue];
             }
             //把当前位置(经纬度)传给服务器
             if ([YKSUserModel isLogin]) {
-                [GZBaseRequest locationUploadLat:[dic[@"didinfo"][@"lat"] floatValue]
-                                             lng:[dic[@"didinfo"][@"lng"] floatValue]
+                [GZBaseRequest locationUploadLat:[lat floatValue]
+                                             lng:[lng floatValue]
                                         callback:^(id responseObject, NSError *error) {
                                             
                                         }];

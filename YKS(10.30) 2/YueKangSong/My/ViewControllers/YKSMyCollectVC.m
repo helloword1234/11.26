@@ -52,9 +52,12 @@
     [self showProgress];
     self.navigationItem.rightBarButtonItem.enabled = NO;
     NSDictionary *dic=[YKSUserModel shareInstance].currentSelectAddress;
-    NSString *lat = dic[@"didinfo"][@"lat"];
-    NSString *lng = dic[@"didinfo"][@"lng"];
-    NSLog(@"lat ====== %@,lng ====== %@",lat,lng);
+
+    NSString *latAndLng = dic[@"community_lat_lng"];
+    NSArray *ary = [latAndLng componentsSeparatedByString:@","];
+    NSString *lat = ary[0];
+    NSString *lng = ary[1];
+    
     [GZBaseRequest collectListByPage:page andlat:lat andlng:lng callback:^(id responseObject, NSError *error) {
                                 [self hideProgress];
                                 if (page == 1) {
