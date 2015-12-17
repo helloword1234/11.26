@@ -91,6 +91,9 @@ NSString *const getwalkcouponstoday=@"/couponid/index?op_type=getwalkcouponstoda
 //判断支付渠道
 NSString *const getpaytype =@"/corder/index?op_type=getpaytype";
 
+//获取药店ID
+NSString *const kDrugStoreid = @"/corder/index?op_type=countNext5shop";
+
 @implementation GZBaseRequest
 
 //获取后台版本
@@ -929,6 +932,23 @@ NSString *const getpaytype =@"/corder/index?op_type=getpaytype";
     {
          callback(nil, error);
     }];
+}
+//获得药店ID
++ (NSURLSessionDataTask *)DrugStoreUploadLat:(CGFloat)lat
+                                         lng:(CGFloat)lng
+                                    callback:(void (^)(id responseObject, NSError *error))callback {
+    return [[GZHTTPClient shareClient]  GET:[self jointPhone:kDrugStoreid]
+                                 parameters:@{@"lat": @(lat),
+                                              @"lng": @(lng)}
+                                    success:^(NSURLSessionDataTask *task, id responseObject) {
+                                        
+                                        
+                                        callback(responseObject, nil);
+                                        
+                                    }
+                                    failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                        callback(nil, error);
+                                    }];
 }
 
 @end

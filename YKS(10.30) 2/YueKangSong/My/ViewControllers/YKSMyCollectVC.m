@@ -47,16 +47,28 @@
     self.tableView.footer.hidden = YES;
 }
 
+
+
 #pragma mark - custom
 - (void)requestDataByPage:(NSInteger)page {
     [self showProgress];
     self.navigationItem.rightBarButtonItem.enabled = NO;
     NSDictionary *dic=[YKSUserModel shareInstance].currentSelectAddress;
-
-    NSString *latAndLng = dic[@"community_lat_lng"];
-    NSArray *ary = [latAndLng componentsSeparatedByString:@","];
-    NSString *lat = ary[0];
-    NSString *lng = ary[1];
+    NSString *lat = nil;
+    NSString *lng = nil;
+    NSString *GPSLatAndLng = [[NSUserDefaults standardUserDefaults] objectForKey:@"lat_lng"];
+    
+    if ( ! ([dic isEqualToDictionary:@{}] || (dic == nil) || ( dic == NULL) ))
+    {
+        NSString *latAndLng = dic[@"community_lat_lng"];
+        NSArray *ary = [latAndLng componentsSeparatedByString:@","];
+        lat = ary[0];
+        lng = ary[1];
+    }else{
+        NSArray *ary = [GPSLatAndLng componentsSeparatedByString:@","];
+        lat = ary[0];
+        lng = ary[1];
+    }
     
     [GZBaseRequest collectListByPage:page andlat:lat andlng:lng callback:^(id responseObject, NSError *error) {
                                 [self hideProgress];

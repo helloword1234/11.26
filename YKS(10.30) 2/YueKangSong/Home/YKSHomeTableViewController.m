@@ -51,6 +51,8 @@
 //当前地址button
 @property (weak, nonatomic) IBOutlet UIButton *addressBtn;
 
+@property(nonatomic,strong)NSString *DrugID;
+
 @end
 
 @implementation YKSHomeTableViewController
@@ -127,7 +129,22 @@
 //    [self startSingleLocationRequest];
     [self requestDrugCategoryList];
     
+    
     [self requestData];
+    
+    NSDictionary *dic=[YKSUserModel shareInstance].currentSelectAddress;
+    [GZBaseRequest DrugStoreUploadLat:[dic[@"didinfo"][@"lat"] floatValue]
+                                  lng:[dic[@"didinfo"][@"lng"] floatValue]
+     
+                             callback:^(id responseObject, NSError *error) {
+                                 if (ServerSuccess(responseObject))
+                                 {
+                                     NSArray *array =responseObject[@"data"][@"shoplist"];
+                                     NSDictionary *dic =[array objectAtIndex:0];
+                                     _DrugID=dic[@"id"];
+                                     [[NSUserDefaults standardUserDefaults]setObject:_DrugID forKey:@"drugid1"];
+                                 }
+                             }];
     
  }
 
@@ -252,7 +269,8 @@
                                          block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
                                              
      NSString *latLongString = [[NSString alloc] initWithFormat:@"%f,%f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude];
-     
+
+     [[NSUserDefaults standardUserDefaults] setObject:latLongString forKey:@"lat_lng"];
                          //设置用户数据模型的经纬度赋值
      if ([YKSUserModel shareInstance].lat == 0) {
          [YKSUserModel shareInstance].lat = currentLocation.coordinate.latitude;

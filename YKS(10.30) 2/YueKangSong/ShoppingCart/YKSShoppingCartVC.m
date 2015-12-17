@@ -112,6 +112,17 @@
     } else {
         [self requestData];
     }
+    NSString *drugStoreid =[[NSUserDefaults standardUserDefaults] valueForKey:@"drugid1"];
+    
+    NSString *drugStoreid2 = [[NSUserDefaults standardUserDefaults] valueForKey:@"drugid2"];
+    
+    
+    if (![drugStoreid isEqualToString:drugStoreid2])
+    {
+        [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
+            
+        }];
+    }
 }
 
 /**

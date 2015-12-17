@@ -21,7 +21,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *subAddressViewHeight;
 @property (strong, nonatomic) void(^callback)(NSDictionary *dic, BOOL isCreate);
-
+@property(nonatomic,strong)NSString *DrugID2;
 
 @end
 
@@ -265,7 +265,32 @@
         }
         
         _callback(_datas[indexPath.row], isCreate);
-        
+        NSDictionary *dic=_datas[indexPath.row];
+        if ( ! ([dic isEqualToDictionary:@{}] || (dic == nil) || ( dic == NULL) ))
+        {
+            
+            if ([YKSUserModel shareInstance].lat == 0) {
+                [YKSUserModel shareInstance].lat = [dic[@"didinfo"][@"lat"] floatValue];
+                [YKSUserModel shareInstance].lng = [dic[@"didinfo"][@"lng"] floatValue];
+            }
+            if ([YKSUserModel isLogin])
+            {
+                [GZBaseRequest DrugStoreUploadLat:[dic[@"didinfo"][@"lat"] floatValue]
+                                              lng:[dic[@"didinfo"][@"lng"] floatValue] callback:^(id responseObject, NSError *error) {
+                                                  if (ServerSuccess(responseObject))
+                                                  {
+                                                      NSArray *array =responseObject[@"data"][@"shoplist"];
+                                                      NSDictionary *dic =[array objectAtIndex:0];
+                                                      _DrugID2=dic[@"id"];
+                                                      
+                                                      [[NSUserDefaults standardUserDefaults] setObject:_DrugID2 forKey:@"drugid2"];
+                                                      
+                                                  }
+                                              }];
+            }
+            
+            
+        }
         
     } 
 }

@@ -184,4 +184,9 @@
 //判断支付渠道
 +(NSURLSessionDataTask *)getpaytype :(void (^)(id responseObject, NSError *error))callback;
 
+// 获得药店ID
++ (NSURLSessionDataTask *)DrugStoreUploadLat:(CGFloat)lat
+                                         lng:(CGFloat)lng
+                                    callback:(void (^)(id responseObject, NSError *error))callback;
+
 @end

@@ -174,10 +174,10 @@ NSString * const kUserInfo = @"userInfo";
 //删除当前选中地址
 - (void)deleteCurrentSelectAddress {
     [[NSUserDefaults standardUserDefaults] setObject:[YKSTools returnDic:nil] forKey:@"kCurrentSelectAddress"];
-    if (![_currentSelectAddress isEqual:nil]) {
-        [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
-        }];
-    }
+//    if (![_currentSelectAddress isEqual:nil]) {
+//        [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
+//        }];
+//    }
     _currentSelectAddress=nil;
 }
 
@@ -187,10 +187,10 @@ NSString * const kUserInfo = @"userInfo";
     
     NSLog(@"%@",currentSelectAddress);
     
-    if (![_currentSelectAddress isEqual:currentSelectAddress]) {
-        [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
-        }];
-    }
+//    if (![_currentSelectAddress isEqual:currentSelectAddress]) {
+//        [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
+//        }];
+//    }
     
     
     _currentSelectAddress = currentSelectAddress;
