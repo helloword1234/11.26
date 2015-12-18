@@ -52,6 +52,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addressBtn;
 
 @property(nonatomic,strong)NSString *DrugID;
+@property(nonatomic,strong)NSString *DrugID2;
 
 @end
 
@@ -472,19 +473,51 @@
     selectAddressView = [YKSSelectAddressView showAddressViewToView:myVC.view
                                                               datas:@[[self currentAddressInfo]]
                                                            callback:^(NSDictionary *info, BOOL isCreate) {
-                                                               
-    //新添
+       NSDictionary *dic=info;
+       
+       NSString *latAndLng = dic[@"community_lat_lng"];
+       
+       NSArray *ary = [latAndLng componentsSeparatedByString:@","];
+       NSString *lat = ary[0];
+       NSString *lng = ary[1];
+       
+       [GZBaseRequest DrugStoreUploadLat:[lat floatValue]
+                                     lng:[lng floatValue] callback:^(id responseObject, NSError *error) {
+                                         
+                                         if (ServerSuccess(responseObject))
+                                         {
+                                             
+                                             NSArray *array =responseObject[@"data"][@"shoplist"];
+                                             NSDictionary *dic =[array objectAtIndex:0];
+                                             _DrugID2=dic[@"id"];
+                                             
+                                             [[NSUserDefaults standardUserDefaults] setObject:_DrugID2 forKey:@"drugid2"];
+                                             
+                                         }
+                                     }];
+
+                                                               //新添
        self.info = info;
        self.isCreat = isCreate;
        
        [UIViewController selectedAddressArchiver:info];
-       
-       if (![[[YKSUserModel shareInstance]currentSelectAddress][@"id"]isEqualToString:info[@"id"]]) {
-           UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"修改地址？" message:@"确认修改地址将清空购物车" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-           [alert show];
-           return ;
+       if (![[[YKSUserModel shareInstance]currentSelectAddress][@"id"]isEqualToString:info[@"id"]])
+       {
+           NSString *name =[YKSUserModel shareInstance].currentSelectAddress[@"didinfo"][@"name"];
+           NSString *name1 = info[@"didinfo"][@"name"];
+           
+           if (![name isEqualToString:name1]) {
+               UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"修改地址？" message:@"确认修改地址将清空购物车" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+               [alert show];
+               
+               return ;
+               
+           }else{
+               [self.navigationController popToRootViewControllerAnimated:YES];
+           }
+           
        }
-       if (info) {
+        if (info) {
            if (info[@"community_lat_lng"]) {
                NSArray *array = [info[@"community_lat_lng"] componentsSeparatedByString:@","];
                [YKSUserModel shareInstance].lat = [[array firstObject] floatValue];

@@ -49,6 +49,8 @@
 
 @property (strong, nonatomic) NSMutableArray *deleteArray;
 
+@property(nonatomic,strong)NSString * drugStoreid2;
+@property(nonatomic,strong)NSString * drugStoreid;
 
 @end
 
@@ -110,18 +112,24 @@
             }
          }];
     } else {
-        [self requestData];
-    }
-    NSString *drugStoreid =[[NSUserDefaults standardUserDefaults] valueForKey:@"drugid1"];
-    
-    NSString *drugStoreid2 = [[NSUserDefaults standardUserDefaults] valueForKey:@"drugid2"];
-    
-    
-    if (![drugStoreid isEqualToString:drugStoreid2])
-    {
-        [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
+        _drugStoreid =[[NSUserDefaults standardUserDefaults] valueForKey:@"drugid1"];
+        
+        _drugStoreid2 = [[NSUserDefaults standardUserDefaults]valueForKey:@"drugid2"];
+        
+        if (![_drugStoreid isEqualToString:_drugStoreid2])
+        {
+            [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
+                
+                if (ServerSuccess(responseObject))
+                {
+                    
+                }
+            }];
             
-        }];
+        }
+        //  drugStoreid  =  drugStoreid2;
+        [[NSUserDefaults standardUserDefaults] setObject:_drugStoreid2 forKey:@"drugid1"];
+        [self requestData];
     }
 }
 
