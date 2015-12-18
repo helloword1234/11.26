@@ -2627,10 +2627,9 @@
                                                         <constraint firstAttribute="width" constant="1" id="ttn-kq-Yub"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0QR-V3-s5Q">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0QR-V3-s5Q">
                                                     <rect key="frame" x="8" y="80" width="110" height="26"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="110" id="36P-vY-x3a"/>
                                                         <constraint firstAttribute="height" constant="26" id="Uwv-RY-sq3"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>

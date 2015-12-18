@@ -35,10 +35,9 @@
     _companyLabel.text = _drugInfo[@"gstandard"];
     _companyLabel.textColor = [UIColor lightGrayColor];
 
-    
     _contentLabel.text = DefuseNUllString(drugInfo[@"keywords"]);
     _priceLabel.attributedText = [YKSTools priceString:[drugInfo[@"gprice"] floatValue]];
-    
+
     self.sellOverIV.image = [UIImage imageNamed:@"soldouts"];
     NSLog(@"_drugInfo ============ %@",_drugInfo[@"repertory"]);
     NSString *s = _drugInfo[@"repertory"];

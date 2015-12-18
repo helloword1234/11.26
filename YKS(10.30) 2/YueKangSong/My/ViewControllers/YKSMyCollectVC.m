@@ -53,22 +53,25 @@
 - (void)requestDataByPage:(NSInteger)page {
     [self showProgress];
     self.navigationItem.rightBarButtonItem.enabled = NO;
+    //取缓存地址
     NSDictionary *dic=[YKSUserModel shareInstance].currentSelectAddress;
+    
     NSString *lat = nil;
     NSString *lng = nil;
-    NSString *GPSLatAndLng = [[NSUserDefaults standardUserDefaults] objectForKey:@"lat_lng"];
-    
+    NSString *latAndLng = nil;
     if ( ! ([dic isEqualToDictionary:@{}] || (dic == nil) || ( dic == NULL) ))
     {
-        NSString *latAndLng = dic[@"community_lat_lng"];
-        NSArray *ary = [latAndLng componentsSeparatedByString:@","];
-        lat = ary[0];
-        lng = ary[1];
+        //取缓存地址
+        latAndLng = dic[@"community_lat_lng"];
+       
     }else{
-        NSArray *ary = [GPSLatAndLng componentsSeparatedByString:@","];
-        lat = ary[0];
-        lng = ary[1];
+        //取定位地址
+        latAndLng = [[NSUserDefaults standardUserDefaults] objectForKey:@"lat_lng"];
     }
+    
+    NSArray *ary = [latAndLng componentsSeparatedByString:@","];
+    lat = ary[0];
+    lng = ary[1];
     
     [GZBaseRequest collectListByPage:page andlat:lat andlng:lng callback:^(id responseObject, NSError *error) {
                                 [self hideProgress];

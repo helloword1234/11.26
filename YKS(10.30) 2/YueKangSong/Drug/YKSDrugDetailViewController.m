@@ -591,6 +591,7 @@
                                          NSForegroundColorAttributeName: [UIColor darkGrayColor]}
                                  range:NSMakeRange(priceString.length - 2, 2)];
         nameCell.priceLabel.attributedText = attribuedString;
+        [nameCell.priceLabel sizeToFit];
         
         NSString *originPrice = [NSString stringWithFormat:@"原价：￥%0.2f", [_drugInfo[@"gpricemart"] floatValue]];
         attribuedString = [[NSMutableAttributedString alloc] initWithString:originPrice attributes:@{NSStrikethroughStyleAttributeName: @(NSUnderlineStyleNone)}];
