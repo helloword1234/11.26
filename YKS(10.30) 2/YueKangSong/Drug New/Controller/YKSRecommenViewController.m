@@ -281,7 +281,7 @@
 //返回分区
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 1;
+    return 2;
 }
 //返回row项
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -346,7 +346,7 @@
         //用于整个cell的点击
         self.butCell = [UIButton buttonWithType:UIButtonTypeSystem];
         self.butCell.frame = CGRectMake(0, 0, SCREEN_WIDTH, 115);
-        [self.butCell addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+        [self.butCell addTarget:self action:@selector(clickCellButton:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:self.butCell];
         
         NSLog(@"数据%@",_datas);
@@ -411,6 +411,19 @@
         [self.indexArray removeObject:str];
         
         
+    }else{
+        [self.indexArray addObject:str];
+    }
+    //刷新cell
+    [self.tableView reloadData];
+}
+//按钮点击的代理方法
+- (void)clickCellButton:(UIButton *)button
+{
+    
+    NSString *str = [NSString stringWithFormat:@"%ld",button.tag];
+    if ([self.indexArray containsObject:str]) {
+        [self.indexArray removeObject:str];
     }else{
         [self.indexArray addObject:str];
     }
