@@ -106,6 +106,7 @@
     [self addSubview:self.medicineLabel];
     self.priceLabel.attributedText = [YKSTools priceString:[drugInfo[@"gprice"] floatValue]];
     self.priceLabel.textColor = [UIColor redColor];
+//    self.priceLabel.textColor = [UIColor colorWithRed:255 green:0 blue:0 alpha:0];
     self.priceLabel.frame = CGRectMake(self.image.frame.origin.x + self.image.frame.size.width + 10,self.medicineLabel.frame.origin.y + self.medicineLabel.frame.size.height, 120, 20);
     [self addSubview:self.priceLabel];
     [self addSubview:self.nullImage];

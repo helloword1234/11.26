@@ -55,16 +55,19 @@
 {
     self = [super init];
     if (self) {
+        self.backgroundColor = [UIColor clearColor];
         self.frame = frame;
         self.sum.text = @"合计:";
         self.sum.font = [UIFont systemFontOfSize:14.0];
         self.sum.frame = CGRectMake(20, 5, 40, 15);
         [self addSubview:self.sum];
         
-        self.priceLabel.attributedText = [YKSTools priceString:price];
+//        self.priceLabel.attributedText = [YKSTools priceString:price];
+        self.priceLabel.text = [NSString stringWithFormat:@"%.2f",price];
         self.priceLabel.frame = CGRectMake(60, 5, 120, 15);
-        self.priceLabel.font = [UIFont systemFontOfSize:13.0];
+        self.priceLabel.font = [UIFont systemFontOfSize:19.0];
         self.priceLabel.textColor = [UIColor redColor];
+//        self.priceLabel.textColor = [UIColor colorWithRed:255 green:0 blue:0 alpha:0];
         [self addSubview:self.priceLabel];
         
         self.button = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -79,7 +82,7 @@
         [self addSubview:self.button];
         [YKSTools showFreightPriceTextByTotalPrice:price
                                           callback:^(NSAttributedString *totalPriceString,  NSString *freightPriceString) {
-                                              self.priceLabel.attributedText = totalPriceString;
+                                              //self.priceLabel.attributedText = totalPriceString;
                                               self.freightLabel.text = freightPriceString;
                                           }];
         self.freightLabel.frame = CGRectMake(20, self.sum.frame.size.height + self.sum.frame.origin.y + 5, 100, 15);
