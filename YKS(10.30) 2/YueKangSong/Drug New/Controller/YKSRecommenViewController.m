@@ -39,6 +39,9 @@
 //记录返回多少个row
 @property (nonatomic,assign) NSInteger indexRow;
 
+//用于平铺到cell上
+@property (nonatomic,strong) UIButton *butCell;
+
 @end
 
 @implementation YKSRecommenViewController
@@ -71,6 +74,7 @@
     //设置记录变量初值
     self.indexArray = [NSMutableArray array];
 }
+
 
 //一键加入购物车 代理方法
 - (void)addShopping:(UIButton *)addButton
@@ -312,7 +316,7 @@
         return 40;
     }
     //未点击不返回高度 0有默认高度 设置为0.1
-    return 0;
+    return 0.1;
 }
 
 //添加cell单元格
@@ -338,10 +342,17 @@
         if (!cell) {
             cell = [[YKSPlanCell alloc] init];
         }
+        
+        //用于整个cell的点击
+        self.butCell = [UIButton buttonWithType:UIButtonTypeSystem];
+        self.butCell.frame = CGRectMake(0, 0, SCREEN_WIDTH, 115);
+        [self.butCell addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:self.butCell];
+        
         NSLog(@"数据%@",_datas);
         cell.datas = [_datas copy];
         //单元格不可点击
-        cell.userInteractionEnabled = NO;
+//        cell.userInteractionEnabled = NO;
         return cell;
     }
     
@@ -352,6 +363,7 @@
     YKSReleaseButtonCell *releaseButtonView = [[YKSReleaseButtonCell alloc] initWithPrice:self.totalPrice andSection:@"方案一" andFrame:(CGRectMake(0, 0, self.view.bounds.size.width, 28.0f))];
     //给创建出来的每一个视图View中的按钮tag值赋值当行的分区
     releaseButtonView.clickButton.tag = section;
+    self.butCell.tag = section;
     //相等表示点击了
     NSString *str = [NSString stringWithFormat:@"%ld",section];
     //if (self.index == section)
@@ -397,6 +409,8 @@
     NSString *str = [NSString stringWithFormat:@"%ld",button.tag];
     if ([self.indexArray containsObject:str]) {
         [self.indexArray removeObject:str];
+        
+        
     }else{
         [self.indexArray addObject:str];
     }

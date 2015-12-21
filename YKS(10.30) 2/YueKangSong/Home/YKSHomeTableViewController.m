@@ -415,8 +415,8 @@
            [YKSUserModel shareInstance].currentSelectAddress = info;
            //这里就是了,拿到地址,删除旧地址
            
-           [UIViewController deleteFile];           [UIViewController selectedAddressArchiver:info];
-           
+           [UIViewController deleteFile];
+           [UIViewController selectedAddressArchiver:info];
            NSString *tempString = [NSString stringWithFormat:@"%@", info[@"community"] ? info[@"community"] : @""];
            if (info[@"sendable"] && ![info[@"sendable"] boolValue]) {
                NSString *title = [NSString stringWithFormat:@"%@(暂不支持配送)", tempString];
@@ -486,13 +486,10 @@
                                          
                                          if (ServerSuccess(responseObject))
                                          {
-                                             
                                              NSArray *array =responseObject[@"data"][@"shoplist"];
                                              NSDictionary *dic =[array objectAtIndex:0];
                                              _DrugID2=dic[@"id"];
-                                             
                                              [[NSUserDefaults standardUserDefaults] setObject:_DrugID2 forKey:@"drugid2"];
-                                             
                                          }
                                      }];
 
